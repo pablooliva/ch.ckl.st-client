@@ -1,0 +1,7 @@
+clnt:
+  build: .
+  command: npm start
+  volumes:
+    - .:/app
+  ports:
+    - "4200:4200"
