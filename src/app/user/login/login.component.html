@@ -1,0 +1,11 @@
+<div>
+  <form novalidate [formGroup]="loginForm" (submit)="onSubmit()">
+    <h1>Login</h1>
+    <label for="email">Email</label><input type="text" formControlName="email">
+    <label for="password">Password</label><input type="password" formControlName="password">
+    <button type="submit">Log In</button>
+  </form>
+</div>
+<div>
+  <button (click)="accessTest()">Test Test</button>
+</div>
