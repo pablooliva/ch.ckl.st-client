@@ -1,0 +1,11 @@
+<div [formGroup]="section">
+    <button type="button" (click)="addSection(sectionIndex)">+</button>
+    <h2>Section</h2>
+    <label for="heading">Section Heading</label><input type="text" id="heading" formControlName="heading">
+    <label for="description">Description or Introduction</label><input type="text" id="description" formControlName="description">
+    <div formArrayName="checklistItems">
+      <clst-checklist-item *ngFor="let checklistItem of section.controls.checklistItems.controls; let i=index" [formGroupName]="i" [checklistItem]="checklistItem">
+      </clst-checklist-item>
+    </div>
+    <button type="button" (click)="addSection(sectionIndex + 1)">+</button>
+</div>

@@ -19,7 +19,7 @@ describe('AuthComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should clst-create', () => {
     expect(component).toBeTruthy();
   });
 });

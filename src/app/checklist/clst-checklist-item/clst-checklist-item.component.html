@@ -1,0 +1,9 @@
+<div [formGroup]="checklistItem">
+  <h3>Checklist Item</h3>
+  <label for="label">Label</label><input type="text" id="label" formControlName="label">
+  <label for="description">Description or Introduction</label><input type="text" id="description" formControlName="description">
+  <div formArrayName="tags">
+    <clst-checklist-tag *ngFor="let tag of checklistItem.controls.tags.controls; let i=index" [formGroupName]="i" [tag]="tag">
+    </clst-checklist-tag>
+  </div>
+</div>
