@@ -43,6 +43,9 @@ export class ClstFormComponent implements OnInit, OnDestroy {
           case pushFEType.Section:
             this._newSection(newElem.index, null, newElem.group);
             break;
+          case pushFEType.Item:
+            this._newChecklistItem(newElem.index, null, newElem.group);
+            break;
           default:
             console.error("This form element does not exist.");
         }
@@ -67,7 +70,8 @@ export class ClstFormComponent implements OnInit, OnDestroy {
     // TODO: temp hacks
     this.clForm.patchValue({
       owner: "5ac79bb3a45d3f008e6454a3",
-      tags: ["5ae0bcd65cab460b5d7dce9b"],
+      documentTags: ["5ae0bcd65cab460b5d7dce9b"],
+      checklistTags: [],
       sections: [
         {
           title: "Test Section",
@@ -152,32 +156,12 @@ export class ClstFormComponent implements OnInit, OnDestroy {
     const item = this.fb.group({
       label: "",
       description: "",
-      tags: this.fb.array([])
+      tags: ""
     });
     const array = group
       ? null
       : parentArray.array.controls[parentArray.index].get("checklistItems");
 
-    console.warn("******************", array);
-
-    const cIArrayRef = this._handleInsert(item, idx, <FormArray>array, group);
-    this._newTag(0, cIArrayRef);
-  }
-
-  private _newTag(
-    idx: number = 0,
-    parentArray: IParentArray,
-    group?: FormGroup
-  ): void {
-    const tag = this.fb.group({
-      label: "",
-      color: "",
-      icon: ""
-    });
-    const tArrayRef = group
-      ? null
-      : parentArray.array.controls[parentArray.index].get("tags");
-
-    this._handleInsert(tag, idx, <FormArray>tArrayRef, group);
+    this._handleInsert(item, idx, <FormArray>array, group);
   }
 }

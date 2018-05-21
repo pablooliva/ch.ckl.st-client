@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { FormGroup } from "@angular/forms";
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import { FormBuilder, FormGroup } from "@angular/forms";
 
 @Component({
   selector: "clst-checklist-tag",
@@ -7,11 +7,24 @@ import { FormGroup } from "@angular/forms";
   styleUrls: ["./clst-checklist-tag.component.scss"]
 })
 export class ClstChecklistTagComponent implements OnInit {
-  @Input() public tag: FormGroup;
+  @Input() public checklistItem: FormGroup;
+  @Output() tagAdded: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  constructor() {}
+  public tagForm: FormGroup;
+
+  constructor(public fb: FormBuilder) {}
 
   public ngOnInit(): void {
-    console.warn("tag", this.tag);
+    this.tagForm = this.fb.group({
+      label: "",
+      color: "",
+      icon: ""
+    });
+  }
+
+  public onSubmit(): void {
+    console.warn("this.tagForm", this.tagForm);
+    console.warn("checklistItem", this.checklistItem);
+    this.tagAdded.emit(true);
   }
 }

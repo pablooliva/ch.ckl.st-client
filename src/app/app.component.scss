@@ -1,0 +1,17 @@
+::ng-deep {
+  .flex-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .elem-highlight {
+    @extend .flex-container;
+    margin: 0.5em 0;
+    padding: 1em;
+    background-color: white;
+  }
+
+  .rep-level {
+    padding: 0.5em 0 0.5em 0.5em;
+  }
+}

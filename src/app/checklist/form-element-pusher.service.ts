@@ -4,8 +4,7 @@ import { Subject } from "rxjs/Subject";
 
 export enum pushFEType {
   Section = "SECTION",
-  Item = "ITEM",
-  Tag = "TAG"
+  Item = "ITEM"
 }
 
 export interface IPushFormElement {
