@@ -1,13 +1,14 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Subscription } from "rxjs/Subscription";
+import { Subscription } from "rxjs";
 
 import {
   FormElementPusherService,
   IPushFormElement,
   pushFEType
 } from "../form-element-pusher.service";
+import { ServerConnectService } from "../../shared/server-connect.service";
 
 interface IParentArray {
   array: FormArray;
@@ -31,6 +32,7 @@ export class ClstFormComponent implements OnInit, OnDestroy {
   constructor(
     private _http: HttpClient,
     private _fEPusherService: FormElementPusherService,
+    private _serverConnectService: ServerConnectService,
     public fb: FormBuilder
   ) {}
 
@@ -60,16 +62,17 @@ export class ClstFormComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit(): void {
-    const submitUrl = "http://127.0.0.1:3000/checklists";
+    const checklistPath = "checklists";
     const httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": "application/json"
       })
     };
 
+    console.warn("user", this._serverConnectService.getUser());
+
     // TODO: temp hacks
     this.clForm.patchValue({
-      owner: "5ac79bb3a45d3f008e6454a3",
       documentTags: ["5ae0bcd65cab460b5d7dce9b"],
       checklistTags: [],
       sections: [
@@ -89,14 +92,19 @@ export class ClstFormComponent implements OnInit, OnDestroy {
       ]
     });
 
-    this._http
-      .post(submitUrl, JSON.stringify(this.clForm.value), httpOptions)
+    const enhancedClFormValue = JSON.parse(JSON.stringify(this.clForm.value));
+
+    enhancedClFormValue.owner = this._serverConnectService.getUser();
+
+    this._serverConnectService
+      .postChecklist(
+        checklistPath,
+        JSON.stringify(enhancedClFormValue),
+        httpOptions
+      )
       .subscribe(
-        val => console.warn("val after post", val),
-        error => {
-          console.error(error);
-          console.error(error.error.errors);
-        }
+        val => console.warn("success", val),
+        error => console.error("error", error)
       );
   }
 
@@ -119,8 +127,7 @@ export class ClstFormComponent implements OnInit, OnDestroy {
 
   private _initForm(): void {
     this.clForm = this.fb.group({
-      /*parentChecklist: "",
-          owner: null,*/
+      /*parentChecklist: "",*/
       public: "",
       documentTitle: "",
       documentTags: "",
@@ -139,8 +146,8 @@ export class ClstFormComponent implements OnInit, OnDestroy {
 
   private _newSection(idx: number, array: FormArray, group?: FormGroup): void {
     const section = this.fb.group({
-      heading: "",
-      description: "",
+      title: "",
+      flexibleText: "",
       checklistItems: this.fb.array([])
     });
 
@@ -155,7 +162,7 @@ export class ClstFormComponent implements OnInit, OnDestroy {
   ): void {
     const item = this.fb.group({
       label: "",
-      description: "",
+      flexibleText: "",
       tags: ""
     });
     const array = group

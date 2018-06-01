@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpHeaders } from "@angular/common/http";
+import { ServerConnectService } from "../../shared/server-connect.service";
 
 @Component({
   selector: "clst-register",
@@ -10,7 +11,10 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
 
-  constructor(private _http: HttpClient, public fb: FormBuilder) {}
+  constructor(
+    private _serverConnectService: ServerConnectService,
+    public fb: FormBuilder
+  ) {}
 
   ngOnInit() {
     this.registerForm = this.fb.group({
@@ -20,21 +24,22 @@ export class RegisterComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    const registerUrl = "http://127.0.0.1:3000/register";
+    const registerPath = "/register";
     const httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": "application/json"
       })
     };
 
-    this._http
-      .post(registerUrl, JSON.stringify(this.registerForm.value), httpOptions)
+    this._serverConnectService
+      .registerUser(
+        registerPath,
+        JSON.stringify(this.registerForm.value),
+        httpOptions
+      )
       .subscribe(
         val => console.warn("val after post", val),
-        error => {
-          console.error(error);
-          console.error(error.error.errors);
-        }
+        error => console.error(error)
       );
   }
 }

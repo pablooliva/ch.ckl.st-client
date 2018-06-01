@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
-import { Subject } from "rxjs/Subject";
+import { Subject } from "rxjs";
 
 export enum pushFEType {
   Section = "SECTION",

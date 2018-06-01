@@ -2,8 +2,8 @@
     <button type="button" (click)="addSection(sectionIndex)">+</button>
     <h2>Section</h2>
     <div class="elem-highlight">
-        <label for="heading">Section Heading</label><input type="text" id="heading" formControlName="heading">
-        <label for="description">Description or Introduction</label><input type="text" id="description" formControlName="description">
+        <label for="title">Section Heading</label><input type="text" id="title" formControlName="title">
+        <label for="flexibleText">Description or Introduction</label><input type="text" id="flexibleText" formControlName="flexibleText">
         <div formArrayName="checklistItems">
             <clst-checklist-item *ngFor="let checklistItem of section.controls.checklistItems.controls; let i=index" [formGroupName]="i" [checklistItem]="checklistItem" [checklistItemIndex]="i">
             </clst-checklist-item>

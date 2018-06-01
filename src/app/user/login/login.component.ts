@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpHeaders } from "@angular/common/http";
+import { ServerConnectService } from "../../shared/server-connect.service";
 
 @Component({
   selector: "clst-login",
@@ -10,7 +11,10 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
 
-  constructor(private _http: HttpClient, public fb: FormBuilder) {}
+  constructor(
+    private _serverConnectService: ServerConnectService,
+    public fb: FormBuilder
+  ) {}
 
   ngOnInit() {
     this.loginForm = this.fb.group({
@@ -20,26 +24,23 @@ export class LoginComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    const signinUrl = "http://127.0.0.1:3000/login";
+    const loginPath = "login";
     const httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": "application/json"
       })
     };
 
-    this._http
-      .post(signinUrl, JSON.stringify(this.loginForm.value), httpOptions)
+    this._serverConnectService
+      .loginUser(loginPath, JSON.stringify(this.loginForm.value), httpOptions)
       .subscribe(
-        val => console.warn("val after post", val),
-        error => {
-          console.error(error);
-          console.error(error.error.errors);
-        }
+        val => console.warn("success", val),
+        error => console.error("error", error)
       );
   }
 
   public accessTest() {
-    const httpOptions = {
+    /*const httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
         Authorization:
@@ -49,6 +50,6 @@ export class LoginComponent implements OnInit {
 
     this._http
       .get("http://127.0.0.1:3000/test", httpOptions)
-      .subscribe(response => console.warn("TEST RESPONSE", response));
+      .subscribe(response => console.warn("TEST RESPONSE", response));*/
   }
 }
