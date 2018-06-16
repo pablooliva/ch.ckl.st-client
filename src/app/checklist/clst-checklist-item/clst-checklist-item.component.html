@@ -6,13 +6,12 @@
     <input type="text" id="label" formControlName="label">
     <label for="flexibleText">Description or Introduction</label>
     <input type="text" id="flexibleText" formControlName="flexibleText">
-    <label for="tags">Tags</label>
-    <select name="tags" id="tags">
-      <option *ngFor="let tag of tags" value="tag.value">{{tag.value}}</option>
-    </select>
-    <button type="button" *ngIf="!addTag" (click)="addTag = !addTag">+ Create new tag</button>
-    <clst-checklist-tag *ngIf="addTag" [checklistItem]="checklistItem" (tagAdded)="addTag = !addTag">
-    </clst-checklist-tag>
+    <label>Tags</label>
+    <clst-checklist-item-tags [tagsEnabled]="tagsEnabled">
+    </clst-checklist-item-tags>
+    <button type="button" *ngIf="!addTag" (click)="addTag = !addTag">Add or edit tag</button>
+    <clst-checklist-item-tag-edit *ngIf="addTag" [checklistItem]="checklistItem" (tagAdded)="addTag = !addTag">
+    </clst-checklist-item-tag-edit>
   </div>
   <button type="button" (click)="addItem(checklistItemIndex + 1)">+</button>
 </div>

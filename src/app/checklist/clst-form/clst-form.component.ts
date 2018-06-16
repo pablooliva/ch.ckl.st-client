@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Subscription } from "rxjs";
+import { Subject } from "rxjs/internal/Subject";
+import { takeUntil } from "rxjs/operators";
 
 import {
   FormElementPusherService,
@@ -9,6 +10,8 @@ import {
   pushFEType
 } from "../form-element-pusher.service";
 import { ServerConnectService } from "../../shared/server-connect.service";
+import { DataPersistence } from "../../shared/data-persistence.service";
+import { ChecklistItemTagsSyncService } from "../../shared/checklist-item-tags-sync.service";
 
 interface IParentArray {
   array: FormArray;
@@ -27,20 +30,21 @@ export class ClstFormComponent implements OnInit, OnDestroy {
     return this.clForm.get("sections") as FormArray;
   }
 
-  private _subscription: Subscription;
+  private _destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private _http: HttpClient,
     private _fEPusherService: FormElementPusherService,
     private _serverConnectService: ServerConnectService,
+    private _dataPersistence: DataPersistence,
+    private _clistItemTagsSyncService: ChecklistItemTagsSyncService,
     public fb: FormBuilder
   ) {}
 
   ngOnInit() {
-    this._subscription = this._fEPusherService.formElement.subscribe(
-      (newElem: IPushFormElement) => {
-        console.warn("*** newElem ***", newElem);
-
+    this._fEPusherService.formElement
+      .pipe(takeUntil(this._destroy$))
+      .subscribe((newElem: IPushFormElement) => {
         switch (newElem.type) {
           case pushFEType.Section:
             this._newSection(newElem.index, null, newElem.group);
@@ -51,14 +55,14 @@ export class ClstFormComponent implements OnInit, OnDestroy {
           default:
             console.error("This form element does not exist.");
         }
-      }
-    );
+      });
 
     this._initForm();
   }
 
   public ngOnDestroy(): void {
-    this._subscription.unsubscribe();
+    this._destroy$.next(true);
+    this._destroy$.unsubscribe();
   }
 
   public onSubmit(): void {
@@ -69,39 +73,13 @@ export class ClstFormComponent implements OnInit, OnDestroy {
       })
     };
 
-    console.warn("user", this._serverConnectService.getUser());
-
-    // TODO: temp hacks
-    this.clForm.patchValue({
-      documentTags: ["5ae0bcd65cab460b5d7dce9b"],
-      checklistTags: [],
-      sections: [
-        {
-          title: "Test Section",
-          flexibleText:
-            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-          checklistItems: [
-            {
-              checked: true,
-              label: "Checklist Item Label",
-              flexibleText:
-                "A short explanation about what this checklist item is about."
-            }
-          ]
-        }
-      ]
-    });
-
-    const enhancedClFormValue = JSON.parse(JSON.stringify(this.clForm.value));
-
-    enhancedClFormValue.owner = this._serverConnectService.getUser();
-
     this._serverConnectService
       .postChecklist(
         checklistPath,
-        JSON.stringify(enhancedClFormValue),
+        JSON.stringify(this._dataPersistence.prepareData(this.clForm.value)),
         httpOptions
       )
+      .pipe(takeUntil(this._destroy$))
       .subscribe(
         val => console.warn("success", val),
         error => console.error("error", error)
@@ -128,14 +106,22 @@ export class ClstFormComponent implements OnInit, OnDestroy {
   private _initForm(): void {
     this.clForm = this.fb.group({
       /*parentChecklist: "",*/
-      public: "",
+      public: false,
       documentTitle: "",
-      documentTags: "",
+      documentTags: [[]],
+      checklistTags: [[]],
       customCss: "",
       sections: this.fb.array([])
     });
 
     this._newSection(0, this.sections);
+
+    this._clistItemTagsSyncService
+      .observeTags()
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(tags => {
+        this.clForm.patchValue({ checklistTags: tags });
+      });
   }
 
   /***
@@ -163,8 +149,9 @@ export class ClstFormComponent implements OnInit, OnDestroy {
     const item = this.fb.group({
       label: "",
       flexibleText: "",
-      tags: ""
+      checklistTagsEnabled: []
     });
+
     const array = group
       ? null
       : parentArray.array.controls[parentArray.index].get("checklistItems");

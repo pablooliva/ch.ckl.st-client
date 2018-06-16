@@ -19,10 +19,14 @@ import { ClstCreateComponent } from "./checklist/clst-create/clst-create.compone
 import { ClstFormComponent } from "./checklist/clst-form/clst-form.component";
 import { ClstSectionComponent } from "./checklist/clst-section/clst-section.component";
 import { ClstChecklistItemComponent } from "./checklist/clst-checklist-item/clst-checklist-item.component";
-import { ClstChecklistTagComponent } from "./checklist/clst-checklist-tag/clst-checklist-tag.component";
+import { ClstChecklistItemTagEditComponent } from "./checklist/clst-checklist-item-tag-edit/clst-checklist-item-tag-edit.component";
+import { ClstChecklistItemTagsComponent } from "./checklist/clst-checklist-item-tags/clst-checklist-item-tags.component";
+
 import { FormElementPusherService } from "./checklist/form-element-pusher.service";
 import { ServerConnectService } from "./shared/server-connect.service";
 import { AuthenticationInterceptor } from "./shared/authentication.inteceptor";
+import { ChecklistItemTagsSyncService } from "./shared/checklist-item-tags-sync.service";
+import { DataPersistence } from "./shared/data-persistence.service";
 
 @NgModule({
   declarations: [
@@ -34,7 +38,8 @@ import { AuthenticationInterceptor } from "./shared/authentication.inteceptor";
     ClstFormComponent,
     ClstSectionComponent,
     ClstChecklistItemComponent,
-    ClstChecklistTagComponent
+    ClstChecklistItemTagEditComponent,
+    ClstChecklistItemTagsComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +60,9 @@ import { AuthenticationInterceptor } from "./shared/authentication.inteceptor";
       provide: HTTP_INTERCEPTORS,
       useClass: AuthenticationInterceptor,
       multi: true
-    }
+    },
+    ChecklistItemTagsSyncService,
+    DataPersistence
   ],
   bootstrap: [AppComponent]
 })

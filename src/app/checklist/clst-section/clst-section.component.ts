@@ -17,9 +17,7 @@ export class ClstSectionComponent implements OnInit {
 
   constructor(private _fEPusherService: FormElementPusherService) {}
 
-  public ngOnInit(): void {
-    console.warn("section", this.section);
-  }
+  public ngOnInit(): void {}
 
   // index tracks current or next index to add/push to
   public addSection(index: number): void {

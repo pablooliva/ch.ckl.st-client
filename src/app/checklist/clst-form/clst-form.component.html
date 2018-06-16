@@ -2,7 +2,6 @@
   <form novalidate [formGroup]="clForm" (submit)="onSubmit()">
     <h1>Create a Checklist</h1>
     <div class="flex-container">
-      <label for="public">Public</label><input type="checkbox" id="public" formControlName="public">
       <label for="title">Document Title</label><input type="text" id="title" formControlName="documentTitle">
       <label for="tags">Document Tags</label><input type="text" id="tags" formControlName="documentTags">
       <label for="customCss">CSS</label><input type="text" id="customCss" formControlName="customCss">
@@ -10,8 +9,8 @@
         <clst-section *ngFor="let section of sections.controls; let i=index" [formGroupName]="i" [section]="section" [sectionIndex]="i">
         </clst-section>
       </div>
+      <label for="public">Public</label><input type="checkbox" id="public" formControlName="public">
       <button type="submit">Save Checklist</button>
     </div>
-
   </form>
 </div>

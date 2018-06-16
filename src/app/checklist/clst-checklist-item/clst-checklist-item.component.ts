@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { FormGroup } from "@angular/forms";
+import { AbstractControl, FormGroup } from "@angular/forms";
 
 import {
   FormElementPusherService,
@@ -16,12 +16,13 @@ export class ClstChecklistItemComponent implements OnInit {
   @Input() public checklistItemIndex: number;
 
   public addTag: boolean;
+  public tagsEnabled: AbstractControl;
 
   constructor(private _fEPusherService: FormElementPusherService) {}
 
   public ngOnInit(): void {
-    console.warn("checklistItem", this.checklistItem);
     this.addTag = false;
+    this.tagsEnabled = this.checklistItem.controls.checklistTagsEnabled;
   }
 
   public addItem(index: number): void {

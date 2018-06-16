@@ -1,18 +1,22 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
+import { ChecklistItemTagsSyncService } from "../../shared/checklist-item-tags-sync.service";
 
 @Component({
-  selector: "clst-checklist-tag",
-  templateUrl: "./clst-checklist-tag.component.html",
-  styleUrls: ["./clst-checklist-tag.component.scss"]
+  selector: "clst-checklist-item-tag-edit",
+  templateUrl: "./clst-checklist-item-tag-edit.component.html",
+  styleUrls: ["./clst-checklist-item-tag-edit.component.scss"]
 })
-export class ClstChecklistTagComponent implements OnInit {
+export class ClstChecklistItemTagEditComponent implements OnInit {
   @Input() public checklistItem: FormGroup;
   @Output() tagAdded: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   public tagForm: FormGroup;
 
-  constructor(public fb: FormBuilder) {}
+  constructor(
+    public fb: FormBuilder,
+    private _syncTags: ChecklistItemTagsSyncService
+  ) {}
 
   public ngOnInit(): void {
     this.tagForm = this.fb.group({
@@ -23,8 +27,7 @@ export class ClstChecklistTagComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    console.warn("this.tagForm", this.tagForm);
-    console.warn("checklistItem", this.checklistItem);
+    this._syncTags.addTag(this.tagForm.value);
     this.tagAdded.emit(true);
   }
 }
