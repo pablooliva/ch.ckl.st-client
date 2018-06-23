@@ -11,7 +11,6 @@ import {
 } from "../../shared/form-element-pusher.service";
 import { ServerConnectService } from "../../shared/server-connect.service";
 import { DataPersistenceService } from "../../shared/data-persistence.service";
-import { ChecklistItemTagsSyncService } from "../../shared/checklist-item-tags-sync.service";
 
 interface IParentArray {
   array: FormArray;
@@ -146,7 +145,7 @@ export class ClstFormComponent implements OnInit, OnDestroy {
     const item = this._fb.group({
       label: "",
       flexibleText: "",
-      checklistTagsEnabled: []
+      checklistTagsEnabled: this._fb.array([])
     });
 
     const array = group

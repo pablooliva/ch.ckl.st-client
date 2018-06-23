@@ -3,10 +3,8 @@ import { AbstractControl } from "@angular/forms";
 import { Subject } from "rxjs/internal/Subject";
 import { takeUntil } from "rxjs/operators";
 
-import {
-  ChecklistItemTagsSyncService,
-  IChecklistItemTag
-} from "../../shared/checklist-item-tags-sync.service";
+import { ChecklistItemTagsSyncService } from "../../shared/checklist-item-tags-sync.service";
+import { IChecklistItemTag } from "../../shared/data-persistence.service";
 
 export interface ITagsCheckmarked extends IChecklistItemTag {
   checked: boolean;

@@ -1,5 +1,11 @@
 import { Injectable } from "@angular/core";
 
+export interface IChecklistItemTag {
+    label: string;
+    color: string;
+    icon: string;
+}
+
 // matches checklist.model/checklistSchema
 export interface IClstDataModel {
   parentChecklist: string;
@@ -8,7 +14,7 @@ export interface IClstDataModel {
   public: boolean;
   documentTitle: string;
   documentTags: string[];
-  checklistTags: string[];
+  checklistTags: IChecklistItemTag[];
   customCss: string;
   sections: object[];
 }
@@ -84,6 +90,15 @@ export class DataPersistenceService {
       customCss: this._clDataModel.customCss,
       sections: this._clDataModel.sections
     };
+  }
+
+  public addChecklistTag(tag: IChecklistItemTag): IChecklistItemTag[] {
+    this._clDataModel.checklistTags.push(tag);
+    return this._clDataModel.checklistTags;
+  }
+
+  public getChecklistTags(): IChecklistItemTag[] {
+    return this._clDataModel.checklistTags;
   }
 
   private _getDBData(checklistId: string): IClstDataModel {

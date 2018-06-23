@@ -9,7 +9,7 @@
     <label>Tags</label>
     <clst-checklist-item-tags [tagsEnabled]="tagsEnabled">
     </clst-checklist-item-tags>
-    <button type="button" *ngIf="!addTag" (click)="addTag = !addTag">Add or edit tag</button>
+    <button type="button" *ngIf="!addTag" (click)="addTag = !addTag">Add tag</button>
     <clst-checklist-item-tag-edit *ngIf="addTag" [checklistItem]="checklistItem" (tagAdded)="addTag = !addTag">
     </clst-checklist-item-tag-edit>
   </div>

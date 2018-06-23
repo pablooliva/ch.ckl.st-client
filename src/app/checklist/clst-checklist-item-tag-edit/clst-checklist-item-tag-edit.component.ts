@@ -27,7 +27,10 @@ export class ClstChecklistItemTagEditComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    this._syncTags.addTag(this.tagForm.value);
-    this.tagAdded.emit(true);
+    if (this._syncTags.addTag(this.tagForm.value)) {
+      this.tagAdded.emit(true);
+    } else {
+      console.error("Tag must have a unique label!");
+    }
   }
 }
