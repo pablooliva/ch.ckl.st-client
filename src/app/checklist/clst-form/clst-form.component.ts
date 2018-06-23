@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
+import { FormArray, FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Subject } from "rxjs/internal/Subject";
 import { takeUntil } from "rxjs/operators";
@@ -8,9 +8,9 @@ import {
   FormElementPusherService,
   IPushFormElement,
   pushFEType
-} from "../form-element-pusher.service";
+} from "../../shared/form-element-pusher.service";
 import { ServerConnectService } from "../../shared/server-connect.service";
-import { DataPersistence } from "../../shared/data-persistence.service";
+import { DataPersistenceService } from "../../shared/data-persistence.service";
 import { ChecklistItemTagsSyncService } from "../../shared/checklist-item-tags-sync.service";
 
 interface IParentArray {
@@ -36,9 +36,8 @@ export class ClstFormComponent implements OnInit, OnDestroy {
     private _http: HttpClient,
     private _fEPusherService: FormElementPusherService,
     private _serverConnectService: ServerConnectService,
-    private _dataPersistence: DataPersistence,
-    private _clistItemTagsSyncService: ChecklistItemTagsSyncService,
-    public fb: FormBuilder
+    private _dataPersistence: DataPersistenceService,
+    private _fb: FormBuilder
   ) {}
 
   ngOnInit() {
@@ -76,7 +75,7 @@ export class ClstFormComponent implements OnInit, OnDestroy {
     this._serverConnectService
       .postChecklist(
         checklistPath,
-        JSON.stringify(this._dataPersistence.prepareData(this.clForm.value)),
+        JSON.stringify(this._dataPersistence.prepareDBData(this.clForm.value)),
         httpOptions
       )
       .pipe(takeUntil(this._destroy$))
@@ -104,24 +103,22 @@ export class ClstFormComponent implements OnInit, OnDestroy {
   }
 
   private _initForm(): void {
-    this.clForm = this.fb.group({
-      /*parentChecklist: "",*/
-      public: false,
-      documentTitle: "",
-      documentTags: [[]],
-      checklistTags: [[]],
-      customCss: "",
-      sections: this.fb.array([])
+    // TODO: if loading a saved checklist, set checklistID
+    const checklistId = null;
+    const data = this._dataPersistence.prepareClientData(checklistId);
+    const sectionControls = data.sections.map(
+      section => new FormControl(section)
+    );
+
+    this.clForm = this._fb.group({
+      public: data.public,
+      documentTitle: data.documentTitle,
+      documentTags: [data.documentTags],
+      customCss: data.customCss,
+      sections: this._fb.array(sectionControls)
     });
 
     this._newSection(0, this.sections);
-
-    this._clistItemTagsSyncService
-      .observeTags()
-      .pipe(takeUntil(this._destroy$))
-      .subscribe(tags => {
-        this.clForm.patchValue({ checklistTags: tags });
-      });
   }
 
   /***
@@ -131,10 +128,10 @@ export class ClstFormComponent implements OnInit, OnDestroy {
    ***/
 
   private _newSection(idx: number, array: FormArray, group?: FormGroup): void {
-    const section = this.fb.group({
+    const section = this._fb.group({
       title: "",
       flexibleText: "",
-      checklistItems: this.fb.array([])
+      checklistItems: this._fb.array([])
     });
 
     const arrayRef = this._handleInsert(section, idx, array, group);
@@ -146,7 +143,7 @@ export class ClstFormComponent implements OnInit, OnDestroy {
     parentArray: IParentArray,
     group?: FormGroup
   ): void {
-    const item = this.fb.group({
+    const item = this._fb.group({
       label: "",
       flexibleText: "",
       checklistTagsEnabled: []

@@ -6,17 +6,17 @@ import {
   HttpHandler,
   HttpRequest
 } from "@angular/common/http";
-import { ServerConnectService } from "./server-connect.service";
+import { DataPersistenceService } from "./data-persistence.service";
 
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {
-  constructor(private _serverConnectService: ServerConnectService) {}
+  constructor(private _dataPersistence: DataPersistenceService) {}
 
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    req.headers.append("Authorization", this._serverConnectService.getToken());
+    req.headers.append("Authorization", this._dataPersistence.token);
     return next.handle(req);
   }
 }

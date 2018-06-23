@@ -1,10 +1,58 @@
 import { Injectable } from "@angular/core";
 
-import { ServerConnectService } from "./server-connect.service";
+// matches checklist.model/checklistSchema
+export interface IClstDataModel {
+  parentChecklist: string;
+  owner: string;
+  active: boolean;
+  public: boolean;
+  documentTitle: string;
+  documentTags: string[];
+  checklistTags: string[];
+  customCss: string;
+  sections: object[];
+}
+
+export interface IClstFormDataModel {
+  public: boolean;
+  documentTitle: string;
+  documentTags: string[];
+  customCss: string;
+  sections: object[];
+}
 
 @Injectable()
-export class DataPersistence {
-  constructor(private _serverConnectService: ServerConnectService) {}
+export class DataPersistenceService {
+  private _clDataModel: IClstDataModel;
+  private _user: string;
+  private _token: string;
+  private _checklistId: string;
+
+  public set user(uId: string) {
+    this._user = uId;
+  }
+
+  public get user(): string {
+    return this._user;
+  }
+
+  public set token(token: string) {
+    this._token = token;
+  }
+
+  public get token(): string {
+    return this._token;
+  }
+
+  public get checklistId(): string {
+    return this._checklistId;
+  }
+
+  public set checklistId(id: string) {
+    this._checklistId = id;
+  }
+
+  constructor() {}
 
   static deepClone(objRef: Object): Object {
     // Object.assign() performs only a shallow copy
@@ -15,15 +63,47 @@ export class DataPersistence {
     return value === "" || value === null || value === undefined;
   }
 
-  public prepareData(data: Object): Object {
-    const valuesClone = DataPersistence.deepClone(data);
-    this._removeEmptyGroups("sections", valuesClone);
-    this._includeUser(valuesClone);
-    return valuesClone;
+  public prepareDBData(formValues: IClstFormDataModel): Object {
+    const formValuesClone = DataPersistenceService.deepClone(formValues);
+    this._removeEmptyGroups("sections", formValuesClone);
+    this._clDataModel = <any>{ ...this._clDataModel, ...formValuesClone };
+    const dataModelClone = DataPersistenceService.deepClone(this._clDataModel);
+    this._removeEmptyProperties(dataModelClone);
+    return dataModelClone;
   }
 
-  private _includeUser(data: Object): void {
-    data["owner"] = this._serverConnectService.getUser();
+  public prepareClientData(checklistId?: string): IClstFormDataModel {
+    this._clDataModel = checklistId
+      ? this._getDBData(checklistId)
+      : this._createDefaultModel();
+
+    return {
+      public: this._clDataModel.public,
+      documentTitle: this._clDataModel.documentTitle,
+      documentTags: this._clDataModel.documentTags,
+      customCss: this._clDataModel.customCss,
+      sections: this._clDataModel.sections
+    };
+  }
+
+  private _getDBData(checklistId: string): IClstDataModel {
+    // TODO: implement
+    // this._serverConnectService.getChecklist()
+    return <any>{};
+  }
+
+  private _createDefaultModel(): IClstDataModel {
+    return {
+      parentChecklist: "",
+      owner: this.user,
+      active: true,
+      public: true,
+      documentTitle: "",
+      documentTags: [],
+      checklistTags: [],
+      customCss: "",
+      sections: []
+    };
   }
 
   private _removeEmptyGroups(property: string, objRef: Object): void {
@@ -43,7 +123,7 @@ export class DataPersistence {
             }
           } else {
             if (!hasValue) {
-              hasValue = !DataPersistence.isEmpty(obj[key]);
+              hasValue = !DataPersistenceService.isEmpty(obj[key]);
             }
           }
         });
@@ -52,5 +132,22 @@ export class DataPersistence {
         delete objRef[property];
       }
     }
+  }
+
+  private _removeEmptyProperties(objRef: Object) {
+    // Properties in an empty state that are problematic for the DB
+    // to deal with
+    const propertiesToTest = [
+      // Cast to ObjectID failed for value ""
+      "parentChecklist",
+      // Cast to Array failed for value ""
+      "documentTags"
+    ];
+
+    propertiesToTest.forEach(prop => {
+      if (DataPersistenceService.isEmpty(objRef[prop])) {
+        delete objRef[prop];
+      }
+    });
   }
 }

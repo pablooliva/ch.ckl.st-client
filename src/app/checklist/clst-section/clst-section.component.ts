@@ -4,7 +4,7 @@ import { FormGroup } from "@angular/forms";
 import {
   FormElementPusherService,
   pushFEType
-} from "../form-element-pusher.service";
+} from "../../shared/form-element-pusher.service";
 
 @Component({
   selector: "clst-section",

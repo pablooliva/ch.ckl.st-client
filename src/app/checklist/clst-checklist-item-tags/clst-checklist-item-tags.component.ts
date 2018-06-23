@@ -49,4 +49,27 @@ export class ClstChecklistItemTagsComponent implements OnInit, OnDestroy {
       return tag;
     });
   }
+
+  public onClick(evt: MouseEvent): void {
+    if (evt.srcElement["checked"]) {
+      this._handleEnabledTag(evt.srcElement["value"]);
+    } else {
+      this._handleDisabledTag(evt.srcElement["value"]);
+    }
+  }
+
+  private _handleDisabledTag(val: string): void {
+    const currValue: string[] = this.tagsEnabled.value;
+    const idx = currValue.indexOf(val);
+    if (idx !== -1) {
+      currValue.splice(idx, 1);
+    }
+    this.tagsEnabled.setValue(currValue);
+  }
+
+  private _handleEnabledTag(val: string): void {
+    const currValue: string[] = this.tagsEnabled.value || [];
+    currValue.push(val);
+    this.tagsEnabled.setValue(currValue);
+  }
 }

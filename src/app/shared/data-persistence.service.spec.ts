@@ -2,7 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 
 import { DataPersistence.ServiceService } from './data-persistence.service.service';
 
-describe('DataPersistence.ServiceService', () => {
+describe('DataPersistenceService.ServiceService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [DataPersistence.ServiceService]
