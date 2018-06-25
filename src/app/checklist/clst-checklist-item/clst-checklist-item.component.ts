@@ -1,28 +1,62 @@
-import { Component, Input, OnInit } from "@angular/core";
-import { AbstractControl, FormGroup } from "@angular/forms";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
+import { Subject } from "rxjs/internal/Subject";
+import { takeUntil } from "rxjs/operators";
 
 import {
   FormElementPusherService,
   pushFEType
 } from "../../shared/form-element-pusher.service";
+import { ChecklistItemTagsSyncService } from "../../shared/checklist-item-tags-sync.service";
 
 @Component({
   selector: "clst-checklist-item",
   templateUrl: "./clst-checklist-item.component.html",
   styleUrls: ["./clst-checklist-item.component.scss"]
 })
-export class ClstChecklistItemComponent implements OnInit {
+export class ClstChecklistItemComponent implements OnInit, OnDestroy {
   @Input() public checklistItem: FormGroup;
   @Input() public checklistItemIndex: number;
 
   public addTag: boolean;
-  public tagsEnabled: AbstractControl;
+  public tags: any[];
 
-  constructor(private _fEPusherService: FormElementPusherService) {}
+  public get checklistTagsEnabled(): FormArray {
+    return this.checklistItem.get("checklistTagsEnabled") as FormArray;
+  }
+
+  private _destroy$: Subject<boolean> = new Subject<boolean>();
+
+  constructor(
+    private _fb: FormBuilder,
+    private _fEPusherService: FormElementPusherService,
+    private _syncTags: ChecklistItemTagsSyncService
+  ) {}
 
   public ngOnInit(): void {
     this.addTag = false;
-    this.tagsEnabled = this.checklistItem.controls.checklistTagsEnabled;
+
+    this._syncTags
+      .observeTags()
+      .pipe(takeUntil(this._destroy$))
+      .subscribe(tags => {
+        this.tags = tags;
+        const valLength = this.checklistTagsEnabled.controls.length;
+        this.tags.forEach((t, i) => {
+          if (i >= valLength) {
+            this.checklistTagsEnabled.push(
+              this._fb.group({
+                tag: false
+              })
+            );
+          }
+        });
+      });
+  }
+
+  public ngOnDestroy(): void {
+    this._destroy$.next(true);
+    this._destroy$.unsubscribe();
   }
 
   public addItem(index: number): void {

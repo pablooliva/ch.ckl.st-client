@@ -7,8 +7,11 @@
     <label for="flexibleText">Description or Introduction</label>
     <input type="text" id="flexibleText" formControlName="flexibleText">
     <label>Tags</label>
-    <clst-checklist-item-tags [tagsEnabled]="tagsEnabled">
-    </clst-checklist-item-tags>
+    <div formArrayName="checklistTagsEnabled">
+      <ng-container *ngFor="let checklistTagEnabled of checklistTagsEnabled.controls; let i=index" [formGroupName]="i">
+        <input type="checkbox" formControlName="tag" id="i"><label for="i">{{tags[i].label}}</label>
+      </ng-container>
+    </div>
     <button type="button" *ngIf="!addTag" (click)="addTag = !addTag">Add tag</button>
     <clst-checklist-item-tag-edit *ngIf="addTag" [checklistItem]="checklistItem" (tagAdded)="addTag = !addTag">
     </clst-checklist-item-tag-edit>

@@ -20,7 +20,6 @@ import { ClstFormComponent } from "./checklist/clst-form/clst-form.component";
 import { ClstSectionComponent } from "./checklist/clst-section/clst-section.component";
 import { ClstChecklistItemComponent } from "./checklist/clst-checklist-item/clst-checklist-item.component";
 import { ClstChecklistItemTagEditComponent } from "./checklist/clst-checklist-item-tag-edit/clst-checklist-item-tag-edit.component";
-import { ClstChecklistItemTagsComponent } from "./checklist/clst-checklist-item-tags/clst-checklist-item-tags.component";
 
 import { FormElementPusherService } from "./shared/form-element-pusher.service";
 import { ServerConnectService } from "./shared/server-connect.service";
@@ -38,8 +37,7 @@ import { DataPersistenceService } from "./shared/data-persistence.service";
     ClstFormComponent,
     ClstSectionComponent,
     ClstChecklistItemComponent,
-    ClstChecklistItemTagEditComponent,
-    ClstChecklistItemTagsComponent
+    ClstChecklistItemTagEditComponent
   ],
   imports: [
     BrowserModule,

@@ -1,3 +1,0 @@
-<ng-container *ngFor="let tag of tags, let i=index">
-  <input type="checkbox" [checked]="tag.checked" [value]="tag.label" [id]="i" (click)="onClick($event)"><label [for]="i">{{tag.label}}</label>
-</ng-container>

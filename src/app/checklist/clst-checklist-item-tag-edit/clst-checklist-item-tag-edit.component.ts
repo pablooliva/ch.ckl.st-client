@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
+
 import { ChecklistItemTagsSyncService } from "../../shared/checklist-item-tags-sync.service";
 
 @Component({
@@ -14,12 +15,12 @@ export class ClstChecklistItemTagEditComponent implements OnInit {
   public tagForm: FormGroup;
 
   constructor(
-    public fb: FormBuilder,
+    private _fb: FormBuilder,
     private _syncTags: ChecklistItemTagsSyncService
   ) {}
 
   public ngOnInit(): void {
-    this.tagForm = this.fb.group({
+    this.tagForm = this._fb.group({
       label: "",
       color: "",
       icon: ""
