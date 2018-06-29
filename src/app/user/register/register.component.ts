@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { HttpHeaders } from "@angular/common/http";
+import { ToastrService } from "ngx-toastr";
+
 import { ServerConnectService } from "../../shared/server-connect.service";
 
 @Component({
@@ -13,11 +15,12 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private _serverConnectService: ServerConnectService,
-    public fb: FormBuilder
+    private _toastr: ToastrService,
+    private _fb: FormBuilder
   ) {}
 
   ngOnInit() {
-    this.registerForm = this.fb.group({
+    this.registerForm = this._fb.group({
       email: "",
       password: ""
     });
@@ -38,8 +41,8 @@ export class RegisterComponent implements OnInit {
         httpOptions
       )
       .subscribe(
-        val => console.warn("val after post", val),
-        error => console.error(error)
+        val => this._toastr.success(val.uiMessage, val.type),
+        error => this._toastr.error(error.uiMessage, error.type)
       );
   }
 }

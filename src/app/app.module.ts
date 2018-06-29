@@ -9,6 +9,7 @@ import {
 import { ReactiveFormsModule } from "@angular/forms";
 
 import { TagInputModule } from "ngx-chips";
+import { ToastrModule } from "ngx-toastr";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -26,6 +27,7 @@ import { ServerConnectService } from "./shared/server-connect.service";
 import { AuthenticationInterceptor } from "./shared/authentication.inteceptor";
 import { ChecklistItemTagsSyncService } from "./shared/checklist-item-tags-sync.service";
 import { DataPersistenceService } from "./shared/data-persistence.service";
+import { AuthGuard } from "./shared/auth.guard";
 
 @NgModule({
   declarations: [
@@ -42,6 +44,10 @@ import { DataPersistenceService } from "./shared/data-persistence.service";
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: "toast-top-center"
+    }),
     HttpClientModule,
     HttpClientXsrfModule.withOptions({
       cookieName: "XSRF-TOKEN",
@@ -60,7 +66,8 @@ import { DataPersistenceService } from "./shared/data-persistence.service";
       multi: true
     },
     ChecklistItemTagsSyncService,
-    DataPersistenceService
+    DataPersistenceService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

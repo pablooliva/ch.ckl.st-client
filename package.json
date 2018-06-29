@@ -33,6 +33,7 @@
     "@angular/router": "6.0.3",
     "core-js": "^2.5.7",
     "ngx-chips": "^1.9.2",
+    "ngx-toastr": "^8.8.0",
     "rxjs": "^6.2.0",
     "zone.js": "^0.8.26"
   },

@@ -11,6 +11,7 @@ import {
 } from "../../shared/form-element-pusher.service";
 import { ServerConnectService } from "../../shared/server-connect.service";
 import { DataPersistenceService } from "../../shared/data-persistence.service";
+import { ToastrService } from "ngx-toastr";
 
 interface IParentArray {
   array: FormArray;
@@ -36,7 +37,8 @@ export class ClstFormComponent implements OnInit, OnDestroy {
     private _fEPusherService: FormElementPusherService,
     private _serverConnectService: ServerConnectService,
     private _dataPersistence: DataPersistenceService,
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
+    private _toastr: ToastrService
   ) {}
 
   ngOnInit() {
@@ -79,8 +81,8 @@ export class ClstFormComponent implements OnInit, OnDestroy {
       )
       .pipe(takeUntil(this._destroy$))
       .subscribe(
-        val => console.warn("success", val),
-        error => console.error("error", error)
+        val => this._toastr.success(val.uiMessage, val.type),
+        error => this._toastr.error(error.uiMessage, error.type)
       );
   }
 
