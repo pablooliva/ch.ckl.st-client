@@ -9,6 +9,7 @@ import { ClstCreateComponent } from "./checklist/clst-create/clst-create.compone
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
+  { path: "home", component: HomeComponent },
   { path: "register", component: RegisterComponent },
   { path: "login", component: LoginComponent },
   {

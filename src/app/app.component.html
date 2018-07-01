@@ -1,7 +1,27 @@
 <mat-toolbar color="primary">
-    <span>ch.ckl.st</span>
-    <span class="example-spacer"></span>
-    <a routerLink="login" mat-button>Login</a>
-    <a routerLink="register" mat-button>Register</a>
+    <span><a routerLink="home">ch.ckl.st</a></span>
+    <span class="nav-bar-spacer"></span>
+    <span>
+        <div fxShow="true" fxHide.gt-xs="true">
+            <button type="button" (click)="sidenav.toggle()" mat-button>
+                <i class="material-icons">menu</i>
+            </button>
+        </div>
+        <div fxFlex fxShow=”true” fxHide.xs=”true”>
+            <a routerLink="login" mat-button>Login</a>
+            <a routerLink="register" mat-button>Register</a>
+        </div>
+    </span>
 </mat-toolbar>
-<router-outlet></router-outlet>
+<mat-sidenav-container fxFlexFill class="example-container">
+    <mat-sidenav #sidenav fxLayout="column" mode="side" opened="false">
+        <button type="button" (click)="sidenav.toggle()" mat-button>Hide Menu</button>
+        <div fxLayout="column">
+            <a routerLink="login" mat-button>Login</a>
+            <a routerLink="register" mat-button>Register</a>
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content fxFlexFill>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

@@ -8,7 +8,13 @@ import {
 } from "@angular/common/http";
 import { ReactiveFormsModule } from "@angular/forms";
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { MatToolbarModule } from "@angular/material/toolbar";
+import { LayoutModule } from "@angular/cdk/layout";
+import {
+  MatButtonModule,
+  MatSidenavModule,
+  MatIconModule,
+  MatToolbarModule
+} from "@angular/material";
 
 import { TagInputModule } from "ngx-chips";
 import { ToastrModule } from "ngx-toastr";
@@ -59,7 +65,11 @@ import { AuthGuard } from "./shared/auth.guard";
     ReactiveFormsModule,
     TagInputModule,
     FlexLayoutModule,
-    MatToolbarModule
+    MatToolbarModule,
+    LayoutModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatIconModule
   ],
   providers: [
     FormElementPusherService,
