@@ -7,6 +7,8 @@ import {
   HttpClientXsrfModule
 } from "@angular/common/http";
 import { ReactiveFormsModule } from "@angular/forms";
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { MatToolbarModule } from "@angular/material/toolbar";
 
 import { TagInputModule } from "ngx-chips";
 import { ToastrModule } from "ngx-toastr";
@@ -55,7 +57,9 @@ import { AuthGuard } from "./shared/auth.guard";
     }),
     AppRoutingModule,
     ReactiveFormsModule,
-    TagInputModule
+    TagInputModule,
+    FlexLayoutModule,
+    MatToolbarModule
   ],
   providers: [
     FormElementPusherService,
