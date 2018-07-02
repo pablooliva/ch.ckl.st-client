@@ -1,11 +1,8 @@
 <div>
   <form novalidate [formGroup]="loginForm" (submit)="onSubmit()">
     <h1>Login</h1>
-    <label for="email">Email</label><input type="text" formControlName="email">
-    <label for="password">Password</label><input type="password" formControlName="password">
+    <label for="email">Email</label><input type="text" id="email" formControlName="email">
+    <label for="password">Password</label><input type="password" id="password" formControlName="password">
     <button type="submit">Log In</button>
   </form>
-</div>
-<div>
-  <a routerLink="/checklist">Checklist</a>
 </div>

@@ -1,7 +1,17 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+.logo {
+  color: #fff;
+  text-decoration: none;
+}
 .nav-bar-spacer {
   flex: 1 1 auto;
 }
-
+.content-container {
+  padding: 2em;
+}
 ::ng-deep {
   .flex-container {
     display: flex;

@@ -1,27 +1,31 @@
-<mat-toolbar color="primary">
-    <span><a routerLink="home">ch.ckl.st</a></span>
-    <span class="nav-bar-spacer"></span>
-    <span>
-        <div fxShow="true" fxHide.gt-xs="true">
-            <button type="button" (click)="sidenav.toggle()" mat-button>
-                <i class="material-icons">menu</i>
-            </button>
-        </div>
-        <div fxFlex fxShow=”true” fxHide.xs=”true”>
+<div class="mat-typography" fxLayout="column" fxLayoutAlign="start stretch">
+    <mat-toolbar color="primary">
+        <mat-toolbar-row>
+            <span><a class="logo" routerLink="home">ch.ckl.st</a></span>
+            <span class="nav-bar-spacer"></span>
+            <span>
+                <ng-container *ngIf="media.isActive('xs')">
+                    <button type="button" (click)="sidenav.toggle()" mat-button>
+                        Menu <i class="material-icons">menu</i>
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="!media.isActive('xs')">
+                    <a routerLink="login" mat-button>Login</a>
+                    <a routerLink="register" mat-button>Register</a>
+                    <a routerLink="checklist" mat-button>Checklist</a>
+                </ng-container>
+            </span>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-sidenav-container fxFlex="1 1 500px">
+        <mat-sidenav #sidenav fxLayout="column" mode="side" opened="false">
+            <button type="button" (click)="sidenav.toggle()">Close Menu</button>
             <a routerLink="login" mat-button>Login</a>
             <a routerLink="register" mat-button>Register</a>
-        </div>
-    </span>
-</mat-toolbar>
-<mat-sidenav-container fxFlexFill class="example-container">
-    <mat-sidenav #sidenav fxLayout="column" mode="side" opened="false">
-        <button type="button" (click)="sidenav.toggle()" mat-button>Hide Menu</button>
-        <div fxLayout="column">
-            <a routerLink="login" mat-button>Login</a>
-            <a routerLink="register" mat-button>Register</a>
-        </div>
-    </mat-sidenav>
-    <mat-sidenav-content fxFlexFill>
-        <router-outlet></router-outlet>
-    </mat-sidenav-content>
-</mat-sidenav-container>
+            <a routerLink="checklist" mat-button>Checklist</a>
+        </mat-sidenav>
+        <mat-sidenav-content fxFlexFill class="content-container">
+            <router-outlet></router-outlet>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

@@ -29,7 +29,7 @@ export class AuthGuard implements CanActivate {
         "Please log in to access that resource.",
         "Access Denied"
       );
-      this._router.navigate(["/"]);
+      this._router.navigate(["/login"]);
     }
   }
 }
