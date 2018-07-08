@@ -1,8 +1,28 @@
-<div>
-  <form novalidate [formGroup]="loginForm" (submit)="onSubmit()">
+<div class="content-container">
+  <form novalidate [formGroup]="loginForm">
     <h1>Login</h1>
-    <label for="email">Email</label><input type="text" id="email" formControlName="email">
-    <label for="password">Password</label><input type="password" id="password" formControlName="password">
-    <button type="submit">Log In</button>
+    <mat-form-field class="control-group">
+      <label for="email">Email</label>
+      <input matInput placeholder="Email" type="text" id="email" formControlName="email">
+    </mat-form-field>
+    <mat-form-field class="control-group">
+      <label for="password">Password</label>
+      <input matInput placeholder="Password" type="password" id="password" formControlName="password">
+    </mat-form-field>
+    <div [clstSubmitIfValid]="loginForm" (valid)="onSubmit()" class="clst-form-submit">
+      <button class="pre-submit" mat-flat-button type="button">
+        Log In <i class="material-icons">forward</i>
+      </button>
+      <button class="in-progress hide" mat-flat-button type="button" disabled="disabled">
+        <div id="inProgress" class="spinner">
+          <div class="bounce1"></div>
+          <div class="bounce2"></div>
+          <div class="bounce3"></div>
+        </div>
+      </button>
+      <button class="post-submit hide" mat-flat-button type="button" disabled="disabled">
+        Success <i class="material-icons">check_circle</i>
+      </button>
+    </div>
   </form>
 </div>

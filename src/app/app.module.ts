@@ -7,14 +7,7 @@ import {
   HttpClientXsrfModule
 } from "@angular/common/http";
 import { ReactiveFormsModule } from "@angular/forms";
-import { FlexLayoutModule } from "@angular/flex-layout";
-import { LayoutModule } from "@angular/cdk/layout";
-import {
-  MatButtonModule,
-  MatSidenavModule,
-  MatIconModule,
-  MatToolbarModule
-} from "@angular/material";
+import { NgMaterialModule } from "./material.module";
 
 import { TagInputModule } from "ngx-chips";
 import { ToastrModule } from "ngx-toastr";
@@ -36,6 +29,7 @@ import { AuthenticationInterceptor } from "./shared/authentication.inteceptor";
 import { ChecklistItemTagsSyncService } from "./shared/checklist-item-tags-sync.service";
 import { DataPersistenceService } from "./shared/data-persistence.service";
 import { AuthGuard } from "./shared/auth.guard";
+import { SubmitIfValidDirective } from "./shared/submit-if-valid.directive";
 
 @NgModule({
   declarations: [
@@ -47,14 +41,15 @@ import { AuthGuard } from "./shared/auth.guard";
     ClstFormComponent,
     ClstSectionComponent,
     ClstChecklistItemComponent,
-    ClstChecklistItemTagEditComponent
+    ClstChecklistItemTagEditComponent,
+    SubmitIfValidDirective
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut: 5000,
-      positionClass: "toast-top-center"
+      positionClass: "toast-top-full-width"
     }),
     HttpClientModule,
     HttpClientXsrfModule.withOptions({
@@ -63,13 +58,8 @@ import { AuthGuard } from "./shared/auth.guard";
     }),
     AppRoutingModule,
     ReactiveFormsModule,
-    TagInputModule,
-    FlexLayoutModule,
-    MatToolbarModule,
-    LayoutModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule
+    NgMaterialModule,
+    TagInputModule
   ],
   providers: [
     FormElementPusherService,

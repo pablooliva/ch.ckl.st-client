@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { HttpHeaders } from "@angular/common/http";
+import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 
 import { ServerConnectService } from "../../shared/server-connect.service";
@@ -16,13 +17,14 @@ export class LoginComponent implements OnInit {
   constructor(
     private _serverConnectService: ServerConnectService,
     private _toastr: ToastrService,
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
+    private _router: Router
   ) {}
 
   ngOnInit() {
     this.loginForm = this._fb.group({
-      email: "",
-      password: ""
+      email: ["", Validators.compose([Validators.required, Validators.email])],
+      password: ["", Validators.required]
     });
   }
 
@@ -37,7 +39,13 @@ export class LoginComponent implements OnInit {
     this._serverConnectService
       .loginUser(loginPath, JSON.stringify(this.loginForm.value), httpOptions)
       .subscribe(
-        val => this._toastr.success(val.uiMessage, val.type),
+        val => {
+          this._toastr.success(
+            val.uiMessage + " Re-directing you to your checklists.",
+            val.type
+          );
+          setTimeout(() => this._router.navigate(["/checklist"]), 3000);
+        },
         error => this._toastr.error(error.uiMessage, error.type)
       );
   }
