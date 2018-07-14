@@ -1,70 +1,80 @@
 import {
+  AfterViewInit,
   Directive,
   ElementRef,
   EventEmitter,
   HostListener,
   Input,
-  Output
+  OnInit,
+  Output,
+  Renderer2
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
+import { ToastrService } from "ngx-toastr";
+import { Observable } from "rxjs/internal/Observable";
+
+type ButtonStatus = "pre-submit" | "in-progress" | "post-submit";
 
 /*
-Thanks Tomek Sułkowski for the solution:
+Thanks Tomek Sułkowski for this solution:
 https://blog.usejournal.com/angular-techniques-improve-submit-buttons-ux-by-not-disabling-it-896992a94a38
  */
 
 @Directive({
   selector: "[clstSubmitIfValid]"
 })
-export class SubmitIfValidDirective {
+export class SubmitIfValidDirective implements OnInit, AfterViewInit {
   // tslint:disable-next-line:no-input-rename
   @Input("clstSubmitIfValid") formRef: FormGroup;
+  @Input() reset: Observable<boolean>;
   @Output() valid = new EventEmitter<void>();
 
-  constructor(private _elementRef: ElementRef) {}
+  private _classList: ButtonStatus[];
 
   @HostListener("click")
   handleClick() {
-    this._displayButton(1);
-
     this._markFieldsAsDirty();
     this._emitIfValid();
   }
 
+  constructor(
+    private _elementRef: ElementRef,
+    private _renderer: Renderer2,
+    private _toastr: ToastrService
+  ) {}
+
+  public ngOnInit(): void {
+    this._classList = ["pre-submit", "in-progress", "post-submit"];
+    this.reset.subscribe(_ => this._displayButton("pre-submit"));
+  }
+
+  public ngAfterViewInit(): void {
+    this._displayButton("pre-submit");
+  }
+
   private _markFieldsAsDirty(): void {
-    Object.keys(this.formRef.controls).forEach(fieldName =>
-      this.formRef.controls[fieldName].markAsDirty()
-    );
+    Object.keys(this.formRef.controls).forEach(fieldName => {
+      this.formRef.controls[fieldName].markAsDirty();
+      this.formRef.controls[fieldName].markAsTouched();
+    });
   }
 
   private _emitIfValid(): void {
     if (this.formRef.valid) {
+      this._displayButton("in-progress");
       this.valid.emit();
     } else {
-      this._displayButton(0);
+      this._toastr.error(
+        "Please enter valid details and try again.",
+        "Submission Failed"
+      );
     }
   }
 
-  private _displayButton(idxToDisplay: number): void {
-    const childLen = this._elementRef.nativeElement.children.length;
-
-    for (let i = 0; i < childLen; i++) {
-      this._resetButtonClasses(i);
-      const display = idxToDisplay === i ? "show" : "hide";
-      this._elementRef.nativeElement.children[i].classList.add(display);
-    }
-  }
-
-  private _resetButtonClasses(idx: number): void {
-    if (
-      this._elementRef.nativeElement.children[idx].classList.contains("show")
-    ) {
-      this._elementRef.nativeElement.children[idx].classList.remove("show");
-    }
-    if (
-      this._elementRef.nativeElement.children[idx].classList.contains("hide")
-    ) {
-      this._elementRef.nativeElement.children[idx].classList.remove("hide");
-    }
+  private _displayButton(btn: ButtonStatus): void {
+    this._classList.forEach(cls =>
+      this._renderer.removeClass(this._elementRef.nativeElement, cls)
+    );
+    this._renderer.addClass(this._elementRef.nativeElement, btn);
   }
 }

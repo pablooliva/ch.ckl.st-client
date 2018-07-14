@@ -1,1 +1,10 @@
 @import "../../styles/shared";
+
+.clst-form-submit button {
+  display:none;
+}
+.pre-submit .pre-submit,
+.in-progress .in-progress,
+.post-submit .post-submit {
+  display:inline-block;
+}

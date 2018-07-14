@@ -39,7 +39,9 @@ export class ServerConnectService {
         catchError((error: any) => {
           return observableThrowError({
             type: StatusType.Error,
-            uiMessage: "Something went wrong. Please try again.",
+            uiMessage: error.msg
+              ? error.msg
+              : "Something went wrong. Please try again.",
             serverResponse: error
           });
         })
@@ -68,7 +70,9 @@ export class ServerConnectService {
         catchError((error: any) => {
           return observableThrowError({
             type: StatusType.Error,
-            uiMessage: "Something went wrong. Please try again.",
+            uiMessage: error.error.msg
+              ? error.error.msg
+              : "Something went wrong. Please try again.",
             serverResponse: error
           });
         })
