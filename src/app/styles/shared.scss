@@ -39,10 +39,16 @@
   button {
     width: 110px;
     height: 38px;
+    display:none;
 
     &.post-submit {
       color: mat-color($clst-app-primary);
     }
+  }
+  &.pre-submit .pre-submit,
+  &.in-progress .in-progress,
+  &.post-submit .post-submit {
+    display:inline-block;
   }
   .spinner {
     margin: 0 auto;

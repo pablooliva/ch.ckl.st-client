@@ -39,8 +39,8 @@ export class ServerConnectService {
         catchError((error: any) => {
           return observableThrowError({
             type: StatusType.Error,
-            uiMessage: error.msg
-              ? error.msg
+            uiMessage: error.error.msg
+              ? error.error.msg
               : "Something went wrong. Please try again.",
             serverResponse: error
           });
