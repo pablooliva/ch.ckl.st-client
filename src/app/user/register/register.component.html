@@ -11,6 +11,7 @@
       <label for="password">Password</label>
       <input matInput placeholder="Password" type="password" id="password" formControlName="password">
       <mat-error *ngIf="testReq('password')">* This field is required.</mat-error>
+      <mat-error *ngIf="testLen('password')">* Password requires at least 8 characters.</mat-error>
     </mat-form-field>
     <div [clstSubmitIfValid]="registerForm" [reset]="reset()" (valid)="onSubmit()" class="clst-form-submit">
       <button class="pre-submit" mat-flat-button type="button">

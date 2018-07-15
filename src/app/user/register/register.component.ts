@@ -31,7 +31,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.registerForm = this._fb.group({
       email: ["", Validators.compose([Validators.required, Validators.email])],
-      password: ["", Validators.required]
+      password: [
+        "",
+        Validators.compose([Validators.required, Validators.minLength(8)])
+      ]
     });
   }
 
@@ -77,6 +80,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   public testReq(formField: string): boolean {
     return genericValidationTest(this.registerForm, formField, "required");
+  }
+
+  public testLen(formField: string): boolean {
+    return genericValidationTest(this.registerForm, formField, "minlength");
   }
 
   public testEmail(formField: string): boolean {
