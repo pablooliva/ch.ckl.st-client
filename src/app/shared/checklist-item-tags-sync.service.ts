@@ -23,6 +23,7 @@ export class ChecklistItemTagsSyncService {
 
   public addTag(tag: IChecklistItemTag): boolean {
     if (
+      tag.label.trim().length === 0 ||
       this._dataPersistence
         .getChecklistTags()
         .find(item => item.label === tag.label)

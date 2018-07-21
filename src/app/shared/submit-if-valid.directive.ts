@@ -65,8 +65,8 @@ export class SubmitIfValidDirective implements OnInit, AfterViewInit {
       this.valid.emit();
     } else {
       this._toastr.error(
-        "Please enter valid details and try again.",
-        "Submission Failed"
+        "Please review the form for errors and try again.",
+        "Action Failed"
       );
     }
   }

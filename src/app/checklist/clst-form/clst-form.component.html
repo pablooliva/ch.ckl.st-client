@@ -1,16 +1,40 @@
 <div class="content-container">
-  <form novalidate [formGroup]="clForm" (submit)="onSubmit()">
+  <form novalidate [formGroup]="clForm">
     <h1>Create a Checklist</h1>
-    <div class="flex-container">
-      <label for="title">Document Title</label><input type="text" id="title" formControlName="documentTitle">
-      <label for="tags">Document Tags</label><input type="text" id="tags" formControlName="documentTags">
-      <label for="customCss">CSS</label><input type="text" id="customCss" formControlName="customCss">
-      <div formArrayName="sections">
-        <clst-section *ngFor="let section of sections.controls; let i=index" [formGroupName]="i" [section]="section" [sectionIndex]="i">
-        </clst-section>
-      </div>
-      <label for="public">Public</label><input type="checkbox" id="public" formControlName="public">
-      <button type="submit">Save Checklist</button>
+    <mat-checkbox formControlName="public">Public</mat-checkbox>
+    <mat-form-field class="control-group">
+      <label for="title">Document Title</label>
+      <input matInput placeholder="Document Title" type="text" id="title" formControlName="documentTitle">
+      <mat-error *ngIf="testReq('documentTitle')">* This field is required.</mat-error>
+    </mat-form-field>
+    <mat-form-field class="control-group">
+      <label for="tags">Document Tags</label>
+      <input matInput placeholder="Document Tags" type="text" id="tags" formControlName="documentTags">
+    </mat-form-field>
+    <mat-form-field class="control-group">
+      <label for="customCss">CSS</label>
+      <textarea autosize matInput placeholder="CSS" type="text" id="customCss" formControlName="customCss"></textarea>
+    </mat-form-field>
+
+    <div formArrayName="sections">
+      <clst-section *ngFor="let section of sections.controls; let i=index" [formGroupName]="i" [section]="section" [sectionIndex]="i">
+      </clst-section>
+    </div>
+
+    <div [clstSubmitIfValid]="clForm" [reset]="reset()" (valid)="onSubmit()" class="clst-form-submit">
+      <button class="pre-submit" mat-flat-button type="button">
+        Save <i class="material-icons">assignment_turned_in</i>
+      </button>
+      <button class="in-progress" mat-flat-button type="button" disabled="disabled">
+        <div id="inProgress" class="spinner">
+          <div class="bounce1"></div>
+          <div class="bounce2"></div>
+          <div class="bounce3"></div>
+        </div>
+      </button>
+      <button class="post-submit" mat-flat-button type="button" disabled="disabled">
+        Success <i class="material-icons">check_circle</i>
+      </button>
     </div>
   </form>
 </div>

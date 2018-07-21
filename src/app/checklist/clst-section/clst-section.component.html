@@ -1,13 +1,30 @@
 <div [formGroup]="section" class="section-highlight rep-level">
-    <button type="button" (click)="addSection(sectionIndex)">+</button>
-    <h2>Section</h2>
     <div class="elem-highlight">
-        <label for="title">Section Heading</label><input type="text" id="title" formControlName="title">
-        <label for="flexibleText">Description or Introduction</label><input type="text" id="flexibleText" formControlName="flexibleText">
-        <div formArrayName="checklistItems">
+        <mat-form-field class="control-group">
+            <label for="title">Section Heading</label>
+            <input matInput placeholder="Section heading" type="text" id="title" formControlName="title">
+        </mat-form-field>
+        <mat-form-field class="control-group">
+            <label for="flexibleText">Description or Introduction</label>
+            <input matInput placeholder="Description or introduction" type="text" id="flexibleText" formControlName="flexibleText">
+        </mat-form-field>
+        <h3>Checklist Items</h3>
+        <div formArrayName="checklistItems" class="clist-item">
             <clst-checklist-item *ngFor="let checklistItem of section.controls.checklistItems.controls; let i=index" [formGroupName]="i" [checklistItem]="checklistItem" [checklistItemIndex]="i">
             </clst-checklist-item>
         </div>
     </div>
-    <button type="button" (click)="addSection(sectionIndex + 1)">+</button>
+    <div class="heading-actions">
+        <button class="as-link" type="button" (click)="addSection(sectionIndex)" title="Add section above">
+            <i class="material-icons arrow">arrow_drop_up</i>
+            <i class="material-icons">add_circle_outline</i>
+        </button>
+        <button class="as-link" type="button" (click)="removeSection(sectionIndex)" title="Delete this section">
+            <i class="material-icons">remove_circle_outline</i>
+        </button>
+        <button class="as-link" type="button" (click)="addSection(sectionIndex + 1)" title="Add section below">
+            <i class="material-icons">add_circle_outline</i>
+            <i class="material-icons arrow">arrow_drop_down</i>
+        </button>
+    </div>
 </div>

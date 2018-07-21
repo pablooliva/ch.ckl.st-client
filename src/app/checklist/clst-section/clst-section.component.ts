@@ -27,4 +27,8 @@ export class ClstSectionComponent implements OnInit {
       index: index
     });
   }
+
+  public removeSection(index: number): void {
+    // TODO: implement...
+  }
 }

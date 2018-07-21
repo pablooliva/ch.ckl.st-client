@@ -1,1 +1,31 @@
 @import "../../styles/shared";
+
+.clst-tag-edit-container {
+  background-color: #fff;
+}
+.tag-layout {
+  width: 100%;
+  display: block;
+  margin-bottom: 1.5em;
+}
+.color-picker {
+  border: 1px solid #ccc;
+  width: 1.5em;
+  margin-right: 0.5em;
+  float: left;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+.mat-input-element.color-picker-text {
+  width: 80%;
+  margin-top: 0.3em;
+}
+.clst-btn-container {
+  width: 100%;
+}
+.clst-cancel {
+  @extend .clst-item-primary;
+  float: right;
+}

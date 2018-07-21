@@ -1,20 +1,38 @@
 <div [formGroup]="checklistItem" class="item-highlight rep-level">
-  <button type="button" (click)="addItem(checklistItemIndex)">+</button>
-  <h3>Checklist Item</h3>
-  <div class="elem-highlight">
-    <label for="label">Label</label>
-    <input type="text" id="label" formControlName="label">
-    <label for="flexibleText">Description or Introduction</label>
-    <input type="text" id="flexibleText" formControlName="flexibleText">
+  <div class="heading-checkmark">
+    <i class="material-icons">check_box</i>
+  </div>
+  <div class="elem-highlight" [class.lose-focus]="addTag">
+    <mat-form-field class="control-group">
+      <label for="label">Label</label>
+      <input matInput placeholder="Label" type="text" id="label" formControlName="label">
+      <mat-error *ngIf="testReq('label')">* This field is required.</mat-error>
+    </mat-form-field>
+    <mat-form-field class="control-group">
+      <label for="flexibleText">Description or Introduction</label>
+      <input matInput placeholder="Description or introduction" type="text" id="flexibleText" formControlName="flexibleText">
+    </mat-form-field>
     <label>Tags</label>
     <div formArrayName="checklistTagsEnabled">
       <ng-container *ngFor="let checklistTagEnabled of checklistTagsEnabled.controls; let i=index" [formGroupName]="i">
         <input type="checkbox" formControlName="tag" id="i"><label for="i">{{tags[i].label}}</label>
       </ng-container>
     </div>
-    <button type="button" *ngIf="!addTag" (click)="addTag = !addTag">Add tag</button>
+    <button mat-flat-button class="clst-item-primary" type="button" *ngIf="!addTag" (click)="addTag = !addTag">Create tag</button>
     <clst-checklist-item-tag-edit *ngIf="addTag" [checklistItem]="checklistItem" (tagAdded)="addTag = !addTag">
     </clst-checklist-item-tag-edit>
   </div>
-  <button type="button" (click)="addItem(checklistItemIndex + 1)">+</button>
+  <div class="heading-actions">
+    <button class="as-link" type="button" (click)="addItem(checklistItemIndex)" title="Add section above">
+      <i class="material-icons arrow">arrow_drop_up</i>
+      <i class="material-icons">add_circle_outline</i>
+    </button>
+    <button class="as-link" type="button" (click)="removeItem(checklistItemIndex)" title="Delete this section">
+      <i class="material-icons">remove_circle_outline</i>
+    </button>
+    <button class="as-link" type="button" (click)="addItem(checklistItemIndex + 1)" title="Add section below">
+      <i class="material-icons">add_circle_outline</i>
+      <i class="material-icons arrow">arrow_drop_down</i>
+    </button>
+  </div>
 </div>

@@ -1,12 +1,44 @@
-<form novalidate [formGroup]="tagForm" (submit)="onSubmit()">
-  <h4>Add new tag</h4>
+<div class="clst-tag-edit-container">
+<form novalidate [formGroup]="tagForm">
+  <h4>Create tag</h4>
+  <clst-tag-display class="tag-layout" [color]="colorPicked" [label]="labelPicked" [icon]="iconPicked"></clst-tag-display>
   <div class="flex-container">
-    <label for="label">Label</label>
-    <input type="text" id="label" formControlName="label">
-    <label for="color">Color</label>
-    <input type="text" id="color" formControlName="color">
-    <label for="icon">Icon</label>
-    <input type="text" id="icon" formControlName="icon">
-    <button type="submit">+ Add Tag</button>
+    <mat-form-field class="control-group">
+      <label for="label">Label</label>
+      <input matInput placeholder="Label" type="text" id="label" formControlName="label">
+      <mat-error *ngIf="testReq('label')">* This field is required.</mat-error>
+      <mat-error *ngIf="testUnique('label')">* A tag with this label already exists.</mat-error>
+    </mat-form-field>
+    <mat-form-field class="control-group">
+      <label for="color">Color</label>
+      <input class="color-picker" [(colorPicker)]="colorPicked" (colorPickerChange)="onColorChange(colorPicked)" [style.background]="colorPicked" [cpPosition]="'bottom'" [cpFallbackColor]="defaultColor">
+      <input class="color-picker-text" matInput formControlName="color" placeholder="Color" type="text" id="color" (blur)="onBlur()">
+    </mat-form-field>
+    <mat-form-field class="control-group">
+      <label for="icon">Icon</label>
+      <input matInput placeholder="Icon" type="text" id="icon" formControlName="icon" [matAutocomplete]="icons">
+    </mat-form-field>
+    <mat-autocomplete #icons="matAutocomplete">
+      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{option}}</mat-option>
+    </mat-autocomplete>
+    <div class="clst-btn-container">
+      <button class="clst-cancel" mat-flat-button type="button" (click)="cancel()">Cancel <i class="material-icons">cancel</i></button>
+      <div [clstSubmitIfValid]="tagForm" [reset]="reset()" (valid)="onSubmit()" class="clst-form-submit">
+        <button class="pre-submit" mat-flat-button type="button">
+          Add Tag <i class="material-icons">add_circle</i>
+        </button>
+        <button class="in-progress" mat-flat-button type="button" disabled="disabled">
+          <div id="inProgress" class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+          </div>
+        </button>
+        <button class="post-submit" mat-flat-button type="button" disabled="disabled">
+          Success <i class="material-icons">check_circle</i>
+        </button>
+      </div>
+    </div>
   </div>
 </form>
+</div>

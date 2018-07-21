@@ -1,8 +1,16 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { FormArray, FormBuilder, FormControl, FormGroup } from "@angular/forms";
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators
+} from "@angular/forms";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { ToastrService } from "ngx-toastr";
 import { Subject } from "rxjs/internal/Subject";
 import { takeUntil } from "rxjs/operators";
+import { Observable } from "rxjs/internal/Observable";
 
 import {
   FormElementPusherService,
@@ -11,7 +19,7 @@ import {
 } from "../../shared/form-element-pusher.service";
 import { ServerConnectService } from "../../shared/server-connect.service";
 import { DataPersistenceService } from "../../shared/data-persistence.service";
-import { ToastrService } from "ngx-toastr";
+import { genericValidationTest } from "../../shared/clst-utils";
 
 interface IParentArray {
   array: FormArray;
@@ -25,12 +33,13 @@ interface IParentArray {
 })
 export class ClstFormComponent implements OnInit, OnDestroy {
   public clForm: FormGroup;
+  public buttonReset: Subject<boolean> = new Subject<boolean>();
 
   public get sections(): FormArray {
     return this.clForm.get("sections") as FormArray;
   }
 
-  private _destroy$: Subject<boolean> = new Subject<boolean>();
+  private _destroy: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private _http: HttpClient,
@@ -43,7 +52,7 @@ export class ClstFormComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this._fEPusherService.formElement
-      .pipe(takeUntil(this._destroy$))
+      .pipe(takeUntil(this._destroy))
       .subscribe((newElem: IPushFormElement) => {
         switch (newElem.type) {
           case pushFEType.Section:
@@ -61,8 +70,12 @@ export class ClstFormComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this._destroy$.next(true);
-    this._destroy$.unsubscribe();
+    this._destroy.next(true);
+    this._destroy.complete();
+  }
+
+  public reset(): Observable<boolean> {
+    return this.buttonReset;
   }
 
   public onSubmit(): void {
@@ -79,11 +92,21 @@ export class ClstFormComponent implements OnInit, OnDestroy {
         JSON.stringify(this._dataPersistence.prepareDBData(this.clForm.value)),
         httpOptions
       )
-      .pipe(takeUntil(this._destroy$))
+      .pipe(takeUntil(this._destroy))
       .subscribe(
-        val => this._toastr.success(val.uiMessage, val.type),
-        error => this._toastr.error(error.uiMessage, error.type)
+        val => {
+          this._toastr.success(val.uiMessage, val.type);
+          this.buttonReset.next(true);
+        },
+        error => {
+          this._toastr.error(error.uiMessage, error.type);
+          this.buttonReset.next(true);
+        }
       );
+  }
+
+  public testReq(formField: string): boolean {
+    return genericValidationTest(this.clForm, formField, "required");
   }
 
   private _handleInsert(
@@ -113,8 +136,8 @@ export class ClstFormComponent implements OnInit, OnDestroy {
 
     this.clForm = this._fb.group({
       public: data.public,
-      documentTitle: data.documentTitle,
-      documentTags: [data.documentTags],
+      documentTitle: [data.documentTitle, Validators.required],
+      documentTags: [[data.documentTags]],
       customCss: data.customCss,
       sections: this._fb.array(sectionControls)
     });
@@ -145,7 +168,7 @@ export class ClstFormComponent implements OnInit, OnDestroy {
     group?: FormGroup
   ): void {
     const item = this._fb.group({
-      label: "",
+      label: ["", Validators.required],
       flexibleText: "",
       checklistTagsEnabled: this._fb.array([])
     });

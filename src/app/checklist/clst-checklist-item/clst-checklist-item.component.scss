@@ -1,5 +1,24 @@
 @import "../../styles/shared";
 
 .item-highlight {
-  background-color: lightblue;
+  background-color: mat-color($clst-app-tertiary);
+  padding: 0 0 0.2rem 0;
+  @extend .flex-repeated;
+
+  .elem-highlight {
+    padding: 1rem 2rem;
+  }
+
+  .heading-checkmark {
+    color: #fff;
+  }
+}
+.lose-focus {
+  background-color: #ccc;
+}
+clst-checklist-item-tag-edit {
+  padding: 2rem;
+  border: 1px dotted #ccc;
+  margin-bottom: 1em;
+  background-color: #fff;
 }

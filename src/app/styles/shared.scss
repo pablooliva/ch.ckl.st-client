@@ -3,14 +3,22 @@
 // Import your custom theme
 @import 'clst-theme.scss';
 
-/* Overrides */
-.material-icons {
-  line-height: inherit;
+$doc-section-pad: 2rem;
+
+/* NgMat Overrides */
+mat-checkbox {
+  margin-bottom: 0.5rem;
+  display: block;
 }
 
 /* Layout */
 .content-container {
-  padding: 2em;
+  padding: $doc-section-pad;
+}
+.flex-repeated {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 .flex-container {
   display: flex;
@@ -18,28 +26,66 @@
 }
 .elem-highlight {
   @extend .flex-container;
-  margin: 0.5em 0;
-  padding: 1em;
+  flex-grow: 1;
+  margin: 0;
+  padding: $doc-section-pad;
   background-color: white;
 }
 .rep-level {
-  padding: 0.5em 0 0.5em 0.5em;
+  padding: 0;
+}
+.heading-actions {
+  margin: 0 0.1rem;
+  button {
+    vertical-align: middle;
+    padding: 0 0 0.7em 0;
+    clear: right;
+    display: block;
+    color: #fff;
+    i {
+      font-size: 1.5rem;
+      clear: right;
+      display: block;
+      &.arrow {
+        line-height: .5;
+      }
+    }
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+/* Design */
+.as-link {
+  border: none;
+  background: transparent;
 }
 
 /* Form related */
 .control-group {
   display: block;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.5rem;
   clear:right;
   label {
     display: none;
   }
+}
+button.mat-flat-button.clst-item-primary {
+  width: 110px;
+  height: 38px;
+  background-color: mat-color($clst-app-tertiary);
 }
 .clst-form-submit {
   button {
     width: 110px;
     height: 38px;
     display:none;
+
+    .material-icons {
+      line-height: inherit;
+      vertical-align: top;
+    }
 
     &.post-submit {
       color: mat-color($clst-app-primary);
@@ -48,7 +94,7 @@
   &.pre-submit .pre-submit,
   &.in-progress .in-progress,
   &.post-submit .post-submit {
-    display:inline-block;
+    display: inline-block;
   }
   .spinner {
     margin: 0 auto;

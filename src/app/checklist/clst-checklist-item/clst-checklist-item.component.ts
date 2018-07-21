@@ -8,6 +8,7 @@ import {
   pushFEType
 } from "../../shared/form-element-pusher.service";
 import { ChecklistItemTagsSyncService } from "../../shared/checklist-item-tags-sync.service";
+import { genericValidationTest } from "../../shared/clst-utils";
 
 @Component({
   selector: "clst-checklist-item",
@@ -59,11 +60,19 @@ export class ClstChecklistItemComponent implements OnInit, OnDestroy {
     this._destroy$.unsubscribe();
   }
 
+  public testReq(formField: string): boolean {
+    return genericValidationTest(this.checklistItem, formField, "required");
+  }
+
   public addItem(index: number): void {
     this._fEPusherService.pushFormElement({
       type: pushFEType.Item,
       group: this.checklistItem,
       index: index
     });
+  }
+
+  public removeItem(index: number): void {
+    // TODO: implement...
   }
 }

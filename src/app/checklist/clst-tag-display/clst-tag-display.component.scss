@@ -1,0 +1,39 @@
+.tag-example {
+  div {
+    float: left;
+  }
+  .arrow-left {
+    z-index: 100;
+    position: relative;
+    width: 0;
+    height: 0;
+    border-top: 9px solid transparent;
+    border-bottom: 11px solid transparent;
+    left: 1px;
+    top: 1px;
+  }
+  .arrow-left-brdr {
+    position: absolute;
+    z-index: 1;
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 12px solid transparent;
+    border-right: 10px solid black;
+  }
+  .tag-label {
+    border: 1px solid #737373;
+    border-left: none;
+    padding: 0 0.3em;
+  }
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  .material-icons {
+    font-size: 1em;
+    vertical-align: middle;
+    padding-bottom: 0.2em;
+  }
+}

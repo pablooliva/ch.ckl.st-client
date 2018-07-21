@@ -11,6 +11,8 @@ import { NgMaterialModule } from "./material.module";
 
 import { TagInputModule } from "ngx-chips";
 import { ToastrModule } from "ngx-toastr";
+import { AutosizeModule } from "ngx-autosize";
+import { ColorPickerModule } from "./color-picker-module/color-picker.module";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -30,6 +32,7 @@ import { ChecklistItemTagsSyncService } from "./shared/checklist-item-tags-sync.
 import { DataPersistenceService } from "./shared/data-persistence.service";
 import { AuthGuard } from "./shared/auth.guard";
 import { SubmitIfValidDirective } from "./shared/submit-if-valid.directive";
+import { ClstTagDisplayComponent } from "./checklist/clst-tag-display/clst-tag-display.component";
 
 @NgModule({
   declarations: [
@@ -42,7 +45,8 @@ import { SubmitIfValidDirective } from "./shared/submit-if-valid.directive";
     ClstSectionComponent,
     ClstChecklistItemComponent,
     ClstChecklistItemTagEditComponent,
-    SubmitIfValidDirective
+    SubmitIfValidDirective,
+    ClstTagDisplayComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +63,9 @@ import { SubmitIfValidDirective } from "./shared/submit-if-valid.directive";
     AppRoutingModule,
     ReactiveFormsModule,
     NgMaterialModule,
-    TagInputModule
+    TagInputModule,
+    AutosizeModule,
+    ColorPickerModule
   ],
   providers: [
     FormElementPusherService,
