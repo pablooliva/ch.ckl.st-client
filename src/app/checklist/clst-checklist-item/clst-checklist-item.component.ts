@@ -7,8 +7,18 @@ import {
   FormElementPusherService,
   pushFEType
 } from "../../shared/form-element-pusher.service";
-import { ChecklistItemTagsSyncService } from "../../shared/checklist-item-tags-sync.service";
+import {
+  ChecklistItemTagsSyncService,
+  ISyncTagsObs
+} from "../../shared/checklist-item-tags-sync.service";
 import { genericValidationTest } from "../../shared/clst-utils";
+import { IChecklistItemTag } from "../../shared/data-persistence.service";
+
+export interface ITagInfo {
+  tag: IChecklistItemTag;
+  index: number;
+  delete?: boolean;
+}
 
 @Component({
   selector: "clst-checklist-item",
@@ -19,8 +29,10 @@ export class ClstChecklistItemComponent implements OnInit, OnDestroy {
   @Input() public checklistItem: FormGroup;
   @Input() public checklistItemIndex: number;
 
-  public addTag: boolean;
-  public tags: any[];
+  public displayTagEditComp: boolean;
+  public displayEditTagOptions: boolean;
+  public tags: IChecklistItemTag[];
+  public pushTagInfo: ITagInfo;
 
   public get checklistTagsEnabled(): FormArray {
     return this.checklistItem.get("checklistTagsEnabled") as FormArray;
@@ -35,23 +47,34 @@ export class ClstChecklistItemComponent implements OnInit, OnDestroy {
   ) {}
 
   public ngOnInit(): void {
-    this.addTag = false;
+    this.displayTagEditComp = false;
+    this.displayEditTagOptions = false;
 
     this._syncTags
       .observeTags()
       .pipe(takeUntil(this._destroy$))
-      .subscribe(tags => {
-        this.tags = tags;
-        const valLength = this.checklistTagsEnabled.controls.length;
-        this.tags.forEach((t, i) => {
-          if (i >= valLength) {
-            this.checklistTagsEnabled.push(
-              this._fb.group({
-                tag: false
-              })
-            );
+      .subscribe((syncTags: ISyncTagsObs) => {
+        this.tags = syncTags.tags;
+        if (syncTags.hasOwnProperty("index")) {
+          this.checklistTagsEnabled.removeAt(syncTags.index);
+          if (this.pushTagInfo && this.pushTagInfo.index === syncTags.index) {
+            this.clearTagEdit();
           }
-        });
+          if (!this.tags.length) {
+            this.displayEditTagOptions = false;
+          }
+        } else {
+          const valLength = this.checklistTagsEnabled.controls.length;
+          this.tags.forEach((t, i) => {
+            if (i >= valLength) {
+              this.checklistTagsEnabled.push(
+                this._fb.group({
+                  tag: false
+                })
+              );
+            }
+          });
+        }
       });
   }
 
@@ -74,5 +97,27 @@ export class ClstChecklistItemComponent implements OnInit, OnDestroy {
 
   public removeItem(index: number): void {
     // TODO: implement...
+  }
+
+  public editTags(): void {
+    this.displayEditTagOptions = !this.displayEditTagOptions;
+    this.clearTagEdit();
+  }
+
+  public updateTag(i: number): void {
+    this.clearTagEdit();
+    this.displayTagEditComp = true;
+    this.pushTagInfo = { tag: this.tags[i], index: i };
+  }
+
+  public clearTagEdit(): void {
+    this.displayTagEditComp = false;
+    this.pushTagInfo = null;
+  }
+
+  public deleteTag(i: number): void {
+    this.clearTagEdit();
+    this.displayTagEditComp = true;
+    this.pushTagInfo = { tag: this.tags[i], index: i, delete: true };
   }
 }

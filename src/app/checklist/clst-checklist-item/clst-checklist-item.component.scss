@@ -16,6 +16,34 @@
 .lose-focus {
   background-color: #ccc;
 }
+.clst-tags-display {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0.5em 0 1.5em 0;
+
+  .clst-tag {
+    display: flex;
+    margin: 0 1em 0.2em 0;
+    input, clst-tag-display {
+      align-self: center;
+    }
+  }
+  .clst-tag-edit {
+    float: right;
+    button {
+      color: mat-color($clst-app-tertiary);
+    }
+  }
+  .clst-tag-updates {
+    padding: 0 0 0 0.7em;
+    i {
+      font-size: 1.4em;
+      padding: 0;
+      margin: 0;
+      color: mat-color($clst-app-tertiary);
+    }
+  }
+}
 clst-checklist-item-tag-edit {
   padding: 2rem;
   border: 1px dotted #ccc;

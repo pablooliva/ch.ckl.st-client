@@ -1,31 +1,46 @@
 <div class="clst-tag-edit-container">
 <form novalidate [formGroup]="tagForm">
-  <h4>Create tag</h4>
+  <h4>
+    <ng-container *ngIf="tagProps; else addTag">
+      <ng-container *ngIf="tagProps.delete; else editTag">Delete tag</ng-container>
+    </ng-container>
+    <ng-template #addTag>Create tag</ng-template>
+    <ng-template #editTag>Edit tag</ng-template>
+  </h4>
   <clst-tag-display class="tag-layout" [color]="colorPicked" [label]="labelPicked" [icon]="iconPicked"></clst-tag-display>
   <div class="flex-container">
-    <mat-form-field class="control-group">
-      <label for="label">Label</label>
-      <input matInput placeholder="Label" type="text" id="label" formControlName="label">
-      <mat-error *ngIf="testReq('label')">* This field is required.</mat-error>
-      <mat-error *ngIf="testUnique('label')">* A tag with this label already exists.</mat-error>
-    </mat-form-field>
-    <mat-form-field class="control-group">
-      <label for="color">Color</label>
-      <input class="color-picker" [(colorPicker)]="colorPicked" (colorPickerChange)="onColorChange(colorPicked)" [style.background]="colorPicked" [cpPosition]="'bottom'" [cpFallbackColor]="defaultColor">
-      <input class="color-picker-text" matInput formControlName="color" placeholder="Color" type="text" id="color" (blur)="onBlur()">
-    </mat-form-field>
-    <mat-form-field class="control-group">
-      <label for="icon">Icon</label>
-      <input matInput placeholder="Icon" type="text" id="icon" formControlName="icon" [matAutocomplete]="icons">
-    </mat-form-field>
-    <mat-autocomplete #icons="matAutocomplete">
-      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{option}}</mat-option>
-    </mat-autocomplete>
+    <ng-container *ngIf="tagProps && tagProps.delete; else addOrEdit"><p class="important">Confirm that you would like to delete the "{{tagForm.get("label").value}}" tag.</p></ng-container>
+    <ng-template #addOrEdit>
+      <mat-form-field class="control-group">
+        <label for="label">Label</label>
+        <input matInput placeholder="Label" type="text" id="label" formControlName="label">
+        <mat-error *ngIf="testReq('label')">* This field is required.</mat-error>
+        <mat-error *ngIf="testUnique('label')">* A tag with this label already exists.</mat-error>
+      </mat-form-field>
+      <mat-form-field class="control-group">
+        <label for="color">Color</label>
+        <input tabindex="-1" class="color-picker" [(colorPicker)]="colorPicked" (colorPickerChange)="onColorChange(colorPicked)" [style.background]="colorPicked" [cpPosition]="'bottom'" [cpFallbackColor]="defaultColor">
+        <input class="color-picker-text" matInput formControlName="color" placeholder="Color" type="text" id="color" (blur)="onBlur()">
+      </mat-form-field>
+      <mat-form-field class="control-group">
+        <label for="icon">Icon</label>
+        <input matInput placeholder="Icon" type="text" id="icon" formControlName="icon" [matAutocomplete]="icons">
+      </mat-form-field>
+      <mat-autocomplete #icons="matAutocomplete">
+        <ng-container *ngIf="(filteredOptions|async).length">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{option}}</mat-option>
+        </ng-container>
+      </mat-autocomplete>
+    </ng-template>
     <div class="clst-btn-container">
       <button class="clst-cancel" mat-flat-button type="button" (click)="cancel()">Cancel <i class="material-icons">cancel</i></button>
       <div [clstSubmitIfValid]="tagForm" [reset]="reset()" (valid)="onSubmit()" class="clst-form-submit">
-        <button class="pre-submit" mat-flat-button type="button">
-          Add Tag <i class="material-icons">add_circle</i>
+        <button class="pre-submit" [class.warning]="tagProps && tagProps.delete" mat-flat-button type="button">
+          <ng-container *ngIf="tagProps; else addBtn">
+            <ng-container *ngIf="tagProps.delete; else editBtn">Delete <i class="material-icons">delete</i></ng-container>
+          </ng-container>
+          <ng-template #addBtn>Add Tag <i class="material-icons">add_circle</i></ng-template>
+          <ng-template #editBtn>Save Edit <i class="material-icons">forward</i></ng-template>
         </button>
         <button class="in-progress" mat-flat-button type="button" disabled="disabled">
           <div id="inProgress" class="spinner">

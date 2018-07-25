@@ -2,28 +2,33 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   OnDestroy,
   OnInit,
-  Output
+  Output,
+  SimpleChanges
 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Subject } from "rxjs/internal/Subject";
 import { Observable } from "rxjs/internal/Observable";
+import { map, startWith } from "rxjs/operators";
 
 import { DataPersistenceService } from "../../shared/data-persistence.service";
 import { ChecklistItemTagsSyncService } from "../../shared/checklist-item-tags-sync.service";
 import { genericValidationTest } from "../../shared/clst-utils";
 import { UniqueLabel } from "./clst-checklist-item-tag.validator";
 import { materialIconsNames } from "./material-icons-names";
-import { map, startWith } from "rxjs/operators";
+import { ITagInfo } from "../clst-checklist-item/clst-checklist-item.component";
 
 @Component({
   selector: "clst-checklist-item-tag-edit",
   templateUrl: "./clst-checklist-item-tag-edit.component.html",
   styleUrls: ["./clst-checklist-item-tag-edit.component.scss"]
 })
-export class ClstChecklistItemTagEditComponent implements OnInit, OnDestroy {
+export class ClstChecklistItemTagEditComponent
+  implements OnInit, OnDestroy, OnChanges {
   @Input() public checklistItem: FormGroup;
+  @Input() tagProps: ITagInfo;
   @Output() tagAdded: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   public tagForm: FormGroup;
@@ -54,18 +59,12 @@ export class ClstChecklistItemTagEditComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.defaultColor = "#fff";
-    this.colorPicked = this.defaultColor;
-    this.labelPicked = "Preview";
+    this.colorPicked = this.tagProps
+      ? this.tagProps.tag.color
+      : this.defaultColor;
+    this.labelPicked = this.tagProps ? this.tagProps.tag.label : "Preview";
+    this.iconPicked = this.tagProps ? this.tagProps.tag.icon : "";
     this.options = materialIconsNames;
-
-    this.tagForm = this._fb.group({
-      label: [
-        "",
-        Validators.compose([Validators.required, UniqueLabel.bind(this)])
-      ],
-      color: this.colorPicked,
-      icon: ""
-    });
 
     this.filteredOptions = this.tagForm
       .get("icon")
@@ -78,7 +77,37 @@ export class ClstChecklistItemTagEditComponent implements OnInit, OnDestroy {
       .get("label")
       .valueChanges.subscribe(val => (this.labelPicked = val));
 
-    this.tagForm.get("icon").valueChanges.subscribe(val => this.iconPicked = val);
+    this.tagForm
+      .get("icon")
+      .valueChanges.subscribe(val => (this.iconPicked = val));
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (!this.tagForm) {
+      this._initForm();
+    }
+
+    if (changes.tagProps.currentValue) {
+      this.colorPicked = this.tagProps.tag.color;
+      this.labelPicked = this.tagProps.tag.label;
+      this.iconPicked = this.tagProps.tag.icon;
+      this.tagForm.setValue({
+        label: this.tagProps.tag.label,
+        color: this.tagProps.tag.color,
+        icon: this.tagProps.tag.icon
+      });
+    }
+  }
+
+  private _initForm(): void {
+    this.tagForm = this._fb.group({
+      label: [
+        "",
+        Validators.compose([Validators.required, UniqueLabel.bind(this)])
+      ],
+      color: this.colorPicked,
+      icon: ""
+    });
   }
 
   public ngOnDestroy(): void {
@@ -110,11 +139,27 @@ export class ClstChecklistItemTagEditComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit(): void {
-    if (this._syncTags.addTag(this.tagForm.value)) {
-      this.tagAdded.emit(true);
+    if (
+      this.tagProps &&
+      this.tagProps.delete &&
+      this._syncTags.deleteTag(this.tagProps.index)
+    ) {
+      this._completeSubmit();
+    } else if (
+      this.tagProps &&
+      this._syncTags.updateTag(this.tagForm.value, this.tagProps.index)
+    ) {
+      this._completeSubmit();
+    } else if (this._syncTags.addTag(this.tagForm.value)) {
+      this._completeSubmit();
     } else {
-      console.error("Tag was not added!");
+      console.error("Tag updated/addition did not complete!");
     }
+  }
+
+  private _completeSubmit(): void {
+    this.tagAdded.emit(true);
+    this.tagForm.reset();
   }
 
   public testReq(formField: string): boolean {
@@ -127,7 +172,6 @@ export class ClstChecklistItemTagEditComponent implements OnInit, OnDestroy {
 
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-
     return this.options.filter(option =>
       option.toLowerCase().includes(filterValue)
     );

@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 
 export interface IChecklistItemTag {
-    label: string;
-    color: string;
-    icon: string;
+  label: string;
+  color: string;
+  icon: string;
 }
 
 // matches checklist.model/checklistSchema
@@ -94,6 +94,19 @@ export class DataPersistenceService {
 
   public addChecklistTag(tag: IChecklistItemTag): IChecklistItemTag[] {
     this._clDataModel.checklistTags.push(tag);
+    return this._clDataModel.checklistTags;
+  }
+
+  public updateChecklistTag(
+    tag: IChecklistItemTag,
+    index: number
+  ): IChecklistItemTag[] {
+    this._clDataModel.checklistTags[index] = tag;
+    return this._clDataModel.checklistTags;
+  }
+
+  public deleteChecklistTag(index: number): IChecklistItemTag[] {
+    this._clDataModel.checklistTags.splice(index, 1);
     return this._clDataModel.checklistTags;
   }
 
