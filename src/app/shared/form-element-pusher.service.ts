@@ -2,10 +2,7 @@ import { Injectable } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { Subject } from "rxjs";
 
-export enum pushFEType {
-  Section = "SECTION",
-  Item = "ITEM"
-}
+export type pushFEType = "section" | "item";
 
 export interface IPushFormElement {
   type: pushFEType;

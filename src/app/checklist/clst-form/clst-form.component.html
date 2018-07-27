@@ -17,7 +17,7 @@
     </mat-form-field>
 
     <div formArrayName="sections">
-      <clst-section *ngFor="let section of sections.controls; let i=index" [formGroupName]="i" [section]="section" [sectionIndex]="i">
+      <clst-section *ngFor="let section of sections.controls; let i=index" [formGroupName]="i" [section]="section" [sectionIndex]="i" [formGroup]="clForm">
       </clst-section>
     </div>
 

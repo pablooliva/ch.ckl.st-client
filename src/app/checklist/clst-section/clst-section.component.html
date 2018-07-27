@@ -10,7 +10,7 @@
         </mat-form-field>
         <h3>Checklist Items</h3>
         <div formArrayName="checklistItems" class="clist-item">
-            <clst-checklist-item *ngFor="let checklistItem of section.controls.checklistItems.controls; let i=index" [formGroupName]="i" [checklistItem]="checklistItem" [checklistItemIndex]="i">
+            <clst-checklist-item *ngFor="let checklistItem of section.controls.checklistItems.controls; let i=index" [formGroupName]="i" [checklistItem]="checklistItem" [checklistItemIndex]="i" [section]="section">
             </clst-checklist-item>
         </div>
     </div>

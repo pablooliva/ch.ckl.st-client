@@ -3,10 +3,7 @@ import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 import { Subject } from "rxjs/internal/Subject";
 import { takeUntil } from "rxjs/operators";
 
-import {
-  FormElementPusherService,
-  pushFEType
-} from "../../shared/form-element-pusher.service";
+import { FormElementPusherService } from "../../shared/form-element-pusher.service";
 import {
   ChecklistItemTagsSyncService,
   ISyncTagsObs
@@ -28,6 +25,7 @@ export interface ITagInfo {
 export class ClstChecklistItemComponent implements OnInit, OnDestroy {
   @Input() public checklistItem: FormGroup;
   @Input() public checklistItemIndex: number;
+  @Input() public section: FormGroup;
 
   public displayTagEditComp: boolean;
   public displayEditTagOptions: boolean;
@@ -89,14 +87,17 @@ export class ClstChecklistItemComponent implements OnInit, OnDestroy {
 
   public addItem(index: number): void {
     this._fEPusherService.pushFormElement({
-      type: pushFEType.Item,
+      type: "item",
       group: this.checklistItem,
       index: index
     });
   }
 
   public removeItem(index: number): void {
-    // TODO: implement...
+    (<FormArray>this.section.controls["checklistItems"]).removeAt(index);
+    if (!(<FormArray>this.section.controls["checklistItems"]).length) {
+      this.addItem(0);
+    }
   }
 
   public editTags(): void {

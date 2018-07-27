@@ -14,8 +14,7 @@ import { Observable } from "rxjs/internal/Observable";
 
 import {
   FormElementPusherService,
-  IPushFormElement,
-  pushFEType
+  IPushFormElement
 } from "../../shared/form-element-pusher.service";
 import { ServerConnectService } from "../../shared/server-connect.service";
 import { DataPersistenceService } from "../../shared/data-persistence.service";
@@ -55,10 +54,10 @@ export class ClstFormComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy))
       .subscribe((newElem: IPushFormElement) => {
         switch (newElem.type) {
-          case pushFEType.Section:
+          case "section":
             this._newSection(newElem.index, null, newElem.group);
             break;
-          case pushFEType.Item:
+          case "item":
             this._newChecklistItem(newElem.index, null, newElem.group);
             break;
           default:
