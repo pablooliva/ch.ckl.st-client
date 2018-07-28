@@ -1,5 +1,11 @@
 import { Injectable } from "@angular/core";
 
+// format used by ngx-chips
+export interface INgxChips {
+  display: string;
+  value: string;
+}
+
 export interface IChecklistItemTag {
   label: string;
   color: string;
@@ -22,7 +28,7 @@ export interface IClstDataModel {
 export interface IClstFormDataModel {
   public: boolean;
   documentTitle: string;
-  documentTags: string[];
+  documentTags: INgxChips[];
   customCss: string;
   sections: object[];
 }
@@ -71,6 +77,9 @@ export class DataPersistenceService {
 
   public prepareDBData(formValues: IClstFormDataModel): Object {
     const formValuesClone = DataPersistenceService.deepClone(formValues);
+    formValuesClone.documentTags = this._toDBDocTags(
+      formValuesClone.documentTags
+    );
     this._removeEmptyGroups("sections", formValuesClone);
     this._clDataModel = <any>{ ...this._clDataModel, ...formValuesClone };
     const dataModelClone = DataPersistenceService.deepClone(this._clDataModel);
@@ -86,10 +95,28 @@ export class DataPersistenceService {
     return {
       public: this._clDataModel.public,
       documentTitle: this._clDataModel.documentTitle,
-      documentTags: this._clDataModel.documentTags,
+      documentTags: this._fromDBDocTags(this._clDataModel.documentTags),
       customCss: this._clDataModel.customCss,
       sections: this._clDataModel.sections
     };
+  }
+
+  private _fromDBDocTags(arr: string[]): INgxChips[] {
+    if (arr && arr.length) {
+      return arr.map(itm => {
+        return { display: itm, value: itm };
+      });
+    } else {
+      return [];
+    }
+  }
+
+  private _toDBDocTags(tags: INgxChips[]): string[] {
+    if (tags && tags.length) {
+      return tags.map(itm => itm.value);
+    } else {
+      return null;
+    }
   }
 
   public addChecklistTag(tag: IChecklistItemTag): IChecklistItemTag[] {

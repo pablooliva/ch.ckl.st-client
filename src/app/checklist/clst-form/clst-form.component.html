@@ -3,14 +3,26 @@
     <h1>Create a Checklist</h1>
     <mat-checkbox formControlName="public">Public</mat-checkbox>
     <mat-form-field class="control-group">
-      <label for="title">Document Title</label>
-      <input matInput placeholder="Document Title" type="text" id="title" formControlName="documentTitle">
+      <label for="title">Document title</label>
+      <input matInput placeholder="Document title" type="text" id="title" formControlName="documentTitle">
       <mat-error *ngIf="testReq('documentTitle')">* This field is required.</mat-error>
     </mat-form-field>
-    <mat-form-field class="control-group">
-      <label for="tags">Document Tags</label>
-      <input matInput placeholder="Document Tags" type="text" id="tags" formControlName="documentTags">
-    </mat-form-field>
+    <div class="control-group">
+      <label for="tags">Document tags</label>
+      <tag-input
+        placeholder="Document tags"
+        secondaryPlaceholder="Document tags"
+        formControlName="documentTags"
+        separatorKeyCodes="9"
+        editable="true"
+        addOnBlur="true"
+        modelAsStrings="true"
+        inputClass="clst-ngxc-input"
+        id="tags">
+          <tag-input-dropdown [autocompleteItems]="['item1', 'item2', 'item3']">
+          </tag-input-dropdown>
+      </tag-input>
+    </div>
     <div formArrayName="sections">
       <clst-section *ngFor="let section of sections.controls; let i=index" [formGroupName]="i" [section]="section" [sectionIndex]="i" [formGroup]="clForm">
       </clst-section>

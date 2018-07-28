@@ -136,7 +136,7 @@ export class ClstFormComponent implements OnInit, OnDestroy {
     this.clForm = this._fb.group({
       public: data.public,
       documentTitle: [data.documentTitle, Validators.required],
-      documentTags: [[data.documentTags]],
+      documentTags: [data.documentTags],
       customCss: data.customCss,
       sections: this._fb.array(sectionControls)
     });
