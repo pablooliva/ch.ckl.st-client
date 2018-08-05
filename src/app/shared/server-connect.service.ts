@@ -1,6 +1,6 @@
 import { Injectable, isDevMode } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { throwError as observableThrowError, Observable, pipe } from "rxjs";
+import { throwError as observableThrowError, Observable } from "rxjs";
 import { map, catchError } from "rxjs/operators";
 
 import { StatusType, HttpReqStatus } from "./status-types";
@@ -128,5 +128,21 @@ export class ServerConnectService {
           });
         })
       );
+  }
+
+  public queryDocTags(path: string): Promise<Object> {
+    const fullUrlPath = new URL(path, this._serverBaseLoc);
+    return this._http.get(fullUrlPath.toString()).toPromise();
+  }
+
+  public postDocTag(
+    path: string,
+    body: string,
+    httpOptions: any
+  ): Promise<any> {
+    const fullUrlPath = new URL(path, this._serverBaseLoc);
+    return this._http
+      .post<any>(fullUrlPath.toString(), body, httpOptions)
+      .toPromise();
   }
 }

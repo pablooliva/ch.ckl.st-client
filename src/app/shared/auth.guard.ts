@@ -22,8 +22,7 @@ export class AuthGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    return true;
-    /*if (!!(this._dataPersistence.token && this._dataPersistence.user)) {
+    if (!!(this._dataPersistence.token && this._dataPersistence.user)) {
       return true;
     } else {
       this._toastr.error(
@@ -31,6 +30,6 @@ export class AuthGuard implements CanActivate {
         "Access Denied"
       );
       this._router.navigate(["/login"]);
-    }*/
+    }
   }
 }

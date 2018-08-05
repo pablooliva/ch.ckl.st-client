@@ -76,8 +76,10 @@ export class DataPersistenceService {
   }
 
   public prepareDBData(formValues: IClstFormDataModel): Object {
-    const formValuesClone = DataPersistenceService.deepClone(formValues);
-    formValuesClone.documentTags = this._toDBDocTags(
+    const formValuesClone = <IClstFormDataModel>DataPersistenceService.deepClone(
+      formValues
+    );
+    formValuesClone.documentTags = <any[]>this._toDBDocTags(
       formValuesClone.documentTags
     );
     this._removeEmptyGroups("sections", formValuesClone);
@@ -95,7 +97,7 @@ export class DataPersistenceService {
     return {
       public: this._clDataModel.public,
       documentTitle: this._clDataModel.documentTitle,
-      documentTags: this._fromDBDocTags(this._clDataModel.documentTags),
+      documentTags: <any>this._clDataModel.documentTags,
       customCss: this._clDataModel.customCss,
       sections: this._clDataModel.sections
     };

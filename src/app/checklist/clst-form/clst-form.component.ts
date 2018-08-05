@@ -8,17 +8,20 @@ import {
 } from "@angular/forms";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { ToastrService } from "ngx-toastr";
-import { Subject } from "rxjs/internal/Subject";
+import { Observable, Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
-import { Observable } from "rxjs/internal/Observable";
 
 import {
   FormElementPusherService,
   IPushFormElement
 } from "../../shared/form-element-pusher.service";
 import { ServerConnectService } from "../../shared/server-connect.service";
-import { DataPersistenceService } from "../../shared/data-persistence.service";
+import {
+  DataPersistenceService,
+  INgxChips
+} from "../../shared/data-persistence.service";
 import { genericValidationTest } from "../../shared/clst-utils";
+import { DocTagService } from "../../shared/doc-tag.service";
 
 interface IParentArray {
   array: FormArray;
@@ -33,6 +36,7 @@ interface IParentArray {
 export class ClstFormComponent implements OnInit, OnDestroy {
   public clForm: FormGroup;
   public buttonReset: Subject<boolean> = new Subject<boolean>();
+  public validators = [this._notDuplicate.bind(this)];
 
   public get sections(): FormArray {
     return this.clForm.get("sections") as FormArray;
@@ -46,7 +50,8 @@ export class ClstFormComponent implements OnInit, OnDestroy {
     private _serverConnectService: ServerConnectService,
     private _dataPersistence: DataPersistenceService,
     private _fb: FormBuilder,
-    private _toastr: ToastrService
+    private _toastr: ToastrService,
+    private _docTagService: DocTagService
   ) {}
 
   ngOnInit() {
@@ -71,6 +76,34 @@ export class ClstFormComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     this._destroy.next(true);
     this._destroy.complete();
+  }
+
+  public onTagAdd(tag: INgxChips): any {
+    this._docTagService.getId(tag).then((result: INgxChips) => {
+      this._handleTagAdd.call(this, result);
+    });
+  }
+
+  private _handleTagAdd(result: INgxChips): void {
+    const docTags: Object[] = this.clForm.get("documentTags").value;
+    docTags.forEach((tag: INgxChips) => {
+      if (tag.display.toLowerCase() === result.display) {
+        tag.display = result.display;
+        tag.value = result.value;
+      }
+    });
+    this.clForm.patchValue({ documentTags: docTags });
+  }
+
+  private _notDuplicate(control: FormControl) {
+    const displayVals: string[] = this.clForm
+      .get("documentTags")
+      .value.map(tags => tags.display);
+    if (displayVals.find(val => val === control.value)) {
+      return { duplicate: true };
+    } else {
+      return null;
+    }
   }
 
   public reset(): Observable<boolean> {

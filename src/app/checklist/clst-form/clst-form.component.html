@@ -16,11 +16,11 @@
         separatorKeyCodes="9"
         editable="true"
         addOnBlur="true"
-        modelAsStrings="true"
         inputClass="clst-ngxc-input"
+        (onAdd)="onTagAdd($event)"
+        [validators]="validators"
+        [animationDuration]="{enter: '0ms', leave: '0ms'}"
         id="tags">
-          <tag-input-dropdown [autocompleteItems]="['item1', 'item2', 'item3']">
-          </tag-input-dropdown>
       </tag-input>
     </div>
     <div formArrayName="sections">
