@@ -9,7 +9,12 @@ import {
   Output,
   Renderer2
 } from "@angular/core";
-import { FormGroup } from "@angular/forms";
+import {
+  AbstractControl,
+  FormArray,
+  FormControl,
+  FormGroup
+} from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
 import { Observable } from "rxjs/internal/Observable";
 
@@ -33,7 +38,7 @@ export class SubmitIfValidDirective implements OnInit, AfterViewInit {
 
   @HostListener("click")
   handleClick() {
-    this._markFieldsAsDirty();
+    this._traverseControls(this.formRef.controls);
     this._emitIfValid();
   }
 
@@ -52,11 +57,27 @@ export class SubmitIfValidDirective implements OnInit, AfterViewInit {
     this._displayButton("pre-submit");
   }
 
-  private _markFieldsAsDirty(): void {
-    Object.keys(this.formRef.controls).forEach(fieldName => {
-      this.formRef.controls[fieldName].markAsDirty();
-      this.formRef.controls[fieldName].markAsTouched();
-    });
+  private _markFieldsAsDirty(ctrl: FormControl): void {
+    ctrl.markAsDirty();
+    ctrl.markAsTouched();
+  }
+
+  private _traverseControls(
+    ctrls: { [c: string]: AbstractControl } | FormArray | FormGroup
+  ): void {
+    if (Array.isArray(ctrls)) {
+      ctrls.forEach(ctrl => this._traverseControls(ctrl.controls));
+    } else if (typeof ctrls === "object") {
+      Object.keys(ctrls).forEach(ctrl => {
+        if (ctrls[ctrl].controls) {
+          this._traverseControls(ctrls[ctrl].controls);
+        } else {
+          this._markFieldsAsDirty(ctrls[ctrl]);
+        }
+      });
+    } else {
+      this._markFieldsAsDirty(ctrls);
+    }
   }
 
   private _emitIfValid(): void {
