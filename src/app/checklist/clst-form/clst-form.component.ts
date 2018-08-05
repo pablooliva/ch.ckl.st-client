@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import {
   FormArray,
   FormBuilder,
@@ -34,6 +34,8 @@ interface IParentArray {
   styleUrls: ["./clst-form.component.scss"]
 })
 export class ClstFormComponent implements OnInit, OnDestroy {
+  @Input() cId: string;
+
   public clForm: FormGroup;
   public buttonReset: Subject<boolean> = new Subject<boolean>();
   public validators = [this._notDuplicate.bind(this)];
@@ -160,7 +162,7 @@ export class ClstFormComponent implements OnInit, OnDestroy {
 
   private _initForm(): void {
     // TODO: if loading a saved checklist, set checklistID
-    const checklistId = null;
+    const checklistId = this.cId;
     const data = this._dataPersistence.prepareClientData(checklistId);
     const sectionControls = data.sections.map(
       section => new FormControl(section)

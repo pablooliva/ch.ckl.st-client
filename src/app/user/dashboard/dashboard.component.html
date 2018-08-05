@@ -1,0 +1,18 @@
+<div class="content-container">
+  <h1>Your Checklists</h1>
+  <ol *ngIf="checklists.length; else noChecklists">
+    <li *ngFor="let checklist of checklists"><a [routerLink]="['/checklist', checklist.id]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{checklist.title}}</a></li>
+  </ol>
+  <ng-template #noChecklists>
+    <p *ngIf="qryResolved">You have not created any checklists yet.</p>
+    <div class="spinner" *ngIf="!qryResolved">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
+    </div>
+  </ng-template>
+  <h3>Create a New Checklist</h3>
+  <button mat-flat-button type="button" (click)="create()">
+    Create <i class="material-icons">add_box</i>
+  </button>
+</div>

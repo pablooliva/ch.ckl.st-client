@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             val.uiMessage + " Re-directing you to your checklists.",
             val.type
           );
-          setTimeout(() => this._router.navigate(["/checklist"]), 1000);
+          setTimeout(() => this._router.navigate(["/dashboard"]), 1000);
           this.buttonReset.next(true);
         },
         error => {

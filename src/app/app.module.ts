@@ -34,6 +34,8 @@ import { DataPersistenceService } from "./shared/data-persistence.service";
 import { AuthGuard } from "./shared/auth.guard";
 import { SubmitIfValidDirective } from "./shared/submit-if-valid.directive";
 import { DocTagService } from "./shared/doc-tag.service";
+import { AuthService } from "./shared/auth.service";
+import { DashboardComponent } from './user/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { DocTagService } from "./shared/doc-tag.service";
     ClstChecklistItemComponent,
     ClstChecklistItemTagEditComponent,
     SubmitIfValidDirective,
-    ClstTagDisplayComponent
+    ClstTagDisplayComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +82,8 @@ import { DocTagService } from "./shared/doc-tag.service";
     ChecklistItemTagsSyncService,
     DataPersistenceService,
     AuthGuard,
-    DocTagService
+    DocTagService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

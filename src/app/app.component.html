@@ -10,9 +10,15 @@
                     </button>
                 </ng-container>
                 <ng-container *ngIf="!media.isActive('xs')">
-                    <a routerLink="login" mat-button>Login</a>
+                    <ng-container *ngIf="isLoggedIn; else notLoggedIn">
+                        <a routerLink="dashboard" mat-button>Dashboard</a>
+                        <a routerLink="checklist" mat-button>Create Checklist</a>
+                        <a (click)="logOut()" mat-button>Log Out</a>
+                    </ng-container>
+                    <ng-template #notLoggedIn>
+                        <a routerLink="login" mat-button>Login</a>
                     <a routerLink="register" mat-button>Register</a>
-                    <a routerLink="checklist" mat-button>Checklist</a>
+                    </ng-template>
                 </ng-container>
             </span>
         </mat-toolbar-row>
@@ -20,9 +26,15 @@
     <mat-sidenav-container fxFlex="1 1 auto">
         <mat-sidenav #sidenav fxLayout="column" mode="side" opened="false">
             <button type="button" (click)="sidenav.toggle()">Close Menu</button>
-            <a routerLink="login" mat-button>Login</a>
-            <a routerLink="register" mat-button>Register</a>
-            <a routerLink="checklist" mat-button>Checklist</a>
+            <ng-container *ngIf="isLoggedIn; else notLoggedIn">
+                <a routerLink="dashboard" mat-button>Dashboard</a>
+                <a routerLink="checklist" mat-button>Create Checklist</a>
+                <a (click)="logOut()" mat-button>Log Out</a>
+            </ng-container>
+            <ng-template #notLoggedIn>
+                <a routerLink="login" mat-button>Login</a>
+                <a routerLink="register" mat-button>Register</a>
+            </ng-template>
         </mat-sidenav>
         <mat-sidenav-content fxFlexFill>
             <router-outlet></router-outlet>

@@ -64,8 +64,6 @@ export class DataPersistenceService {
     this._checklistId = id;
   }
 
-  constructor() {}
-
   static deepClone(objRef: Object): Object {
     // Object.assign() performs only a shallow copy
     return JSON.parse(JSON.stringify(objRef));
@@ -73,6 +71,14 @@ export class DataPersistenceService {
 
   static isEmpty(value: any): boolean {
     return value === "" || value === null || value === undefined;
+  }
+  constructor() {}
+
+  public handleLogOut(): void {
+    this.token = null;
+    this.user = null;
+    this.checklistId = null;
+    this._clDataModel = null;
   }
 
   public prepareDBData(formValues: IClstFormDataModel): Object {

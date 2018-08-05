@@ -5,6 +5,7 @@ import { AuthGuard } from "./shared/auth.guard";
 import { HomeComponent } from "./core/home/home.component";
 import { RegisterComponent } from "./user/register/register.component";
 import { LoginComponent } from "./user/login/login.component";
+import { DashboardComponent } from "./user/dashboard/dashboard.component";
 import { ClstCreateComponent } from "./checklist/clst-create/clst-create.component";
 
 const appRoutes: Routes = [
@@ -16,6 +17,16 @@ const appRoutes: Routes = [
     path: "checklist",
     canActivate: [AuthGuard],
     component: ClstCreateComponent
+  },
+  {
+    path: "checklist/:id",
+    canActivate: [AuthGuard],
+    component: ClstCreateComponent
+  },
+  {
+    path: "dashboard",
+    canActivate: [AuthGuard],
+    component: DashboardComponent
   }
 ];
 

@@ -5,6 +5,7 @@ import { map, catchError } from "rxjs/operators";
 
 import { StatusType, HttpReqStatus } from "./status-types";
 import { DataPersistenceService } from "./data-persistence.service";
+import { AuthService } from "./auth.service";
 
 @Injectable()
 export class ServerConnectService {
@@ -12,7 +13,8 @@ export class ServerConnectService {
 
   constructor(
     private _http: HttpClient,
-    private _dataPersistence: DataPersistenceService
+    private _dataPersistence: DataPersistenceService,
+    private _authService: AuthService
   ) {
     this._serverBaseLoc = isDevMode()
       ? "http://127.0.0.1:3000"
@@ -59,8 +61,7 @@ export class ServerConnectService {
       .post<HttpReqStatus>(fullUrlPath.toString(), body, httpOptions)
       .pipe(
         map((response: any) => {
-          this._dataPersistence.token = response.token;
-          this._dataPersistence.user = response.user;
+          this._authService.setLogIn(response.token, response.user);
           return {
             type: StatusType.Success,
             uiMessage: "You are now logged in.",
@@ -77,6 +78,11 @@ export class ServerConnectService {
           });
         })
       );
+  }
+
+  public getChecklists(path: string): Promise<Object> {
+    const fullUrlPath = new URL(path, this._serverBaseLoc);
+    return this._http.get(fullUrlPath.toString()).toPromise();
   }
 
   public postChecklist(
