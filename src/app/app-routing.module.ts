@@ -7,6 +7,7 @@ import { RegisterComponent } from "./user/register/register.component";
 import { LoginComponent } from "./user/login/login.component";
 import { DashboardComponent } from "./user/dashboard/dashboard.component";
 import { ClstCreateComponent } from "./checklist/clst-create/clst-create.component";
+import { LeaveChecklistGuard } from "./checklist/leave-checklist.guard";
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -16,11 +17,13 @@ const appRoutes: Routes = [
   {
     path: "checklist",
     canActivate: [AuthGuard],
+    canDeactivate: [LeaveChecklistGuard],
     component: ClstCreateComponent
   },
   {
     path: "checklist/:id",
     canActivate: [AuthGuard],
+    canDeactivate: [LeaveChecklistGuard],
     component: ClstCreateComponent
   },
   {

@@ -76,11 +76,15 @@ export class DataPersistenceService {
 
   constructor() {}
 
+  public resetData(): void {
+    this.checklistId = null;
+    this._clDataModel = null;
+  }
+
   public handleLogOut(): void {
     this.token = null;
     this.user = null;
-    this.checklistId = null;
-    this._clDataModel = null;
+    this.resetData();
   }
 
   public prepareDBData(formValues: IClstFormDataModel): Object {

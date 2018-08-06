@@ -25,6 +25,7 @@ import { ClstSectionComponent } from "./checklist/clst-section/clst-section.comp
 import { ClstChecklistItemComponent } from "./checklist/clst-checklist-item/clst-checklist-item.component";
 import { ClstChecklistItemTagEditComponent } from "./checklist/clst-checklist-item-tag-edit/clst-checklist-item-tag-edit.component";
 import { ClstTagDisplayComponent } from "./checklist/clst-tag-display/clst-tag-display.component";
+import { DashboardComponent } from "./user/dashboard/dashboard.component";
 
 import { FormElementPusherService } from "./shared/form-element-pusher.service";
 import { ServerConnectService } from "./shared/server-connect.service";
@@ -32,10 +33,10 @@ import { AuthenticationInterceptor } from "./shared/authentication.inteceptor";
 import { ChecklistItemTagsSyncService } from "./shared/checklist-item-tags-sync.service";
 import { DataPersistenceService } from "./shared/data-persistence.service";
 import { AuthGuard } from "./shared/auth.guard";
+import { LeaveChecklistGuard } from "./checklist/leave-checklist.guard";
 import { SubmitIfValidDirective } from "./shared/submit-if-valid.directive";
 import { DocTagService } from "./shared/doc-tag.service";
 import { AuthService } from "./shared/auth.service";
-import { DashboardComponent } from './user/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -82,6 +83,7 @@ import { DashboardComponent } from './user/dashboard/dashboard.component';
     ChecklistItemTagsSyncService,
     DataPersistenceService,
     AuthGuard,
+    LeaveChecklistGuard,
     DocTagService,
     AuthService
   ],

@@ -14,7 +14,7 @@ export interface ISyncTagsObs {
 
 @Injectable()
 export class ChecklistItemTagsSyncService {
-  private _tagsStoreObs: BehaviorSubject<ISyncTagsObs>;
+  private readonly _tagsStoreObs: BehaviorSubject<ISyncTagsObs>;
 
   constructor(private _dataPersistence: DataPersistenceService) {
     this._tagsStoreObs = new BehaviorSubject<ISyncTagsObs>({
