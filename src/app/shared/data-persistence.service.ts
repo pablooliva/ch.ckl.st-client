@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { ServerConnectService } from "./server-connect.service";
 
 // format used by ngx-chips
 export interface INgxChips {
@@ -72,6 +73,7 @@ export class DataPersistenceService {
   static isEmpty(value: any): boolean {
     return value === "" || value === null || value === undefined;
   }
+
   constructor() {}
 
   public handleLogOut(): void {
@@ -95,18 +97,22 @@ export class DataPersistenceService {
     return dataModelClone;
   }
 
-  public prepareClientData(checklistId?: string): IClstFormDataModel {
+  public async prepareClientData(
+    checklistId: string,
+    serverConnectService: ServerConnectService
+  ): Promise<IClstFormDataModel> {
+    this.checklistId = checklistId;
     this._clDataModel = checklistId
-      ? this._getDBData(checklistId)
+      ? await this._getDBData(checklistId, serverConnectService)
       : this._createDefaultModel();
 
-    return {
+    return Promise.resolve({
       public: this._clDataModel.public,
       documentTitle: this._clDataModel.documentTitle,
       documentTags: <any>this._clDataModel.documentTags,
       customCss: this._clDataModel.customCss,
       sections: this._clDataModel.sections
-    };
+    });
   }
 
   private _fromDBDocTags(arr: string[]): INgxChips[] {
@@ -149,10 +155,16 @@ export class DataPersistenceService {
     return this._clDataModel.checklistTags;
   }
 
-  private _getDBData(checklistId: string): IClstDataModel {
-    // TODO: implement
-    // this._serverConnectService.getChecklist()
-    return <any>{};
+  private async _getDBData(
+    checklistId: string,
+    serverConnectService: ServerConnectService
+  ): Promise<IClstDataModel> {
+    const path = "checklists/" + checklistId;
+    let checklist: IClstDataModel;
+    await serverConnectService
+      .getChecklists(path)
+      .then(response => (checklist = <IClstDataModel>response));
+    return Promise.resolve(checklist);
   }
 
   private _createDefaultModel(): IClstDataModel {

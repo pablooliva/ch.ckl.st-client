@@ -18,6 +18,7 @@ import {
 import { ServerConnectService } from "../../shared/server-connect.service";
 import {
   DataPersistenceService,
+  IClstFormDataModel,
   INgxChips
 } from "../../shared/data-persistence.service";
 import { genericValidationTest } from "../../shared/clst-utils";
@@ -161,22 +162,48 @@ export class ClstFormComponent implements OnInit, OnDestroy {
   }
 
   private _initForm(): void {
-    // TODO: if loading a saved checklist, set checklistID
-    const checklistId = this.cId;
-    const data = this._dataPersistence.prepareClientData(checklistId);
-    const sectionControls = data.sections.map(
-      section => new FormControl(section)
-    );
+    this._dataPersistence
+      .prepareClientData(this.cId, this._serverConnectService)
+      .then((data: IClstFormDataModel) => {
+        this.clForm = this._fb.group({
+          public: data.public,
+          documentTitle: [data.documentTitle, Validators.required],
+          documentTags: [data.documentTags],
+          customCss: data.customCss,
+          sections: this._fb.array([])
+        });
 
-    this.clForm = this._fb.group({
-      public: data.public,
-      documentTitle: [data.documentTitle, Validators.required],
-      documentTags: [data.documentTags],
-      customCss: data.customCss,
-      sections: this._fb.array(sectionControls)
-    });
+        if (data.sections.length) {
+          data.sections.forEach(section => {
+            const checklistItems = this._fb.array([]);
 
-    this._newSection(0, this.sections);
+            section["checklistItems"].forEach(cItem => {
+              const tagsEnabled = this._fb.array([]);
+
+              cItem.checklistTagsEnabled.forEach(tag => {
+                tagsEnabled.push(this._fb.group({ tag: tag.tag }));
+              });
+
+              const newGroup = this._fb.group({
+                label: [<string>cItem.label, Validators.required],
+                flexibleText: <string>cItem.flexibleText,
+                checklistTagsEnabled: tagsEnabled
+              });
+              checklistItems.push(newGroup);
+            });
+
+            const sectionGroup = this._fb.group({
+              title: <string>section["title"],
+              flexibleText: <string>section["flexibleText"],
+              checklistItems: checklistItems
+            });
+
+            this.sections.push(sectionGroup);
+          });
+        } else {
+          this._newSection(0, this.sections);
+        }
+      });
   }
 
   /***

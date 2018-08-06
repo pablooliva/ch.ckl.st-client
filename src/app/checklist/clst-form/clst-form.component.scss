@@ -6,6 +6,10 @@ tag-input {
   padding-bottom: 3em;
 }
 
+#form-spinner {
+  margin: 2em 0;
+}
+
 ::ng-deep {
   #tags .ng2-tag-input {
     min-height: 0;

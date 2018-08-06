@@ -48,6 +48,7 @@ export class ClstChecklistItemComponent implements OnInit, OnDestroy {
     this.displayTagEditComp = false;
     this.displayEditTagOptions = false;
 
+    this._syncTags.refreshTags();
     this._syncTags
       .observeTags()
       .pipe(takeUntil(this._destroy$))

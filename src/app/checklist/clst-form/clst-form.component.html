@@ -1,9 +1,9 @@
 <div class="content-container">
-  <form novalidate [formGroup]="clForm">
-    <h1>
-      <ng-container *ngIf="cId; else noCId">Edit Your </ng-container>
-      <ng-template #noCId>Create a </ng-template>
-      Checklist</h1>
+  <h1>
+    <ng-container *ngIf="cId; else noCId">Edit </ng-container>
+    <ng-template #noCId>Create </ng-template>
+    Checklist</h1>
+  <form *ngIf="clForm; else loading" novalidate [formGroup]="clForm">
     <mat-checkbox formControlName="public">Public</mat-checkbox>
     <mat-form-field class="control-group">
       <label for="title">Document title</label>
@@ -46,4 +46,11 @@
       </button>
     </div>
   </form>
+  <ng-template #loading>
+    <div id="form-spinner" class="spinner">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
+    </div>
+  </ng-template>
 </div>
