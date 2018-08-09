@@ -20,7 +20,7 @@ export interface IClstDataModel {
   active: boolean;
   public: boolean;
   documentTitle: string;
-  documentTags: string[];
+  documentTags: string[] | INgxChips[];
   checklistTags: IChecklistItemTag[];
   customCss: string;
   sections: object[];
@@ -121,8 +121,8 @@ export class DataPersistenceService {
 
   private _fromDBDocTags(arr: string[]): INgxChips[] {
     if (arr && arr.length) {
-      return arr.map(itm => {
-        return { display: itm, value: itm };
+      return arr.map((itm: any) => {
+        return { display: itm.label, value: itm._id };
       });
     } else {
       return [];
@@ -167,7 +167,10 @@ export class DataPersistenceService {
     let checklist: IClstDataModel;
     await serverConnectService
       .getChecklists(path)
-      .then(response => (checklist = <IClstDataModel>response));
+      .then((response: IClstDataModel) => {
+        response.documentTags = this._fromDBDocTags(<any>response.documentTags);
+        return (checklist = response);
+      });
     return Promise.resolve(checklist);
   }
 
