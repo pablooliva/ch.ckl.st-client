@@ -1,0 +1,19 @@
+<div class="content-container">
+  <ng-container *ngIf="clstData; else loading">
+    <h1>{{clstData.documentTitle}}</h1>
+    <div>
+      <span>Tags:</span>
+      <ul>
+        <li *ngFor="let tag of clstData.documentTags">{{tag.display}}</li>
+      </ul>
+    </div>
+    <clst-use-section *ngFor="let section of clstData.sections" [section]="section"></clst-use-section>
+  </ng-container>
+  <ng-template #loading>
+    <div id="form-spinner" class="spinner">
+      <div class="bounce1"></div>
+      <div class="bounce2"></div>
+      <div class="bounce3"></div>
+    </div>
+  </ng-template>
+</div>

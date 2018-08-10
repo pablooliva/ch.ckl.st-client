@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { FormArray, FormGroup } from "@angular/forms";
 
-import { FormElementPusherService } from "../../shared/form-element-pusher.service";
+import { FormElementPusherService } from "../../../shared/form-element-pusher.service";
 
 @Component({
   selector: "clst-section",

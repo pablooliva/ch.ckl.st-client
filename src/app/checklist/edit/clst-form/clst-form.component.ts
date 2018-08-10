@@ -14,15 +14,15 @@ import { takeUntil } from "rxjs/operators";
 import {
   FormElementPusherService,
   IPushFormElement
-} from "../../shared/form-element-pusher.service";
-import { ServerConnectService } from "../../shared/server-connect.service";
+} from "../../../shared/form-element-pusher.service";
+import { ServerConnectService } from "../../../shared/server-connect.service";
 import {
   DataPersistenceService,
   IClstFormDataModel,
   INgxChips
-} from "../../shared/data-persistence.service";
-import { genericValidationTest } from "../../shared/clst-utils";
-import { DocTagService } from "../../shared/doc-tag.service";
+} from "../../../shared/data-persistence.service";
+import { genericValidationTest } from "../../../shared/clst-utils";
+import { DocTagService } from "../../../shared/doc-tag.service";
 
 interface IParentArray {
   array: FormArray;
@@ -57,7 +57,7 @@ export class ClstFormComponent implements OnInit, OnDestroy {
     private _docTagService: DocTagService
   ) {}
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this._fEPusherService.formElement
       .pipe(takeUntil(this._destroy))
       .subscribe((newElem: IPushFormElement) => {
@@ -180,7 +180,7 @@ export class ClstFormComponent implements OnInit, OnDestroy {
             section["checklistItems"].forEach(cItem => {
               const tagsEnabled = this._fb.array([]);
 
-              cItem.checklistTagsEnabled.forEach(tag => {
+              cItem["checklistTagsEnabled"].forEach(tag => {
                 tagsEnabled.push(this._fb.group({ tag: tag.tag }));
               });
 

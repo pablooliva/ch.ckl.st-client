@@ -13,9 +13,9 @@ import { Subject } from "rxjs/internal/Subject";
 import { Observable } from "rxjs/internal/Observable";
 import { map, startWith } from "rxjs/operators";
 
-import { DataPersistenceService } from "../../shared/data-persistence.service";
-import { ChecklistItemTagsSyncService } from "../../shared/checklist-item-tags-sync.service";
-import { genericValidationTest } from "../../shared/clst-utils";
+import { DataPersistenceService } from "../../../shared/data-persistence.service";
+import { ChecklistItemTagsSyncService } from "../../../shared/checklist-item-tags-sync.service";
+import { genericValidationTest } from "../../../shared/clst-utils";
 import { UniqueLabel } from "./clst-checklist-item-tag.validator";
 import { materialIconsNames } from "./material-icons-names";
 import { ITagInfo } from "../clst-checklist-item/clst-checklist-item.component";

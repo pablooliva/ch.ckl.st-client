@@ -3,13 +3,13 @@ import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 import { Subject } from "rxjs/internal/Subject";
 import { takeUntil } from "rxjs/operators";
 
-import { FormElementPusherService } from "../../shared/form-element-pusher.service";
+import { FormElementPusherService } from "../../../shared/form-element-pusher.service";
 import {
   ChecklistItemTagsSyncService,
   ISyncTagsObs
-} from "../../shared/checklist-item-tags-sync.service";
-import { genericValidationTest } from "../../shared/clst-utils";
-import { IChecklistItemTag } from "../../shared/data-persistence.service";
+} from "../../../shared/checklist-item-tags-sync.service";
+import { genericValidationTest } from "../../../shared/clst-utils";
+import { IChecklistItemTag } from "../../../shared/data-persistence.service";
 
 export interface ITagInfo {
   tag: IChecklistItemTag;

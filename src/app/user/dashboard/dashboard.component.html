@@ -1,7 +1,8 @@
 <div class="content-container">
   <h1>Your Checklists</h1>
   <ol *ngIf="checklists.length; else noChecklists">
-    <li *ngFor="let checklist of checklists"><a [routerLink]="['/checklist', checklist.id]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{checklist.title}}</a></li>
+    <li *ngFor="let checklist of checklists"><a [routerLink]="['/checklist', checklist.id]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{checklist.title}}</a> ... [
+      <a [routerLink]="['/use', checklist.id]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">use</a> ]</li>
   </ol>
   <ng-template #noChecklists>
     <p *ngIf="qryResolved">You have not created any checklists yet.</p>

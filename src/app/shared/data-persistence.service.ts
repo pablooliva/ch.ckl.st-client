@@ -13,6 +13,23 @@ export interface IChecklistItemTag {
   icon: string;
 }
 
+export interface IChecklistTagsEnabled {
+  tag: boolean;
+}
+
+export interface IChecklistItem {
+  label: string;
+  checked: boolean;
+  flexibleText: string;
+  checklistTagsEnabled: IChecklistTagsEnabled[];
+}
+
+export interface ISection {
+  title: string;
+  flexibleText: string;
+  checklistItems: IChecklistItem[];
+}
+
 // matches checklist.model/checklistSchema
 export interface IClstDataModel {
   parentChecklist: string;
@@ -23,7 +40,7 @@ export interface IClstDataModel {
   documentTags: string[] | INgxChips[];
   checklistTags: IChecklistItemTag[];
   customCss: string;
-  sections: object[];
+  sections: ISection[];
 }
 
 export interface IClstFormDataModel {
@@ -31,7 +48,7 @@ export interface IClstFormDataModel {
   documentTitle: string;
   documentTags: INgxChips[];
   customCss: string;
-  sections: object[];
+  sections: ISection[];
 }
 
 @Injectable()
@@ -114,6 +131,7 @@ export class DataPersistenceService {
       public: this._clDataModel.public,
       documentTitle: this._clDataModel.documentTitle,
       documentTags: <any>this._clDataModel.documentTags,
+      checklistTags: this._clDataModel.checklistTags,
       customCss: this._clDataModel.customCss,
       sections: this._clDataModel.sections
     });
@@ -164,7 +182,7 @@ export class DataPersistenceService {
     serverConnectService: ServerConnectService
   ): Promise<IClstDataModel> {
     const path = "checklists/" + checklistId;
-    let checklist: IClstDataModel;
+    let checklist: IClstDataModel = <any>{};
     await serverConnectService
       .getChecklists(path)
       .then((response: IClstDataModel) => {

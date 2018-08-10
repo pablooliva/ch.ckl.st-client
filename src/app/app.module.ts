@@ -19,11 +19,11 @@ import { AppComponent } from "./app.component";
 import { HomeComponent } from "./core/home/home.component";
 import { LoginComponent } from "./user/login/login.component";
 import { RegisterComponent } from "./user/register/register.component";
-import { ClstCreateComponent } from "./checklist/clst-create/clst-create.component";
-import { ClstFormComponent } from "./checklist/clst-form/clst-form.component";
-import { ClstSectionComponent } from "./checklist/clst-section/clst-section.component";
-import { ClstChecklistItemComponent } from "./checklist/clst-checklist-item/clst-checklist-item.component";
-import { ClstChecklistItemTagEditComponent } from "./checklist/clst-checklist-item-tag-edit/clst-checklist-item-tag-edit.component";
+import { ClstCreateComponent } from "./checklist/edit/clst-create/clst-create.component";
+import { ClstFormComponent } from "./checklist/edit/clst-form/clst-form.component";
+import { ClstSectionComponent } from "./checklist/edit/clst-section/clst-section.component";
+import { ClstChecklistItemComponent } from "./checklist/edit/clst-checklist-item/clst-checklist-item.component";
+import { ClstChecklistItemTagEditComponent } from "./checklist/edit/clst-checklist-item-tag-edit/clst-checklist-item-tag-edit.component";
 import { ClstTagDisplayComponent } from "./checklist/clst-tag-display/clst-tag-display.component";
 import { DashboardComponent } from "./user/dashboard/dashboard.component";
 
@@ -37,6 +37,9 @@ import { LeaveChecklistGuard } from "./checklist/leave-checklist.guard";
 import { SubmitIfValidDirective } from "./shared/submit-if-valid.directive";
 import { DocTagService } from "./shared/doc-tag.service";
 import { AuthService } from "./shared/auth.service";
+import { ClstUseRootComponent } from "./checklist/use/clst-use-root/clst-use-root.component";
+import { ClstUseSectionComponent } from "./checklist/use/clst-use-section/clst-use-section.component";
+import { ClstUseChecklistItemComponent } from "./checklist/use/clst-use-checklist-item/clst-use-checklist-item.component";
 
 @NgModule({
   declarations: [
@@ -51,7 +54,10 @@ import { AuthService } from "./shared/auth.service";
     ClstChecklistItemTagEditComponent,
     SubmitIfValidDirective,
     ClstTagDisplayComponent,
-    DashboardComponent
+    DashboardComponent,
+    ClstUseRootComponent,
+    ClstUseSectionComponent,
+    ClstUseChecklistItemComponent
   ],
   imports: [
     BrowserModule,
