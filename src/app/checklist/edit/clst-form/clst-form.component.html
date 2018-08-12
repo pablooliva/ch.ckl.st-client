@@ -27,7 +27,11 @@
       </tag-input>
     </div>
     <div formArrayName="sections">
-      <clst-section *ngFor="let section of sections.controls; let i=index" [formGroupName]="i" [section]="section" [sectionIndex]="i" [formGroup]="clForm">
+      <clst-section *ngFor="let section of sections.controls; let i=index"
+                    [formGroupName]="i"
+                    [section]="section"
+                    [sectionIndex]="i"
+                    [form]="clForm">
       </clst-section>
     </div>
     <div [clstSubmitIfValid]="clForm" [reset]="reset()" (valid)="onSubmit()" class="clst-form-submit">

@@ -11,7 +11,7 @@ import { FormElementPusherService } from "../../../shared/form-element-pusher.se
 export class ClstSectionComponent implements OnInit {
   @Input() public section: FormGroup;
   @Input() public sectionIndex: number;
-  @Input() public formGroup: FormGroup;
+  @Input() public form: FormGroup;
 
   constructor(private _fEPusherService: FormElementPusherService) {}
 
@@ -27,8 +27,8 @@ export class ClstSectionComponent implements OnInit {
   }
 
   public removeSection(index: number): void {
-    (<FormArray>this.formGroup.controls["sections"]).removeAt(index);
-    if (!(<FormArray>this.formGroup.controls["sections"]).length) {
+    (<FormArray>this.form.controls["sections"]).removeAt(index);
+    if (!(<FormArray>this.form.controls["sections"]).length) {
       this.addSection(0);
     }
   }

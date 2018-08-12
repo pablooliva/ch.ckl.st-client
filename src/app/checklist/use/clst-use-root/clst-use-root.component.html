@@ -1,13 +1,35 @@
 <div class="content-container">
   <ng-container *ngIf="clstData; else loading">
-    <h1>{{clstData.documentTitle}}</h1>
-    <div>
-      <span>Tags:</span>
-      <ul>
-        <li *ngFor="let tag of clstData.documentTags">{{tag.display}}</li>
-      </ul>
-    </div>
-    <clst-use-section *ngFor="let section of clstData.sections" [section]="section"></clst-use-section>
+    <form novalidate [formGroup]="clForm">
+      <h1>{{clstData.documentTitle}}</h1>
+      <div>
+        <span>Tags:</span>
+        <ul>
+          <li *ngFor="let tag of clstData.documentTags">{{tag.display}}</li>
+        </ul>
+      </div>
+      <clst-use-section *ngFor="let section of clstData.sections; let i = index"
+                        [sectionForm]="getSection(i)"
+                        [sectionData]="section"></clst-use-section>
+
+      <h4>Update Your Progress</h4>
+      <div [clstSubmitIfValid]="clForm" [reset]="reset()" (valid)="onSubmit()" class="clst-form-submit">
+        <button class="pre-submit" mat-flat-button type="button">
+          Save <i class="material-icons">assignment_turned_in</i>
+        </button>
+        <button class="in-progress" mat-flat-button type="button" disabled="disabled">
+          <div id="inProgress" class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+          </div>
+        </button>
+        <button class="post-submit" mat-flat-button type="button" disabled="disabled">
+          Success <i class="material-icons">check_circle</i>
+        </button>
+      </div>
+
+    </form>
   </ng-container>
   <ng-template #loading>
     <div id="form-spinner" class="spinner">

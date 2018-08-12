@@ -1,6 +1,8 @@
-<ng-container *ngFor="let tag of item.checklistTagsEnabled; let i=index" >
-  <clst-tag-display *ngIf="tag.tag" class="tag-layout" [color]="checklistTags[i].color" [label]="checklistTags[i].label" [icon]="checklistTags[i].icon"></clst-tag-display>
-</ng-container>
-<input type="checkbox">
-<h3>{{item.label}}</h3>
-<h4>{{item.flexibleText}}</h4>
+<div [formGroup]="itemForm">
+  <ng-container *ngFor="let tag of itemData.checklistTagsEnabled; let i=index" >
+    <clst-tag-display *ngIf="tag.tag" class="tag-layout" [color]="checklistTags[i].color" [label]="checklistTags[i].label" [icon]="checklistTags[i].icon"></clst-tag-display>
+  </ng-container>
+  <input type="checkbox" [formControlName]="'checked'">
+  <h3>{{itemData.label}}</h3>
+  <h4>{{itemData.flexibleText}}</h4>
+</div>

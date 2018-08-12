@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { FormGroup } from "@angular/forms";
 
 import {
   DataPersistenceService,
@@ -12,7 +13,8 @@ import {
   styleUrls: ["./clst-use-checklist-item.component.scss"]
 })
 export class ClstUseChecklistItemComponent implements OnInit {
-  @Input() item: IChecklistItem;
+  @Input() itemForm: FormGroup;
+  @Input() itemData: IChecklistItem;
 
   public checklistTags: IChecklistItemTag[];
 

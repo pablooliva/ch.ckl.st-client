@@ -146,7 +146,7 @@
     "directive-class-suffix": true,
 
     // Codelyzer rules
-    "angular-whitespace": [true, "check-interpolation", "check-pipe", "check-semicolon"],
+    "angular-whitespace": [false, "check-interpolation", "check-pipe", "check-semicolon"],
     "banana-in-box": true,
     "templates-no-negated-async": true,
     "use-view-encapsulation": true,

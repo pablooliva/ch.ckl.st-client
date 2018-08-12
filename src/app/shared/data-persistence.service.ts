@@ -104,7 +104,20 @@ export class DataPersistenceService {
     this.resetData();
   }
 
-  public prepareDBData(formValues: IClstFormDataModel): Object {
+  public saveUse(source: IClstFormDataModel): { [key: string]: ISection[] } {
+    const dest: IClstDataModel = this._clDataModel;
+
+    dest.sections.forEach((section, sIdx) => {
+      section.checklistItems.forEach((cItem, cIIdx) => {
+        dest.sections[sIdx].checklistItems[cIIdx]["checked"] =
+          source.sections[sIdx].checklistItems[cIIdx].checked;
+      });
+    });
+
+    return { sections: dest.sections };
+  }
+
+  public prepareDBData(formValues: IClstFormDataModel): IClstDataModel {
     const formValuesClone = <IClstFormDataModel>DataPersistenceService.deepClone(
       formValues
     );
@@ -115,7 +128,7 @@ export class DataPersistenceService {
     this._clDataModel = <any>{ ...this._clDataModel, ...formValuesClone };
     const dataModelClone = DataPersistenceService.deepClone(this._clDataModel);
     this._removeEmptyProperties(dataModelClone);
-    return dataModelClone;
+    return <IClstDataModel>dataModelClone;
   }
 
   public async prepareClientData(

@@ -1,3 +1,7 @@
-<h2>{{section.title}}</h2>
-<h3>{{section.flexibleText}}</h3>
-<clst-use-checklist-item *ngFor="let item of section.checklistItems" [item]="item"></clst-use-checklist-item>
+<div [formGroup]="sectionForm">
+  <h2>{{sectionData.title}}</h2>
+  <h3>{{sectionData.flexibleText}}</h3>
+  <clst-use-checklist-item *ngFor="let item of sectionData.checklistItems; let i = index"
+                           [itemData]="item"
+                           [itemForm]="getItem(i)"></clst-use-checklist-item>
+</div>

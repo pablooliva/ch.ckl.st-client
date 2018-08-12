@@ -185,8 +185,9 @@ export class ClstFormComponent implements OnInit, OnDestroy {
               });
 
               const newGroup = this._fb.group({
-                label: [<string>cItem.label, Validators.required],
-                flexibleText: <string>cItem.flexibleText,
+                label: [cItem.label, Validators.required],
+                flexibleText: cItem.flexibleText,
+                checked: cItem.checked,
                 checklistTagsEnabled: tagsEnabled
               });
               checklistItems.push(newGroup);
