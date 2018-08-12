@@ -15,6 +15,7 @@ import {
 export class ClstUseChecklistItemComponent implements OnInit {
   @Input() itemForm: FormGroup;
   @Input() itemData: IChecklistItem;
+  @Input() itemIndex: number;
 
   public checklistTags: IChecklistItemTag[];
 

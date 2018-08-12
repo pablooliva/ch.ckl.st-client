@@ -2,17 +2,19 @@
   <ng-container *ngIf="clstData; else loading">
     <form novalidate [formGroup]="clForm">
       <h1>{{clstData.documentTitle}}</h1>
-      <div>
-        <span>Tags:</span>
-        <ul>
-          <li *ngFor="let tag of clstData.documentTags">{{tag.display}}</li>
+      <div class="doc-tags-container">
+        <div class="dt-label">Tags:</div>
+        <ul class="doc-tags">
+          <li *ngFor="let tag of clstData.documentTags">
+            <i class="material-icons">bookmark_border</i>{{tag.display}}
+          </li>
         </ul>
       </div>
       <clst-use-section *ngFor="let section of clstData.sections; let i = index"
                         [sectionForm]="getSection(i)"
-                        [sectionData]="section"></clst-use-section>
-
-      <h4>Update Your Progress</h4>
+                        [sectionData]="section">
+      </clst-use-section>
+      <h3 class="use-action">Update Your Progress</h3>
       <div [clstSubmitIfValid]="clForm" [reset]="reset()" (valid)="onSubmit()" class="clst-form-submit">
         <button class="pre-submit" mat-flat-button type="button">
           Save <i class="material-icons">assignment_turned_in</i>
@@ -28,7 +30,6 @@
           Success <i class="material-icons">check_circle</i>
         </button>
       </div>
-
     </form>
   </ng-container>
   <ng-template #loading>

@@ -3,5 +3,7 @@
   <h3>{{sectionData.flexibleText}}</h3>
   <clst-use-checklist-item *ngFor="let item of sectionData.checklistItems; let i = index"
                            [itemData]="item"
-                           [itemForm]="getItem(i)"></clst-use-checklist-item>
+                           [itemForm]="getItem(i)"
+                           [itemIndex]="i">
+  </clst-use-checklist-item>
 </div>

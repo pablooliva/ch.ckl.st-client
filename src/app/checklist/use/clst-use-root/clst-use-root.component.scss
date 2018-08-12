@@ -3,3 +3,30 @@
 #form-spinner {
   margin: 2em 0;
 }
+
+.doc-tags-container {
+  overflow: auto;
+  margin-bottom: 1rem;
+
+  .dt-label {
+    float: left;
+  }
+  .doc-tags {
+    margin: 0;
+    li {
+      display: inline;
+      padding-left: 0.7rem;
+      float: left;
+
+      i {
+        font-size: 1rem;
+        vertical-align: text-bottom;
+      }
+    }
+  }
+}
+
+.use-action {
+  border-top: 1px dotted #ccc;
+  padding-top: 1rem;
+}

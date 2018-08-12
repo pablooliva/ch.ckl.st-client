@@ -1,0 +1,26 @@
+.citem-container {
+  display: flex;
+  flex-direction: row;
+  margin: 1.5rem 1rem;
+
+  .clst-tags-display {
+    flex: 0 0 7rem;
+    display: flex;
+    flex-direction: column;
+
+    clst-tag-display {
+      margin-bottom: 0.1rem;
+    }
+  }
+  .cbox-form {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: row;
+    input[type=checkbox] {
+      margin-right: 0.8rem;
+    }
+    .label label {
+      font-size: 1rem;
+    }
+  }
+}

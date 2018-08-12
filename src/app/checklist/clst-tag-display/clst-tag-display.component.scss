@@ -22,8 +22,9 @@
     border-right: 10px solid black;
   }
   .tag-label {
+    min-width: 5rem;
+    max-width: 5rem;
     border: 1px solid #737373;
-    border-left: none;
     padding: 0 0.3em;
   }
   &:after {
@@ -31,9 +32,15 @@
     display: table;
     clear: both;
   }
-  .material-icons {
-    font-size: 1em;
-    vertical-align: middle;
-    padding-bottom: 0.2em;
+  .tag-label-icon {
+    width: 1rem;
+    .material-icons {
+      font-size: 1em;
+      vertical-align: middle;
+      padding-bottom: 0.2em;
+    }
+  }
+  .tag-label-text {
+    width: 4rem;
   }
 }
