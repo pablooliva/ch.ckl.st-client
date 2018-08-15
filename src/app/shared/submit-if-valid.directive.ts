@@ -16,9 +16,9 @@ import {
   FormGroup
 } from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
-import { Observable } from "rxjs/internal/Observable";
+import { Observable } from "rxjs";
 
-type ButtonStatus = "pre-submit" | "in-progress" | "post-submit";
+import { ButtonStatus } from "./submit-button.directive";
 
 /*
 Thanks Tomek Sułkowski for this solution:

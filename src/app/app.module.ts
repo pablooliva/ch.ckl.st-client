@@ -40,6 +40,7 @@ import { AuthService } from "./shared/auth.service";
 import { ClstUseRootComponent } from "./checklist/use/clst-use-root/clst-use-root.component";
 import { ClstUseSectionComponent } from "./checklist/use/clst-use-section/clst-use-section.component";
 import { ClstUseChecklistItemComponent } from "./checklist/use/clst-use-checklist-item/clst-use-checklist-item.component";
+import { SubmitButtonDirective } from "./shared/submit-button.directive";
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { ClstUseChecklistItemComponent } from "./checklist/use/clst-use-checklis
     DashboardComponent,
     ClstUseRootComponent,
     ClstUseSectionComponent,
-    ClstUseChecklistItemComponent
+    ClstUseChecklistItemComponent,
+    SubmitButtonDirective
   ],
   imports: [
     BrowserModule,
