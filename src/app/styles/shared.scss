@@ -78,12 +78,21 @@ mat-checkbox {
     display: none;
   }
 }
-button.mat-flat-button.clst-item-primary {
-  width: 110px;
-  height: 38px;
-  background-color: mat-color($clst-app-tertiary);
+button.mat-flat-button {
+  min-height: 38px;
+  min-width: 120px;
+  border-radius: 5px;
+
+  &.clst-item-primary {
+    background-color: mat-color($clst-app-tertiary);
+  }
+  &.clst-secondary {
+    background-color: mat-color($clst-app-tertiary)
+  }
 }
 .clst-form-submit {
+  display: inline-block;
+
   button {
     width: 110px;
     height: 38px;
@@ -103,6 +112,9 @@ button.mat-flat-button.clst-item-primary {
   &.post-submit .post-submit {
     display: inline-block;
   }
+}
+.clst-btn-grp button {
+  margin-right: 0.5rem;
 }
 .spinner {
   margin: 0 auto;

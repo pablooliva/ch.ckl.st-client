@@ -26,21 +26,24 @@ import { ClstChecklistItemComponent } from "./checklist/edit/clst-checklist-item
 import { ClstChecklistItemTagEditComponent } from "./checklist/edit/clst-checklist-item-tag-edit/clst-checklist-item-tag-edit.component";
 import { ClstTagDisplayComponent } from "./checklist/clst-tag-display/clst-tag-display.component";
 import { DashboardComponent } from "./user/dashboard/dashboard.component";
+import { ClstUseRootComponent } from "./checklist/use/clst-use-root/clst-use-root.component";
+import { ClstUseSectionComponent } from "./checklist/use/clst-use-section/clst-use-section.component";
+import { ClstUseChecklistItemComponent } from "./checklist/use/clst-use-checklist-item/clst-use-checklist-item.component";
+
+import { SubmitButtonDirective } from "./shared/submit-button.directive";
+import { SubmitIfValidDirective } from "./shared/submit-if-valid.directive";
+
+import { AuthGuard } from "./shared/auth.guard";
+import { LeaveChecklistGuard } from "./checklist/leave-checklist.guard";
+import { EnterCloneGuard } from "./checklist/enter-clone.guard";
 
 import { FormElementPusherService } from "./shared/form-element-pusher.service";
 import { ServerConnectService } from "./shared/server-connect.service";
 import { AuthenticationInterceptor } from "./shared/authentication.inteceptor";
 import { ChecklistItemTagsSyncService } from "./shared/checklist-item-tags-sync.service";
 import { DataPersistenceService } from "./shared/data-persistence.service";
-import { AuthGuard } from "./shared/auth.guard";
-import { LeaveChecklistGuard } from "./checklist/leave-checklist.guard";
-import { SubmitIfValidDirective } from "./shared/submit-if-valid.directive";
 import { DocTagService } from "./shared/doc-tag.service";
 import { AuthService } from "./shared/auth.service";
-import { ClstUseRootComponent } from "./checklist/use/clst-use-root/clst-use-root.component";
-import { ClstUseSectionComponent } from "./checklist/use/clst-use-section/clst-use-section.component";
-import { ClstUseChecklistItemComponent } from "./checklist/use/clst-use-checklist-item/clst-use-checklist-item.component";
-import { SubmitButtonDirective } from "./shared/submit-button.directive";
 
 @NgModule({
   declarations: [
@@ -92,6 +95,7 @@ import { SubmitButtonDirective } from "./shared/submit-button.directive";
     DataPersistenceService,
     AuthGuard,
     LeaveChecklistGuard,
+    EnterCloneGuard,
     DocTagService,
     AuthService
   ],

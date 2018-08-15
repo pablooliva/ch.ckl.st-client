@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { HttpHeaders } from "@angular/common/http";
 import { ToastrService } from "ngx-toastr";
 import { Observable, Subject } from "rxjs";
@@ -34,6 +34,7 @@ export class ClstUseRootComponent implements OnInit, OnDestroy {
     private _dataPersistence: DataPersistenceService,
     private _fb: FormBuilder,
     private _toastr: ToastrService,
+    private _router: Router,
     private _route: ActivatedRoute
   ) {}
 
@@ -107,5 +108,10 @@ export class ClstUseRootComponent implements OnInit, OnDestroy {
           this.buttonReset.next(true);
         }
       );
+  }
+
+  public cloneChecklist(): void {
+    this._dataPersistence.prepChecklistDataClone();
+    this._router.navigate(["/clone"]);
   }
 }

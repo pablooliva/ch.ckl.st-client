@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { ServerConnectService } from "./server-connect.service";
+import { Router } from "@angular/router";
 
 // format used by ngx-chips
 export interface INgxChips {
@@ -54,6 +55,7 @@ export interface IClstFormDataModel {
 @Injectable()
 export class DataPersistenceService {
   private _clDataModel: IClstDataModel;
+  private _clDataModelClone: IClstDataModel;
   private _user: string;
   private _token: string;
   private _checklistId: string;
@@ -91,7 +93,24 @@ export class DataPersistenceService {
     return value === "" || value === null || value === undefined;
   }
 
-  constructor() {}
+  constructor(private _router: Router) {}
+
+  public prepChecklistDataClone(): void {
+    this._clDataModelClone = <IClstDataModel>DataPersistenceService.deepClone(
+      this._clDataModel
+    );
+    this._clDataModelClone.parentChecklist = this.checklistId;
+  }
+
+  public hasChecklistDataClone(): boolean {
+    return !!this._clDataModelClone;
+  }
+
+  public applyChecklistDataClone(): void {
+    this._clDataModelClone.documentTitle = "";
+    this._clDataModel = this._clDataModelClone;
+    this._clDataModelClone = null;
+  }
 
   public resetData(): void {
     this.checklistId = null;
@@ -136,9 +155,14 @@ export class DataPersistenceService {
     serverConnectService: ServerConnectService
   ): Promise<IClstFormDataModel> {
     this.checklistId = checklistId;
-    this._clDataModel = checklistId
-      ? await this._getDBData(checklistId, serverConnectService)
-      : this._createDefaultModel();
+
+    if (this.hasChecklistDataClone() && this._router.url === "/clone") {
+      this.applyChecklistDataClone();
+    } else {
+      this._clDataModel = this.checklistId
+        ? await this._getDBData(this.checklistId, serverConnectService)
+        : this._createDefaultModel();
+    }
 
     return Promise.resolve({
       public: this._clDataModel.public,
