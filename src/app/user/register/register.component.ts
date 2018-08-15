@@ -3,9 +3,8 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { HttpHeaders } from "@angular/common/http";
 import { ToastrService } from "ngx-toastr";
+import { Observable, Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
-import { Subject } from "rxjs/internal/Subject";
-import { Observable } from "rxjs/internal/Observable";
 
 import { ServerConnectService } from "../../shared/server-connect.service";
 import { genericValidationTest } from "../../shared/clst-utils";

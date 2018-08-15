@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
-import { Subject } from "rxjs/internal/Subject";
+import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 
 import { FormElementPusherService } from "../../../shared/form-element-pusher.service";

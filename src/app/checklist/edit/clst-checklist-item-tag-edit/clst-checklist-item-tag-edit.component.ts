@@ -9,8 +9,7 @@ import {
   SimpleChanges
 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Subject } from "rxjs/internal/Subject";
-import { Observable } from "rxjs/internal/Observable";
+import { Observable, Subject } from "rxjs";
 import { map, startWith } from "rxjs/operators";
 
 import { DataPersistenceService } from "../../../shared/data-persistence.service";

@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Subject } from "rxjs/internal/Subject";
-import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
+import { Subject, BehaviorSubject } from "rxjs";
 
 import {
   DataPersistenceService,
