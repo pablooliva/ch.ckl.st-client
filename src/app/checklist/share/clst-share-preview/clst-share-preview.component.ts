@@ -33,4 +33,12 @@ export class ClstSharePreviewComponent implements OnInit {
     this._dataPersistence.prepChecklistDataClone();
     this._router.navigate(["/clone"]);
   }
+
+  public cloneAsAnonymous(): void {
+
+  }
+
+  public cloneAsRegistered(): void {
+
+  }
 }

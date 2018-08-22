@@ -10,8 +10,8 @@
           </div>
         </ng-container>
         <ng-template #notBelongs>
-          <h1 class="share-text">Clone this Checklist</h1>
-          <p class="share-text">Use this checklist by cloning it and making it ours.</p>
+          <h1 class="share-text">Use this Checklist</h1>
+          <p class="share-text">Just clone the checklist and it's yours.</p>
           <div>
             <button type="button" mat-flat-button (click)="cloneChecklist()">Clone</button>
           </div>
@@ -24,8 +24,8 @@
     <div class="flex-container share-actions">
       <h1 class="share-text">Use this Checklist</h1>
       <div>
-        <button type="button" mat-flat-button>Anonymously</button>
-        <button type="button" mat-flat-button>As Registered User</button>
+        <button type="button" mat-flat-button (click)="cloneAsAnonymous()">Anonymously</button>
+        <button type="button" mat-flat-button (click)="cloneAsRegistered()">As Registered User</button>
       </div>
     </div>
   </div>
