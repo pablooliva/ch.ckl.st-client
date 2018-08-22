@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { HttpHeaders } from "@angular/common/http";
@@ -18,6 +18,8 @@ import {
   styleUrls: ["./clst-use-root.component.scss"]
 })
 export class ClstUseRootComponent implements OnInit, OnDestroy {
+  @Input() sharePreview: boolean;
+
   public cId: string;
   public clstData: IClstFormDataModel;
   public clForm: FormGroup;
@@ -52,9 +54,13 @@ export class ClstUseRootComponent implements OnInit, OnDestroy {
           const checklistItems = this._fb.array([]);
 
           section["checklistItems"].forEach(cItem => {
+            const showChecked = this.sharePreview
+              ? false
+              : cItem.checked ? cItem.checked : false;
+
             const item = this._fb.group({
               label: cItem.label,
-              checked: cItem.checked ? cItem.checked : false
+              checked: showChecked
             });
             checklistItems.push(item);
           });

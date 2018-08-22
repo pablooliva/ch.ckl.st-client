@@ -9,7 +9,7 @@
     </ng-container>
   </div>
   <div class="cbox-form">
-    <input id="{{'cbox-' + itemIndex}}" type="checkbox" [formControlName]="'checked'">
+    <input id="{{'cbox-' + itemIndex}}" type="checkbox" [formControlName]="'checked'" [attr.disabled]="isPreview">
     <div class="label">
       <label for="{{'cbox-' + itemIndex}}">{{itemData.label}}</label>
       <div class="secondary">{{itemData.flexibleText}}</div>

@@ -14,25 +14,27 @@
                         [sectionForm]="getSection(i)"
                         [sectionData]="section">
       </clst-use-section>
-      <h3 class="use-action">Checklist Actions</h3>
-      <div class="clst-btn-grp">
-        <div clstSubmitButton [reset]="reset()" (continue)="onSubmit()" class="clst-form-submit">
-          <button class="pre-submit" mat-flat-button type="button">
-            Save <i class="material-icons">save</i>
-          </button>
-          <button class="in-progress" mat-flat-button type="button" disabled="disabled">
-            <div id="inProgress" class="spinner">
-              <div class="bounce1"></div>
-              <div class="bounce2"></div>
-              <div class="bounce3"></div>
-            </div>
-          </button>
-          <button class="post-submit" mat-flat-button type="button" disabled="disabled">
-            Success <i class="material-icons">check_circle</i>
-          </button>
+      <ng-container *ngIf="!sharePreview">
+        <h3 class="use-action">Checklist Actions</h3>
+        <div class="clst-btn-grp">
+          <div clstSubmitButton [reset]="reset()" (continue)="onSubmit()" class="clst-form-submit">
+            <button class="pre-submit" mat-flat-button type="button">
+              Save <i class="material-icons">save</i>
+            </button>
+            <button class="in-progress" mat-flat-button type="button" disabled="disabled">
+              <div id="inProgress" class="spinner">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+              </div>
+            </button>
+            <button class="post-submit" mat-flat-button type="button" disabled="disabled">
+              Success <i class="material-icons">check_circle</i>
+            </button>
+          </div>
+          <button mat-flat-button type="button" class="clst-secondary" (click)="cloneChecklist()">Clone <i class="material-icons">add_circle</i></button>
         </div>
-        <button mat-flat-button type="button" class="clst-secondary" (click)="cloneChecklist()">Clone <i class="material-icons">create_new_folder</i></button>
-      </div>
+      </ng-container>
     </form>
   </ng-container>
   <ng-template #loading>

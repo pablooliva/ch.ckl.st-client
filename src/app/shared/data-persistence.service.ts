@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { ServerConnectService } from "./server-connect.service";
 import { Router } from "@angular/router";
+import { BehaviorSubject, Observable } from "rxjs";
 
 // format used by ngx-chips
 export interface INgxChips {
@@ -60,6 +61,10 @@ export class DataPersistenceService {
   private _token: string;
   private _checklistId: string;
 
+  public belongsToOwner: BehaviorSubject<boolean> = new BehaviorSubject<
+    boolean
+  >(false);
+
   public set user(uId: string) {
     this._user = uId;
   }
@@ -115,6 +120,7 @@ export class DataPersistenceService {
   public resetData(): void {
     this.checklistId = null;
     this._clDataModel = null;
+    this.belongsToOwner.next(false);
   }
 
   public handleLogOut(): void {
@@ -163,6 +169,8 @@ export class DataPersistenceService {
         ? await this._getDBData(this.checklistId, serverConnectService)
         : this._createDefaultModel();
     }
+
+    this.belongsToOwner.next(this.user === this._clDataModel.owner);
 
     return Promise.resolve({
       public: this._clDataModel.public,

@@ -2,14 +2,15 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule, PreloadAllModules } from "@angular/router";
 
 import { AuthGuard } from "./shared/auth.guard";
+import { EnterCloneGuard } from "./checklist/enter-clone.guard";
+import { LeaveChecklistGuard } from "./checklist/leave-checklist.guard";
 import { HomeComponent } from "./core/home/home.component";
 import { RegisterComponent } from "./user/register/register.component";
 import { LoginComponent } from "./user/login/login.component";
 import { DashboardComponent } from "./user/dashboard/dashboard.component";
 import { ClstCreateComponent } from "./checklist/edit/clst-create/clst-create.component";
-import { LeaveChecklistGuard } from "./checklist/leave-checklist.guard";
 import { ClstUseRootComponent } from "./checklist/use/clst-use-root/clst-use-root.component";
-import { EnterCloneGuard } from "./checklist/enter-clone.guard";
+import { ClstSharePreviewComponent } from "./checklist/share/clst-share-preview/clst-share-preview.component";
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -44,6 +45,11 @@ const appRoutes: Routes = [
     path: "dashboard",
     canActivate: [AuthGuard],
     component: DashboardComponent
+  },
+  {
+    path: "share/:id",
+    canDeactivate: [LeaveChecklistGuard],
+    component: ClstSharePreviewComponent
   }
 ];
 

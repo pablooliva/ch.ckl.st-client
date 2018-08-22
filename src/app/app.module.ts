@@ -13,6 +13,7 @@ import { TagInputModule } from "ngx-chips";
 import { ToastrModule } from "ngx-toastr";
 import { AutosizeModule } from "ngx-autosize";
 import { ColorPickerModule } from "./color-picker-module/color-picker.module";
+import {ClipboardModule} from "ngx-clipboard";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -29,6 +30,7 @@ import { DashboardComponent } from "./user/dashboard/dashboard.component";
 import { ClstUseRootComponent } from "./checklist/use/clst-use-root/clst-use-root.component";
 import { ClstUseSectionComponent } from "./checklist/use/clst-use-section/clst-use-section.component";
 import { ClstUseChecklistItemComponent } from "./checklist/use/clst-use-checklist-item/clst-use-checklist-item.component";
+import { ClstSharePreviewComponent } from "./checklist/share/clst-share-preview/clst-share-preview.component";
 
 import { SubmitButtonDirective } from "./shared/submit-button.directive";
 import { SubmitIfValidDirective } from "./shared/submit-if-valid.directive";
@@ -62,7 +64,8 @@ import { AuthService } from "./shared/auth.service";
     ClstUseRootComponent,
     ClstUseSectionComponent,
     ClstUseChecklistItemComponent,
-    SubmitButtonDirective
+    SubmitButtonDirective,
+    ClstSharePreviewComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +84,8 @@ import { AuthService } from "./shared/auth.service";
     NgMaterialModule,
     TagInputModule,
     AutosizeModule,
-    ColorPickerModule
+    ColorPickerModule,
+    ClipboardModule
   ],
   providers: [
     FormElementPusherService,
