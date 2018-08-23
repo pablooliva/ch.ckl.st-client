@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 
 import { DataPersistenceService } from "../../../shared/data-persistence.service";
 import { AuthService } from "../../../shared/auth.service";
+import { AppStateService } from "../../../shared/app-state.service";
 
 @Component({
   selector: "clst-share-preview",
@@ -19,7 +20,8 @@ export class ClstSharePreviewComponent implements OnInit {
   constructor(
     private _dataPersistence: DataPersistenceService,
     private _authService: AuthService,
-    private _router: Router
+    private _router: Router,
+    private _appStateService: AppStateService
   ) {}
 
   public ngOnInit(): void {
@@ -30,15 +32,21 @@ export class ClstSharePreviewComponent implements OnInit {
   }
 
   public cloneChecklist(): void {
-    this._dataPersistence.prepChecklistDataClone();
+    this._prepClone();
     this._router.navigate(["/clone"]);
   }
 
   public cloneAsAnonymous(): void {
-
+    this._prepClone();
   }
 
   public cloneAsRegistered(): void {
+    this._prepClone();
+    this._appStateService.setClonePending(this._dataPersistence.checklistId);
+    this._router.navigate(["/register"]);
+  }
 
+  private _prepClone(): void {
+    this._dataPersistence.prepChecklistDataClone();
   }
 }

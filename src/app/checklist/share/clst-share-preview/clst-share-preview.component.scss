@@ -12,6 +12,14 @@
     color: white;
   }
 
+  .share-action-btns {
+    margin-bottom: 1rem;
+
+    + .share-text {
+      margin: 0.5em 0;
+    }
+  }
+
   input {
     border: none;
     padding: 0.4rem;

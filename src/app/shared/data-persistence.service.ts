@@ -107,7 +107,6 @@ export class DataPersistenceService {
       this._clDataModel
     );
     this._clDataModelClone.parentChecklist = this.checklistId;
-    this._clDataModelClone.owner = this.user;
   }
 
   public hasChecklistDataClone(): boolean {
@@ -116,6 +115,7 @@ export class DataPersistenceService {
 
   public applyChecklistDataClone(): void {
     this._clDataModelClone.documentTitle = "";
+    this._clDataModelClone.owner = this.user;
     this._clDataModel = this._clDataModelClone;
     this._clDataModelClone = null;
   }

@@ -7,6 +7,7 @@ import { Observable, Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 
 import { ServerConnectService } from "../../shared/server-connect.service";
+import { AppStateService } from "../../shared/app-state.service";
 import { genericValidationTest } from "../../shared/clst-utils";
 
 @Component({
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     private _serverConnectService: ServerConnectService,
     private _toastr: ToastrService,
     private _fb: FormBuilder,
-    private _router: Router
+    private _router: Router,
+    private _appStateService: AppStateService
   ) {}
 
   public ngOnInit(): void {
@@ -56,11 +58,20 @@ export class LoginComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy))
       .subscribe(
         val => {
-          this._toastr.success(
-            val.uiMessage + " Re-directing you to your checklists.",
-            val.type
-          );
-          setTimeout(() => this._router.navigate(["/dashboard"]), 1000);
+          if (this._appStateService.isClonePending()) {
+            this._toastr.success(
+              val.uiMessage + " Re-directing you to your new checklist.",
+              val.type
+            );
+            setTimeout(() => this._router.navigate(["/clone"]), 500);
+          } else {
+            this._toastr.success(
+              val.uiMessage + " Re-directing you to your checklists.",
+              val.type
+            );
+            setTimeout(() => this._router.navigate(["/dashboard"]), 500);
+          }
+
           this.buttonReset.next(true);
         },
         error => {
@@ -77,18 +88,4 @@ export class LoginComponent implements OnInit, OnDestroy {
   public testEmail(formField: string): boolean {
     return genericValidationTest(this.loginForm, formField, "email");
   }
-
-  /*public accessTest() {
-      const httpOptions = {
-        headers: new HttpHeaders({
-          "Content-Type": "application/json",
-          Authorization:
-            "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ0b2tlbnMiOltdLCJfaWQiOiI1YWM3OWJiM2E0NWQzZjAwOGU2NDU0YTMiLCJlbWFpbCI6ImVtYWlsQGVtYWlsLmNvbSIsInBhc3N3b3JkIjoiJDJhJDEyJEhiLnhCWURVdVA0eENQeElBZlkwNU9MT3lrMFBQc0ZxandiY2RpeDJNQWhwa25LRXhuRFAuIiwiY3JlYXRlZEF0IjoiMjAxOC0wNC0wNlQxNjowOToyMy45MTlaIiwidXBkYXRlZEF0IjoiMjAxOC0wNC0wNlQxNjowOToyMy45MTlaIiwiX192IjowfQ.dZ-rZo-H5rZsC44Rw59VnDoQZfiT7qL2S880ritCdYM"
-        })
-      };
-
-      this._http
-        .get("http://127.0.0.1:3000/test", httpOptions)
-        .subscribe(response => console.warn("TEST RESPONSE", response));
-  }*/
 }
