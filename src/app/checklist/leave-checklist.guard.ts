@@ -9,7 +9,9 @@ import { Observable } from "rxjs";
 import { DataPersistenceService } from "../shared/data-persistence.service";
 import { ClstFormComponent } from "./edit/clst-form/clst-form.component";
 
-@Injectable()
+@Injectable({
+  providedIn: "root"
+})
 export class LeaveChecklistGuard implements CanDeactivate<ClstFormComponent> {
   constructor(private _dataPersistence: DataPersistenceService) {}
 

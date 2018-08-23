@@ -7,7 +7,9 @@ import {
 import { Observable } from "rxjs";
 import { DataPersistenceService } from "../shared/data-persistence.service";
 
-@Injectable()
+@Injectable({
+  providedIn: "root"
+})
 export class EnterCloneGuard implements CanActivate {
   constructor(private _dataPersistence: DataPersistenceService) {}
 

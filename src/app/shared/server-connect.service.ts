@@ -7,7 +7,9 @@ import { StatusType, HttpReqStatus } from "./status-types";
 import { DataPersistenceService } from "./data-persistence.service";
 import { AuthService } from "./auth.service";
 
-@Injectable()
+@Injectable({
+  providedIn: "root"
+})
 export class ServerConnectService {
   private readonly _serverBaseLoc: string;
 

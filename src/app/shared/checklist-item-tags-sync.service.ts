@@ -11,7 +11,9 @@ export interface ISyncTagsObs {
   index?: number;
 }
 
-@Injectable()
+@Injectable({
+  providedIn: "root"
+})
 export class ChecklistItemTagsSyncService {
   private readonly _tagsStoreObs: BehaviorSubject<ISyncTagsObs>;
 

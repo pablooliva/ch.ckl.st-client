@@ -10,7 +10,9 @@ interface IDocTagResponse {
   noResult?: boolean;
 }
 
-@Injectable()
+@Injectable({
+  providedIn: "root"
+})
 export class DocTagService {
   constructor(
     private _serverConnectService: ServerConnectService,

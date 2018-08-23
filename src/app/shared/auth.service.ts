@@ -4,7 +4,9 @@ import { ReplaySubject } from "rxjs";
 import { DataPersistenceService } from "./data-persistence.service";
 import { Router } from "@angular/router";
 
-@Injectable()
+@Injectable({
+  providedIn: "root"
+})
 export class AuthService {
   public isLoggedIn: ReplaySubject<boolean> = new ReplaySubject<boolean>(1);
 
@@ -32,6 +34,8 @@ export class AuthService {
 
     this._dataPersistence.token = token;
     this._dataPersistence.user = user;
+
+    // TODO: examine implications of localStorage
 
     localStorage.setItem("tkn", token);
     localStorage.setItem("usr", user);

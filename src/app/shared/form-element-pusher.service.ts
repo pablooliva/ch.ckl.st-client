@@ -10,7 +10,9 @@ export interface IPushFormElement {
   index: number;
 }
 
-@Injectable()
+@Injectable({
+  providedIn: "root"
+})
 export class FormElementPusherService {
   public formElement: Subject<IPushFormElement>;
 

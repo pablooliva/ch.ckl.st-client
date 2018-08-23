@@ -53,7 +53,9 @@ export interface IClstFormDataModel {
   sections: ISection[];
 }
 
-@Injectable()
+@Injectable({
+  providedIn: "root"
+})
 export class DataPersistenceService {
   private _clDataModel: IClstDataModel;
   private _clDataModelClone: IClstDataModel;

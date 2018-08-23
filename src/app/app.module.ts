@@ -13,7 +13,7 @@ import { TagInputModule } from "ngx-chips";
 import { ToastrModule } from "ngx-toastr";
 import { AutosizeModule } from "ngx-autosize";
 import { ColorPickerModule } from "./color-picker-module/color-picker.module";
-import {ClipboardModule} from "ngx-clipboard";
+import { ClipboardModule } from "ngx-clipboard";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -35,17 +35,7 @@ import { ClstSharePreviewComponent } from "./checklist/share/clst-share-preview/
 import { SubmitButtonDirective } from "./shared/submit-button.directive";
 import { SubmitIfValidDirective } from "./shared/submit-if-valid.directive";
 
-import { AuthGuard } from "./shared/auth.guard";
-import { LeaveChecklistGuard } from "./checklist/leave-checklist.guard";
-import { EnterCloneGuard } from "./checklist/enter-clone.guard";
-
-import { FormElementPusherService } from "./shared/form-element-pusher.service";
-import { ServerConnectService } from "./shared/server-connect.service";
 import { AuthenticationInterceptor } from "./shared/authentication.inteceptor";
-import { ChecklistItemTagsSyncService } from "./shared/checklist-item-tags-sync.service";
-import { DataPersistenceService } from "./shared/data-persistence.service";
-import { DocTagService } from "./shared/doc-tag.service";
-import { AuthService } from "./shared/auth.service";
 
 @NgModule({
   declarations: [
@@ -88,20 +78,11 @@ import { AuthService } from "./shared/auth.service";
     ClipboardModule
   ],
   providers: [
-    FormElementPusherService,
-    ServerConnectService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthenticationInterceptor,
       multi: true
-    },
-    ChecklistItemTagsSyncService,
-    DataPersistenceService,
-    AuthGuard,
-    LeaveChecklistGuard,
-    EnterCloneGuard,
-    DocTagService,
-    AuthService
+    }
   ],
   bootstrap: [AppComponent]
 })

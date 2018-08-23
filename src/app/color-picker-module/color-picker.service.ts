@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core";
 import { Rgba, Hsla, Hsva } from "./classes";
 
-@Injectable()
+@Injectable({
+  providedIn: "root"
+})
 export class ColorPickerService {
   constructor() {}
 
