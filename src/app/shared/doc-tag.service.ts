@@ -20,12 +20,13 @@ export class DocTagService {
   ) {}
 
   public getId(tag: INgxChips): Promise<INgxChips> {
-    const tagPath = "tags/" + tag.display.toLowerCase();
+    const tagDisplay = tag.display.toLowerCase();
+    const tagPath = "tags/" + tagDisplay;
     return this._serverConnectService
       .queryDocTags(tagPath)
       .then((response: IDocTagResponse) => {
         if (response.noResult) {
-          return this.addDocTag(tag.display);
+          return this.addDocTag(tagDisplay);
         } else {
           return {
             display: response.label,

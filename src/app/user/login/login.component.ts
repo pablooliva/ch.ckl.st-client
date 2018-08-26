@@ -9,6 +9,7 @@ import { takeUntil } from "rxjs/operators";
 import { ServerConnectService } from "../../shared/server-connect.service";
 import { AppStateService } from "../../shared/app-state.service";
 import { genericValidationTest } from "../../shared/clst-utils";
+import { deepClone } from "../../shared/data-persistence.service";
 
 @Component({
   selector: "clst-login",
@@ -52,18 +53,28 @@ export class LoginComponent implements OnInit, OnDestroy {
         "Content-Type": "application/json"
       })
     };
+    const reqBody = deepClone(this.loginForm.value);
+    const usePending = this._appStateService.getUsePending();
+
+    if (usePending) {
+      reqBody["pendingCID"] = usePending;
+    }
 
     this._serverConnectService
-      .loginUser(loginPath, JSON.stringify(this.loginForm.value), httpOptions)
+      .loginUser(loginPath, JSON.stringify(reqBody), httpOptions)
       .pipe(takeUntil(this._destroy))
       .subscribe(
         val => {
-          if (this._appStateService.isClonePending()) {
+          if (usePending) {
+            this._appStateService.unsetUsePending();
+
             this._toastr.success(
               val.uiMessage + " Re-directing you to your new checklist.",
               val.type
             );
-            setTimeout(() => this._router.navigate(["/clone"]), 500);
+
+            const useRoute = "/use/" + val.serverResponse.newCID;
+            setTimeout(() => this._router.navigate([useRoute]), 500);
           } else {
             this._toastr.success(
               val.uiMessage + " Re-directing you to your checklists.",

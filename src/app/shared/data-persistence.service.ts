@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
-import { ServerConnectService } from "./server-connect.service";
 import { Router } from "@angular/router";
-import { BehaviorSubject, Observable } from "rxjs";
+import { BehaviorSubject } from "rxjs";
+
+import { ServerConnectService } from "./server-connect.service";
 
 // format used by ngx-chips
 export interface INgxChips {
@@ -299,3 +300,5 @@ export class DataPersistenceService {
     });
   }
 }
+
+export const deepClone = DataPersistenceService.deepClone;

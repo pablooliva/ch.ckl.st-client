@@ -1,34 +1,35 @@
 <ng-container *ngIf="isLoggedIn | async; else notUser">
-    <div class="content-container">
-      <div class="flex-container share-actions">
-        <ng-container *ngIf="belongsToUser | async; else notBelongs">
-          <h1 class="share-text">Share</h1>
-          <p class="share-text">With this link you can share your checklist.</p>
-          <input [value]="link" type="text">
-          <div>
-            <button type="button" mat-flat-button ngxClipboard [cbContent]="link" (click)="copyLabel='Copied'">{{copyLabel}}</button>
-          </div>
-        </ng-container>
-        <ng-template #notBelongs>
-          <h1 class="share-text">Use this Checklist</h1>
-          <p class="share-text">Just clone the checklist and it's yours.</p>
-          <div>
-            <button type="button" mat-flat-button (click)="cloneChecklist()">Clone</button>
-          </div>
-        </ng-template>
+  <div class="flex-container share-actions">
+    <ng-container *ngIf="belongsToUser | async; else notBelongs">
+      <h1 class="share-text">Share</h1>
+      <p class="share-text">With this link you can share your checklist.</p>
+      <input [value]="link" type="text">
+      <div>
+        <button type="button" mat-flat-button ngxClipboard [cbContent]="link" (click)="copyLabel='Copied'">{{copyLabel}}</button>
       </div>
-    </div>
-</ng-container>
-<ng-template #notUser>
-  <div class="content-container">
-    <div class="flex-container share-actions">
+    </ng-container>
+    <ng-template #notBelongs>
       <h1 class="share-text">Use this Checklist</h1>
       <div class="share-action-btns">
-        <button type="button" mat-flat-button (click)="cloneAsAnonymous()">Anonymously</button>
-        <button type="button" mat-flat-button (click)="cloneAsRegistered()">As Registered User</button>
+        <button type="button" mat-flat-button (click)="useAsIsChecklist()">Use</button>
+        <button type="button" mat-flat-button (click)="cloneChecklist()">Edit</button>
       </div>
-      <p class="share-text">Registration is not required. Anonymous Users can access their checklists by saving the individual URL of the cloned checklist. However, as an Anonymous User, if you lose your checklist URL, you lose access to that copy of the checklist.</p>
+      <p class="share-text">The checklist can be used as you currently see it now, or you can edit and customize the checklist before using it.</p>
+    </ng-template>
+  </div>
+</ng-container>
+<ng-template #notUser>
+  <div class="flex-container share-actions">
+    <h1 class="share-text">Use this Checklist</h1>
+    <div class="share-action-btns">
+      <button type="button" mat-flat-button (click)="useAsAnonymous()">Anonymously</button>
+      <button type="button" mat-flat-button (click)="useAsRegistered()">As Registered User</button>
     </div>
+    <p class="share-text">Registration is not required, however as an Anonymous User:</p>
+    <ul class="share-text">
+      <li>Customizing the checklist is not permitted.</li>
+      <li>The only way to revisit your copy of this checklist is by saving the unique checklist URL that will be generated.</li>
+    </ul>
   </div>
 </ng-template>
 <clst-use-root [sharePreview]="true"></clst-use-root>

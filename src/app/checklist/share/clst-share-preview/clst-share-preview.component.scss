@@ -16,7 +16,7 @@
     margin-bottom: 1rem;
 
     + .share-text {
-      margin: 0.5em 0;
+      margin: 0;
     }
   }
 
@@ -28,5 +28,10 @@
 
   button {
     margin-right: 0.5rem;
+  }
+
+  ul {
+    margin: 0.5em 0 0 0;
+    padding: 0 0 0 1.8em;
   }
 }

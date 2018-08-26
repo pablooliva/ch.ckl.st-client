@@ -4,19 +4,19 @@ import { Injectable } from "@angular/core";
   providedIn: "root"
 })
 export class AppStateService {
-  private _clonePending: string;
+  private _usePending: string;
 
   constructor() {}
 
-  public setClonePending(cId: string): void {
-    this._clonePending = cId;
+  public setUsePending(cId: string): void {
+    this._usePending = cId;
   }
 
-  public isClonePending(): boolean {
-    return !!this._clonePending;
+  public getUsePending(): string {
+    return this._usePending;
   }
 
-  public unsetClonePending(): void {
-    this._clonePending = null;
+  public unsetUsePending(): void {
+    this._usePending = null;
   }
 }

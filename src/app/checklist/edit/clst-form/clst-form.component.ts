@@ -7,6 +7,7 @@ import {
   Validators
 } from "@angular/forms";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { Observable, Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
@@ -40,6 +41,7 @@ export class ClstFormComponent implements OnInit, OnDestroy {
   public clForm: FormGroup;
   public buttonReset: Subject<boolean> = new Subject<boolean>();
   public validators = [this._notDuplicate.bind(this)];
+  public newClone: boolean;
 
   public get sections(): FormArray {
     return this.clForm.get("sections") as FormArray;
@@ -54,10 +56,13 @@ export class ClstFormComponent implements OnInit, OnDestroy {
     private _dataPersistence: DataPersistenceService,
     private _fb: FormBuilder,
     private _toastr: ToastrService,
-    private _docTagService: DocTagService
+    private _docTagService: DocTagService,
+    private _router: Router
   ) {}
 
   public ngOnInit(): void {
+    this.newClone = this._router.url === "/clone";
+
     this._fEPusherService.formElement
       .pipe(takeUntil(this._destroy))
       .subscribe((newElem: IPushFormElement) => {
@@ -90,8 +95,8 @@ export class ClstFormComponent implements OnInit, OnDestroy {
   private _handleTagAdd(result: INgxChips): void {
     const docTags: Object[] = this.clForm.get("documentTags").value;
     docTags.forEach((tag: INgxChips) => {
-      if (tag.display.toLowerCase() === result.display) {
-        tag.display = result.display;
+      if (tag.display.toLowerCase() === result.display.toLowerCase()) {
+        tag.display = result.display.toLowerCase();
         tag.value = result.value;
       }
     });

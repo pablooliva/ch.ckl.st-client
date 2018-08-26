@@ -138,6 +138,35 @@ export class ServerConnectService {
       );
   }
 
+  public useCopy(
+    path: string,
+    body: string,
+    httpOptions: any
+  ): Observable<HttpReqStatus> {
+    const fullUrlPath = new URL(path, this._serverBaseLoc);
+
+    return this._http
+      .post<HttpReqStatus>(fullUrlPath.toString(), body, httpOptions)
+      .pipe(
+        map((response: any) => {
+          return {
+            type: StatusType.Success,
+            uiMessage: "Checklist has been copied successfully.",
+            serverResponse: response
+          };
+        }),
+        catchError((error: any) => {
+          return observableThrowError({
+            type: StatusType.Error,
+            uiMessage: error.error.msg
+              ? error.error.msg
+              : "Something went wrong. Please try again.",
+            serverResponse: error
+          });
+        })
+      );
+  }
+
   public queryDocTags(path: string): Promise<Object> {
     const fullUrlPath = new URL(path, this._serverBaseLoc);
     return this._http.get(fullUrlPath.toString()).toPromise();

@@ -1,6 +1,6 @@
 <div class="content-container">
   <h1>
-    <ng-container *ngIf="cId; else noCId">Edit </ng-container>
+    <ng-container *ngIf="cId || newClone; else noCId">Edit </ng-container>
     <ng-template #noCId>Create </ng-template>
     Checklist</h1>
   <form *ngIf="clForm; else loading" novalidate [formGroup]="clForm">
