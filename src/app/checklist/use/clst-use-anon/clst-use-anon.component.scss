@@ -1,0 +1,32 @@
+@import "../../../styles/shared";
+
+.content-container {
+  padding-bottom: 0;
+}
+
+.share-actions {
+  padding: 1.5rem 2rem 2rem 2rem;
+  background-color: mat-color($clst-app-secondary);
+
+  .share-text {
+    color: white;
+  }
+
+  .share-action-btns {
+    margin-bottom: 1rem;
+
+    + .share-text {
+      margin: 0;
+    }
+  }
+
+  input {
+    border: none;
+    padding: 0.4rem;
+    margin-bottom: 1rem;
+  }
+
+  button {
+    margin-right: 0.5rem;
+  }
+}

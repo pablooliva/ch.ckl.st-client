@@ -168,10 +168,27 @@ export class DataPersistenceService {
 
     if (this.hasChecklistDataClone() && this._router.url === "/clone") {
       this.applyChecklistDataClone();
+    } else if (this._router.url.substring(0, 6) === "/anon/") {
+      this._clDataModel = this.checklistId
+        ? await this._getDBData(
+            "anonchecklists",
+            this.checklistId,
+            serverConnectService
+          )
+        : null;
     } else {
       this._clDataModel = this.checklistId
-        ? await this._getDBData(this.checklistId, serverConnectService)
+        ? await this._getDBData(
+            "checklists",
+            this.checklistId,
+            serverConnectService
+          )
         : this._createDefaultModel();
+    }
+
+    if (this._clDataModel === null) {
+      this.belongsToOwner.next(false);
+      return Promise.resolve(null);
     }
 
     this.belongsToOwner.next(this.user === this._clDataModel.owner);
@@ -227,17 +244,24 @@ export class DataPersistenceService {
   }
 
   private async _getDBData(
+    prePath: string,
     checklistId: string,
     serverConnectService: ServerConnectService
   ): Promise<IClstDataModel> {
-    const path = "checklists/" + checklistId;
+    const path = prePath + "/" + checklistId;
     let checklist: IClstDataModel = <any>{};
     await serverConnectService
       .getChecklists(path)
       .then((response: IClstDataModel) => {
-        response.documentTags = this._fromDBDocTags(<any>response.documentTags);
+        if (!!response) {
+          response.documentTags = this._fromDBDocTags(
+            <any>response.documentTags
+          );
+        }
         return (checklist = response);
       });
+
+    // invalid request will return checklist = null
     return Promise.resolve(checklist);
   }
 

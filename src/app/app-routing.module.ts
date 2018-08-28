@@ -11,6 +11,7 @@ import { DashboardComponent } from "./user/dashboard/dashboard.component";
 import { ClstCreateComponent } from "./checklist/edit/clst-create/clst-create.component";
 import { ClstUseRootComponent } from "./checklist/use/clst-use-root/clst-use-root.component";
 import { ClstSharePreviewComponent } from "./checklist/share/clst-share-preview/clst-share-preview.component";
+import { ClstUseAnonComponent } from "./checklist/use/clst-use-anon/clst-use-anon.component";
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -45,6 +46,11 @@ const appRoutes: Routes = [
     path: "dashboard",
     canActivate: [AuthGuard],
     component: DashboardComponent
+  },
+  {
+    path: "anon/:id",
+    canDeactivate: [LeaveChecklistGuard],
+    component: ClstUseAnonComponent
   },
   {
     path: "share/:id",

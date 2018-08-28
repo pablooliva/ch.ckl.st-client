@@ -36,6 +36,7 @@ import { SubmitButtonDirective } from "./shared/submit-button.directive";
 import { SubmitIfValidDirective } from "./shared/submit-if-valid.directive";
 
 import { AuthenticationInterceptor } from "./shared/authentication.inteceptor";
+import { ClstUseAnonComponent } from './checklist/use/clst-use-anon/clst-use-anon.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { AuthenticationInterceptor } from "./shared/authentication.inteceptor";
     ClstUseSectionComponent,
     ClstUseChecklistItemComponent,
     SubmitButtonDirective,
-    ClstSharePreviewComponent
+    ClstSharePreviewComponent,
+    ClstUseAnonComponent
   ],
   imports: [
     BrowserModule,

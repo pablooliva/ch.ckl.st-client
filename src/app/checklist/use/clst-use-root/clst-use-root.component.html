@@ -32,16 +32,22 @@
               Success <i class="material-icons">check_circle</i>
             </button>
           </div>
-          <button mat-flat-button type="button" class="clst-secondary" (click)="cloneChecklist()">Clone <i class="material-icons">add_circle</i></button>
+          <button *ngIf="!isAnon" mat-flat-button type="button" class="clst-secondary" (click)="cloneChecklist()">Clone <i class="material-icons">add_circle</i></button>
         </div>
       </ng-container>
     </form>
   </ng-container>
   <ng-template #loading>
-    <div id="form-spinner" class="spinner">
-      <div class="bounce1"></div>
-      <div class="bounce2"></div>
-      <div class="bounce3"></div>
-    </div>
+    <ng-container *ngIf="noData; else loadingSpinner">
+      <h1>Checklist Not Found</h1>
+      <p>A checklist is not associated with this URL.</p>
+    </ng-container>
+    <ng-template #loadingSpinner>
+      <div id="form-spinner" class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+      </div>
+    </ng-template>
   </ng-template>
 </div>

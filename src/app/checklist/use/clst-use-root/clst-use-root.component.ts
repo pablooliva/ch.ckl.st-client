@@ -19,9 +19,11 @@ import {
 })
 export class ClstUseRootComponent implements OnInit, OnDestroy {
   @Input() sharePreview: boolean;
+  @Input() isAnon: boolean;
 
   public cId: string;
   public clstData: IClstFormDataModel;
+  public noData: boolean;
   public clForm: FormGroup;
   public buttonReset: Subject<boolean> = new Subject<boolean>();
 
@@ -41,38 +43,43 @@ export class ClstUseRootComponent implements OnInit, OnDestroy {
   ) {}
 
   public ngOnInit(): void {
+    this.noData = false;
     this.cId = this._route.snapshot.params["id"];
 
     this._dataPersistence
       .prepareClientData(this.cId, this._serverConnectService)
       .then((data: IClstFormDataModel) => {
-        this.clForm = this._fb.group({
-          sections: this._fb.array([])
-        });
+        if (!!data) {
+          this.clForm = this._fb.group({
+            sections: this._fb.array([])
+          });
 
-        data.sections.forEach(section => {
-          const checklistItems = this._fb.array([]);
+          data.sections.forEach(section => {
+            const checklistItems = this._fb.array([]);
 
-          section["checklistItems"].forEach(cItem => {
-            const showChecked = this.sharePreview
-              ? false
-              : cItem.checked ? cItem.checked : false;
+            section["checklistItems"].forEach(cItem => {
+              const showChecked = this.sharePreview
+                ? false
+                : cItem.checked ? cItem.checked : false;
 
-            const item = this._fb.group({
-              label: cItem.label,
-              checked: showChecked
+              const item = this._fb.group({
+                label: cItem.label,
+                checked: showChecked
+              });
+              checklistItems.push(item);
             });
-            checklistItems.push(item);
+
+            const sectionGroup = this._fb.group({
+              checklistItems: checklistItems
+            });
+
+            this.sections.push(sectionGroup);
           });
 
-          const sectionGroup = this._fb.group({
-            checklistItems: checklistItems
-          });
-
-          this.sections.push(sectionGroup);
-        });
-
-        this.clstData = data;
+          this.clstData = data;
+        } else {
+          this.noData = true;
+        }
       });
   }
 
@@ -90,7 +97,7 @@ export class ClstUseRootComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit(): void {
-    const checklistPath = "use";
+    const checklistPath = this.isAnon ? "use/anon" : "use";
     const httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": "application/json"

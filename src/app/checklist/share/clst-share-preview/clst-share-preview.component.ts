@@ -85,10 +85,39 @@ export class ClstSharePreviewComponent implements OnInit, OnDestroy {
   }
 
   // non-logged in, no intent to register
-  public useAsAnonymous(): void {}
+  public useAsAnonymous(): void {
+    this._appStateService.setUsePending(this._dataPersistence.checklistId);
+
+    const useCopyPath = "use/copy";
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json"
+      })
+    };
+    const reqBody = {
+      pendingCID: this._dataPersistence.checklistId
+    };
+
+    this._serverConnectService
+      .useCopy(useCopyPath, JSON.stringify(reqBody), httpOptions)
+      .pipe(takeUntil(this._destroy))
+      .subscribe(
+        val => {
+          this._toastr.success(
+            val.uiMessage + " Re-directing you to your new checklist.",
+            val.type
+          );
+          const useRoute = "/anon/" + val.serverResponse.newCID;
+          setTimeout(() => this._router.navigate([useRoute]), 500);
+        },
+        error => {
+          this._toastr.error(error.uiMessage, error.type);
+        }
+      );
+  }
 
   // non-logged in, pre-registered users
-  public useAsRegistered(): void {
+  public useAsToBeRegistered(): void {
     this._appStateService.setUsePending(this._dataPersistence.checklistId);
     this._router.navigate(["/register"]);
   }
