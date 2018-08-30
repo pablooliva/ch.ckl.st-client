@@ -2,7 +2,7 @@
   <h1>Your Checklists</h1>
   <ol *ngIf="checklists.length; else noChecklists">
     <li *ngFor="let checklist of checklists"><a [routerLink]="['/checklist', checklist.id]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">{{checklist.title}}</a> ... [
-      <a [routerLink]="['/use', checklist.id]">use</a> | <a [routerLink]="['/share', checklist.id]">share</a> ]</li>
+      <a [routerLink]="['/use', checklist.id]">use</a> | <a [routerLink]="['/share', checklist.id]">share</a> ] <button mat-flat-button type="button" (click)="delete(checklist.id)">delete</button> </li>
   </ol>
   <ng-template #noChecklists>
     <p *ngIf="qryResolved">You have not created any checklists yet.</p>

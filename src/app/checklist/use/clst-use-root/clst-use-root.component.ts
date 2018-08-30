@@ -97,7 +97,7 @@ export class ClstUseRootComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit(): void {
-    const checklistPath = this.isAnon ? "use/anon" : "use";
+    const checklistPath = this.isAnon ? "anonchecklists" : "use";
     const httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": "application/json"

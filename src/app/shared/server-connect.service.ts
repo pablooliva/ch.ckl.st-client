@@ -138,6 +138,29 @@ export class ServerConnectService {
       );
   }
 
+  public deleteChecklist(path: string): Observable<HttpReqStatus> {
+    const fullUrlPath = new URL(path, this._serverBaseLoc);
+
+    return this._http.delete<HttpReqStatus>(fullUrlPath.toString()).pipe(
+      map((response: any) => {
+        return {
+          type: StatusType.Success,
+          uiMessage: "Checklist has been deleted successfully.",
+          serverResponse: response
+        };
+      }),
+      catchError((error: any) => {
+        return observableThrowError({
+          type: StatusType.Error,
+          uiMessage: error.error.msg
+            ? error.error.msg
+            : "Something went wrong. Please try again.",
+          serverResponse: error
+        });
+      })
+    );
+  }
+
   public useCopy(
     path: string,
     body: string,

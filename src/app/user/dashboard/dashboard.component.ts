@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 
+import { ToastrService } from "ngx-toastr";
+
 import { ServerConnectService } from "../../shared/server-connect.service";
 import { DataPersistenceService } from "../../shared/data-persistence.service";
 
@@ -15,13 +17,14 @@ interface IChecklistsByUser {
   styleUrls: ["./dashboard.component.scss"]
 })
 export class DashboardComponent implements OnInit {
-  public checklists: IChecklistsByUser[];
   public qryResolved: boolean;
+  public checklists: IChecklistsByUser[];
 
   constructor(
     private _router: Router,
     private _serverConnectService: ServerConnectService,
-    private _dataPersistence: DataPersistenceService
+    private _dataPersistence: DataPersistenceService,
+    private _toastr: ToastrService
   ) {}
 
   public ngOnInit(): void {
@@ -39,5 +42,18 @@ export class DashboardComponent implements OnInit {
 
   public create(): void {
     this._router.navigate(["/checklist"]);
+  }
+
+  public delete(cId: string): void {
+    const path = "checklists/" + cId;
+    this._serverConnectService.deleteChecklist(path).subscribe(
+      val => {
+        this.checklists = this.checklists.filter(clist => clist.id !== cId);
+        this._toastr.success(val.uiMessage, val.type);
+      },
+      error => {
+        this._toastr.error(error.uiMessage, error.type);
+      }
+    );
   }
 }
