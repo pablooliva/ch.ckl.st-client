@@ -11,7 +11,8 @@ import {
   MatInputModule,
   MatCheckboxModule,
   MatAutocompleteModule,
-  MatDialogModule
+  MatDialogModule,
+  MatCardModule
 } from "@angular/material";
 
 const ngMat = [
@@ -25,7 +26,8 @@ const ngMat = [
   MatInputModule,
   MatCheckboxModule,
   MatAutocompleteModule,
-  MatDialogModule
+  MatDialogModule,
+  MatCardModule
 ];
 
 @NgModule({

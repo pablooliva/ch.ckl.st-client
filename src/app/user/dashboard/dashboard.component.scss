@@ -1,7 +1,14 @@
 @import "../../styles/shared";
 
-button i {
-  margin-top: -3px;
+button {
+  i {
+    margin-top: -3px;
+  }
+
+  &.clst-delete {
+    @extend .as-link;
+    padding: 0;
+  }
 }
 
 .spinner {

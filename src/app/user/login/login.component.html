@@ -1,31 +1,33 @@
-<div class="content-container">
-  <form novalidate [formGroup]="loginForm">
-    <h1>Login</h1>
-    <mat-form-field class="control-group">
-      <label for="email">Email</label>
-      <input matInput placeholder="Email" type="text" id="email" formControlName="email">
-      <mat-error *ngIf="testReq('email')">* This field is required.</mat-error>
-      <mat-error *ngIf="testEmail('email')">* A valid email is required.</mat-error>
-    </mat-form-field>
-    <mat-form-field class="control-group">
-      <label for="password">Password</label>
-      <input matInput placeholder="Password" type="password" id="password" formControlName="password">
-      <mat-error *ngIf="testReq('password')">* This field is required.</mat-error>
-    </mat-form-field>
-    <div [clstSubmitIfValid]="loginForm" [reset]="reset()" (valid)="onSubmit()" class="clst-form-submit">
-      <button class="pre-submit" mat-flat-button type="button">
-        Log In <i class="material-icons">forward</i>
-      </button>
-      <button class="in-progress" mat-flat-button type="button" disabled="disabled">
-        <div id="inProgress" class="spinner">
-          <div class="bounce1"></div>
-          <div class="bounce2"></div>
-          <div class="bounce3"></div>
-        </div>
-      </button>
-      <button class="post-submit" mat-flat-button type="button" disabled="disabled">
-        Success <i class="material-icons">check_circle</i>
-      </button>
-    </div>
-  </form>
-</div>
+<mat-card>
+  <div class="content-container">
+    <form novalidate [formGroup]="loginForm">
+      <h1>Login</h1>
+      <mat-form-field class="control-group">
+        <label for="email">Email</label>
+        <input matInput placeholder="Email" type="text" id="email" formControlName="email">
+        <mat-error *ngIf="testReq('email')">* This field is required.</mat-error>
+        <mat-error *ngIf="testEmail('email')">* A valid email is required.</mat-error>
+      </mat-form-field>
+      <mat-form-field class="control-group">
+        <label for="password">Password</label>
+        <input matInput placeholder="Password" type="password" id="password" formControlName="password">
+        <mat-error *ngIf="testReq('password')">* This field is required.</mat-error>
+      </mat-form-field>
+      <div [clstSubmitIfValid]="loginForm" [reset]="reset()" (valid)="onSubmit()" class="clst-form-submit">
+        <button class="pre-submit" mat-flat-button type="button">
+          Log In <i class="material-icons">forward</i>
+        </button>
+        <button class="in-progress" mat-flat-button type="button" disabled="disabled">
+          <div id="inProgress" class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+          </div>
+        </button>
+        <button class="post-submit" mat-flat-button type="button" disabled="disabled">
+          Success <i class="material-icons">check_circle</i>
+        </button>
+      </div>
+    </form>
+  </div>
+</mat-card>

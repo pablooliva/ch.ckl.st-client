@@ -1,35 +1,39 @@
-<ng-container *ngIf="isLoggedIn | async; else notUser">
-  <div class="flex-container share-actions">
-    <ng-container *ngIf="belongsToUser | async; else notBelongs">
-      <h1 class="share-text">Share</h1>
-      <p class="share-text">With this link you can share your checklist.</p>
-      <input [value]="link" type="text">
-      <div>
-        <button type="button" mat-flat-button ngxClipboard [cbContent]="link" (click)="copyLabel='Copied'">{{copyLabel}}</button>
+<mat-card class="sub-header">
+  <div class="sub-header-container">
+    <ng-container *ngIf="isLoggedIn | async; else notUser">
+      <div class="flex-container share-actions">
+        <ng-container *ngIf="belongsToUser | async; else notBelongs">
+          <h1 class="share-text">Share</h1>
+          <p class="share-text">With this link you can share your checklist.</p>
+          <input [value]="link" type="text">
+          <div>
+            <button type="button" mat-flat-button ngxClipboard [cbContent]="link" (click)="copyLabel='Copied'">{{copyLabel}}</button>
+          </div>
+        </ng-container>
+        <ng-template #notBelongs>
+          <h1 class="share-text">Use this Checklist</h1>
+          <div class="share-action-btns">
+            <button type="button" mat-flat-button (click)="useAsIsChecklist()">Use</button>
+            <button type="button" mat-flat-button (click)="cloneChecklist()">Edit</button>
+          </div>
+          <p class="share-text">The checklist can be used as you currently see it now, or you can edit and customize the checklist before using it.</p>
+        </ng-template>
       </div>
     </ng-container>
-    <ng-template #notBelongs>
-      <h1 class="share-text">Use this Checklist</h1>
-      <div class="share-action-btns">
-        <button type="button" mat-flat-button (click)="useAsIsChecklist()">Use</button>
-        <button type="button" mat-flat-button (click)="cloneChecklist()">Edit</button>
+    <ng-template #notUser>
+      <div class="flex-container share-actions">
+        <h1 class="share-text">Use this Checklist</h1>
+        <div class="share-action-btns">
+          <button type="button" mat-flat-button (click)="useAsAnonymous()">Anonymously</button>
+          <button type="button" mat-flat-button (click)="useAsToBeRegistered()">As Registered User</button>
+        </div>
+        <p class="share-text">Registration is not required, however as an Anonymous User:</p>
+        <ul class="share-text">
+          <li>Customizing the checklist is not permitted.</li>
+          <li>The only way to revisit your copy of this checklist is by saving the unique checklist URL that will be generated.</li>
+        </ul>
       </div>
-      <p class="share-text">The checklist can be used as you currently see it now, or you can edit and customize the checklist before using it.</p>
     </ng-template>
   </div>
-</ng-container>
-<ng-template #notUser>
-  <div class="flex-container share-actions">
-    <h1 class="share-text">Use this Checklist</h1>
-    <div class="share-action-btns">
-      <button type="button" mat-flat-button (click)="useAsAnonymous()">Anonymously</button>
-      <button type="button" mat-flat-button (click)="useAsToBeRegistered()">As Registered User</button>
-    </div>
-    <p class="share-text">Registration is not required, however as an Anonymous User:</p>
-    <ul class="share-text">
-      <li>Customizing the checklist is not permitted.</li>
-      <li>The only way to revisit your copy of this checklist is by saving the unique checklist URL that will be generated.</li>
-    </ul>
-  </div>
-</ng-template>
+</mat-card>
 <clst-use-root [sharePreview]="true"></clst-use-root>

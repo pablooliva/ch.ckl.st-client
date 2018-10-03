@@ -1,60 +1,62 @@
-<div class="content-container">
-  <h1>
-    <ng-container *ngIf="cId || newClone; else noCId">Edit </ng-container>
-    <ng-template #noCId>Create </ng-template>
-    Checklist</h1>
-  <form *ngIf="clForm; else loading" novalidate [formGroup]="clForm">
-    <mat-checkbox formControlName="public">Public</mat-checkbox>
-    <mat-form-field class="control-group">
-      <label for="title">Document title</label>
-      <input matInput placeholder="Document title" type="text" id="title" formControlName="documentTitle">
-      <mat-error *ngIf="testReq('documentTitle')">* This field is required.</mat-error>
-    </mat-form-field>
-    <div class="control-group">
-      <label for="tags">Document tags</label>
-      <tag-input
-        placeholder="Document tags"
-        secondaryPlaceholder="Document tags"
-        formControlName="documentTags"
-        separatorKeyCodes="9"
-        editable="true"
-        addOnBlur="true"
-        inputClass="clst-ngxc-input"
-        (onAdd)="onTagAdd($event)"
-        [validators]="validators"
-        [animationDuration]="{enter: '0ms', leave: '0ms'}"
-        id="tags">
-      </tag-input>
-    </div>
-    <div formArrayName="sections">
-      <clst-section *ngFor="let section of sections.controls; let i=index"
-                    [formGroupName]="i"
-                    [section]="section"
-                    [sectionIndex]="i"
-                    [form]="clForm">
-      </clst-section>
-    </div>
-    <div [clstSubmitIfValid]="clForm" [reset]="reset()" (valid)="onSubmit()" class="clst-form-submit">
-      <button class="pre-submit" mat-flat-button type="button">
-        Save <i class="material-icons">assignment_turned_in</i>
-      </button>
-      <button class="in-progress" mat-flat-button type="button" disabled="disabled">
-        <div id="inProgress" class="spinner">
-          <div class="bounce1"></div>
-          <div class="bounce2"></div>
-          <div class="bounce3"></div>
-        </div>
-      </button>
-      <button class="post-submit" mat-flat-button type="button" disabled="disabled">
-        Success <i class="material-icons">check_circle</i>
-      </button>
-    </div>
-  </form>
-  <ng-template #loading>
-    <div id="form-spinner" class="spinner">
-      <div class="bounce1"></div>
-      <div class="bounce2"></div>
-      <div class="bounce3"></div>
-    </div>
-  </ng-template>
-</div>
+<mat-card>
+  <div class="content-container">
+    <h1>
+      <ng-container *ngIf="cId || newClone; else noCId">Edit </ng-container>
+      <ng-template #noCId>Create </ng-template>
+      Checklist</h1>
+    <form *ngIf="clForm; else loading" novalidate [formGroup]="clForm">
+      <mat-checkbox formControlName="public">Public</mat-checkbox>
+      <mat-form-field class="control-group">
+        <label for="title">Document title</label>
+        <input matInput placeholder="Document title" type="text" id="title" formControlName="documentTitle">
+        <mat-error *ngIf="testReq('documentTitle')">* This field is required.</mat-error>
+      </mat-form-field>
+      <div class="control-group">
+        <label for="tags">Document tags</label>
+        <tag-input
+          placeholder="Document tags"
+          secondaryPlaceholder="Document tags"
+          formControlName="documentTags"
+          separatorKeyCodes="9"
+          editable="true"
+          addOnBlur="true"
+          inputClass="clst-ngxc-input"
+          (onAdd)="onTagAdd($event)"
+          [validators]="validators"
+          [animationDuration]="{enter: '0ms', leave: '0ms'}"
+          id="tags">
+        </tag-input>
+      </div>
+      <div formArrayName="sections">
+        <clst-section *ngFor="let section of sections.controls; let i=index"
+                      [formGroupName]="i"
+                      [section]="section"
+                      [sectionIndex]="i"
+                      [form]="clForm">
+        </clst-section>
+      </div>
+      <div [clstSubmitIfValid]="clForm" [reset]="reset()" (valid)="onSubmit()" class="clst-form-submit">
+        <button class="pre-submit" mat-flat-button type="button">
+          Save <i class="material-icons">assignment_turned_in</i>
+        </button>
+        <button class="in-progress" mat-flat-button type="button" disabled="disabled">
+          <div id="inProgress" class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+          </div>
+        </button>
+        <button class="post-submit" mat-flat-button type="button" disabled="disabled">
+          Success <i class="material-icons">check_circle</i>
+        </button>
+      </div>
+    </form>
+    <ng-template #loading>
+      <div id="form-spinner" class="spinner">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+      </div>
+    </ng-template>
+  </div>
+</mat-card>

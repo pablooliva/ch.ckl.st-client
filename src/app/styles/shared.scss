@@ -10,10 +10,25 @@ mat-checkbox {
   margin-bottom: 0.5rem;
   display: block;
 }
+.mat-card {
+  background: transparent;
+  -webkit-box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  box-shadow: none !important;
+
+  &.sub-header {
+    padding-bottom: 0;
+  }
+}
 
 /* Layout */
 .content-container {
   padding: $doc-section-pad;
+  background-color: #fff;
+  border-radius: 0.3em;
+}
+.sub-header-container :first-child {
+  border-radius: 0.3em;
 }
 .flex-repeated {
   display: flex;
