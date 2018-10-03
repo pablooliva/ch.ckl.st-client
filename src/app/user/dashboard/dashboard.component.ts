@@ -1,10 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { MatDialog } from "@angular/material";
 
 import { ToastrService } from "ngx-toastr";
 
 import { ServerConnectService } from "../../shared/server-connect.service";
 import { DataPersistenceService } from "../../shared/data-persistence.service";
+import { DeleteConfirmationComponent } from "../delete-confirmation/delete-confirmation.component";
 
 interface IChecklistsByUser {
   id: string;
@@ -24,7 +26,8 @@ export class DashboardComponent implements OnInit {
     private _router: Router,
     private _serverConnectService: ServerConnectService,
     private _dataPersistence: DataPersistenceService,
-    private _toastr: ToastrService
+    private _toastr: ToastrService,
+    public dialog: MatDialog
   ) {}
 
   public ngOnInit(): void {
@@ -42,6 +45,19 @@ export class DashboardComponent implements OnInit {
 
   public create(): void {
     this._router.navigate(["/checklist"]);
+  }
+
+  public openDialog(cId: string): void {
+    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+      height: "200px",
+      width: "250px"
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.delete(cId);
+      }
+    });
   }
 
   public delete(cId: string): void {

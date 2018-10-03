@@ -27,16 +27,16 @@ import { ClstChecklistItemComponent } from "./checklist/edit/clst-checklist-item
 import { ClstChecklistItemTagEditComponent } from "./checklist/edit/clst-checklist-item-tag-edit/clst-checklist-item-tag-edit.component";
 import { ClstTagDisplayComponent } from "./checklist/clst-tag-display/clst-tag-display.component";
 import { DashboardComponent } from "./user/dashboard/dashboard.component";
+import { DeleteConfirmationComponent } from "./user/delete-confirmation/delete-confirmation.component";
 import { ClstUseRootComponent } from "./checklist/use/clst-use-root/clst-use-root.component";
 import { ClstUseSectionComponent } from "./checklist/use/clst-use-section/clst-use-section.component";
 import { ClstUseChecklistItemComponent } from "./checklist/use/clst-use-checklist-item/clst-use-checklist-item.component";
 import { ClstSharePreviewComponent } from "./checklist/share/clst-share-preview/clst-share-preview.component";
+import { ClstUseAnonComponent } from "./checklist/use/clst-use-anon/clst-use-anon.component";
 
 import { SubmitButtonDirective } from "./shared/submit-button.directive";
 import { SubmitIfValidDirective } from "./shared/submit-if-valid.directive";
-
 import { AuthenticationInterceptor } from "./shared/authentication.inteceptor";
-import { ClstUseAnonComponent } from './checklist/use/clst-use-anon/clst-use-anon.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +57,8 @@ import { ClstUseAnonComponent } from './checklist/use/clst-use-anon/clst-use-ano
     ClstUseChecklistItemComponent,
     SubmitButtonDirective,
     ClstSharePreviewComponent,
-    ClstUseAnonComponent
+    ClstUseAnonComponent,
+    DeleteConfirmationComponent
   ],
   imports: [
     BrowserModule,
@@ -79,6 +80,7 @@ import { ClstUseAnonComponent } from './checklist/use/clst-use-anon/clst-use-ano
     ColorPickerModule,
     ClipboardModule
   ],
+  entryComponents: [DeleteConfirmationComponent],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
