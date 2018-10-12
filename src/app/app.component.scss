@@ -8,8 +8,8 @@
 
   img {
     width: 1.1rem;
-    margin-right: 0.1em;
     margin-bottom: -0.15em;
+    margin-left: 0.7rem;
   }
 }
 .nav-bar-spacer {
@@ -17,4 +17,47 @@
 }
 mat-sidenav-content {
   background: #eaeaea;
+}
+footer {
+  padding: 1.5rem;
+  font: 400 0.85em Roboto, "Helvetica Neue", sans-serif;
+
+  h1 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    font-weight: normal;
+  }
+
+  a {
+    color: #e1e7ec;
+    text-decoration: none;
+  }
+
+  .ch-ckl-st {
+    font-size: 1.1rem;
+    border-top: 1px dashed #fff;
+    padding-top: 2rem;
+    margin-top: 2rem;
+    position: relative;
+
+    img {
+      position: absolute;
+      bottom: 0.1rem;
+    }
+
+    p {
+      margin: 0;
+      margin-left: 1.3rem;
+    }
+  }
+
+  .copyright {
+    font-size: 0.8rem;
+  }
+
+  .material-icons {
+    font-size: 0.9rem;
+    vertical-align: middle;
+    margin-right: 0.2rem;
+  }
 }

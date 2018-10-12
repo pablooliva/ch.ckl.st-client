@@ -6,16 +6,116 @@
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 
+// http://mcg.mbitson.com/#!?clstgreen=%2338761d&clstblue=%23073763&clstgray=%239c9c9c&themename=chcklst
+$mat-clst-green: (
+        50 : #e7efe4,
+        100 : #c3d6bb,
+        200 : #9cbb8e,
+        300 : #749f61,
+        400 : #568b3f,
+        500 : #38761d,
+        600 : #326e1a,
+        700 : #2b6315,
+        800 : #245911,
+        900 : #17460a,
+        A100 : #94ff7d,
+        A200 : #6aff4a,
+        A400 : #40ff17,
+        A700 : #2dfc00,
+        contrast: (
+                50 : #000000,
+                100 : #000000,
+                200 : #000000,
+                300 : #000000,
+                400 : #ffffff,
+                500 : #ffffff,
+                600 : #ffffff,
+                700 : #ffffff,
+                800 : #ffffff,
+                900 : #ffffff,
+                A100 : #000000,
+                A200 : #000000,
+                A400 : #000000,
+                A700 : #000000,
+        )
+);
+
+$mat-clst-blue: (
+        50 : #e1e7ec,
+        100 : #b5c3d0,
+        200 : #839bb1,
+        300 : #517392,
+        400 : #2c557a,
+        500 : #073763,
+        600 : #06315b,
+        700 : #052a51,
+        800 : #042347,
+        900 : #021635,
+        A100 : #6d97ff,
+        A200 : #3a73ff,
+        A400 : #074fff,
+        A700 : #0044ec,
+        contrast: (
+                50 : #000000,
+                100 : #000000,
+                200 : #000000,
+                300 : #ffffff,
+                400 : #ffffff,
+                500 : #ffffff,
+                600 : #ffffff,
+                700 : #ffffff,
+                800 : #ffffff,
+                900 : #ffffff,
+                A100 : #000000,
+                A200 : #ffffff,
+                A400 : #ffffff,
+                A700 : #ffffff,
+        )
+);
+
+$mat-clst-gray: (
+        50 : #f3f3f3,
+        100 : #e1e1e1,
+        200 : #cecece,
+        300 : #bababa,
+        400 : #ababab,
+        500 : #9c9c9c,
+        600 : #949494,
+        700 : #8a8a8a,
+        800 : #808080,
+        900 : #6e6e6e,
+        A100 : #fdf0f0,
+        A200 : #f8c2c2,
+        A400 : #ff8888,
+        A700 : #ff6e6e,
+        contrast: (
+                50 : #000000,
+                100 : #000000,
+                200 : #000000,
+                300 : #000000,
+                400 : #000000,
+                500 : #000000,
+                600 : #000000,
+                700 : #000000,
+                800 : #000000,
+                900 : #ffffff,
+                A100 : #000000,
+                A200 : #000000,
+                A400 : #000000,
+                A700 : #000000,
+        )
+);
+
+
+
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$clst-app-primary: mat-palette($mat-deep-purple);
-$clst-app-secondary: mat-palette($mat-indigo);
-$clst-app-tertiary: mat-palette($mat-gray);
-$clst-app-accent:  mat-palette($mat-light-blue, A200, A100, A400);
-
-// The warn palette is optional (defaults to red).
-$clst-app-warn:    mat-palette($mat-red);
+$clst-app-primary: mat-palette($mat-clst-green);
+$clst-app-secondary: mat-palette($mat-clst-blue);
+$clst-app-tertiary: mat-palette($mat-clst-gray);
+$clst-app-accent:  mat-palette($mat-clst-blue, A200, A100, A400);
+$clst-app-warn: mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $clst-app-theme: mat-light-theme($clst-app-primary, $clst-app-accent, $clst-app-warn);
