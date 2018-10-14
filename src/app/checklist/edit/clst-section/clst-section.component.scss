@@ -1,21 +1,14 @@
 @import "../../../styles/shared";
 
 .section-highlight {
-  background-color: mat-color($clst-app-primary);
-  margin-bottom: 1.2rem;
   @extend .flex-repeated;
-
-  .elem-highlight {
-    border: 1px dotted #ccc;
-  }
 }
 
-.clist-item {
-  clst-checklist-item:first-child {
-    ::ng-deep {
-      .item-highlight {
-        padding-top: 0.2rem;
-      }
-    }
-  }
+mat-card {
+  padding-top: 0;
+}
+
+clst-checklist-item:not(:last-child) {
+  display: block;
+  margin-bottom: 0.1rem;
 }

@@ -1,19 +1,16 @@
 <div [formGroup]="checklistItem" class="item-highlight rep-level">
-  <div class="heading-checkmark">
-    <i class="material-icons">check_box</i>
-  </div>
   <div class="elem-highlight" [class.lose-focus]="displayTagEditComp">
     <mat-form-field class="control-group">
-      <label for="label">Label</label>
-      <input matInput placeholder="Label" type="text" id="label" formControlName="label">
+      <label for="label">Item label</label>
+      <input matInput placeholder="Item label" type="text" id="label" formControlName="label">
       <mat-error *ngIf="testReq('label')">* This field is required.</mat-error>
     </mat-form-field>
     <mat-form-field class="control-group">
-      <label for="flexibleText">Supporting or additional text</label>
-      <input matInput placeholder="Supporting or additional text" type="text" id="flexibleText" formControlName="flexibleText">
+      <label for="flexibleText">Item description</label>
+      <input matInput placeholder="Item description" type="text" id="flexibleText" formControlName="flexibleText">
     </mat-form-field>
-    <label>Tags</label>
-    <div formArrayName="checklistTagsEnabled" class="clst-tags-display">
+    <label class="clst-label-heading">Item Tags</label>
+    <div formArrayName="checklistTagsEnabled" class="clst-tags-display" *ngIf="checklistTagsEnabled.controls.length">
       <div class="clst-tag" *ngFor="let checklistTagEnabled of checklistTagsEnabled.controls; let i=index" [formGroupName]="i">
         <input type="checkbox" formControlName="tag" [id]="i">
         <label [for]="i">
@@ -26,7 +23,9 @@
       </div>
       <div class="clst-tag-edit" *ngIf="checklistTagsEnabled.controls.length"><button (click)="editTags()" class="as-link">[ Edit tags ]</button></div>
     </div>
-    <button mat-flat-button class="clst-item-primary" type="button" *ngIf="!displayTagEditComp" (click)="displayTagEditComp = true">Create tag</button>
+    <div class="clst-btn-grp" *ngIf="!displayTagEditComp">
+      <button mat-flat-button class="clst-item-accent" type="button"  (click)="displayTagEditComp = true">Create tag</button>
+    </div>
     <clst-checklist-item-tag-edit *ngIf="displayTagEditComp" [checklistItem]="checklistItem" [tagProps]="pushTagInfo" (tagAdded)="clearTagEdit()">
     </clst-checklist-item-tag-edit>
   </div>

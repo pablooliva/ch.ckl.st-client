@@ -15,9 +15,15 @@ mat-checkbox {
   -webkit-box-shadow: none !important;
   -moz-box-shadow: none !important;
   box-shadow: none !important;
-
+  &:not(:first-child) {
+    padding-top: 0;
+  }
   &.sub-header {
     padding-bottom: 0;
+    h1 {
+      padding-left: 0;
+      border-left: none;
+    }
   }
 }
 
@@ -33,7 +39,7 @@ mat-checkbox {
 .flex-repeated {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
 }
 .flex-container {
   display: flex;
@@ -43,22 +49,24 @@ mat-checkbox {
   @extend .flex-container;
   flex-grow: 1;
   margin: 0;
-  padding: $doc-section-pad;
   background-color: white;
 }
 .rep-level {
   padding: 0;
 }
 .heading-actions {
-  margin: 0 0.1rem;
+  margin: 2rem 0 0 0;
+  padding: 1rem 0;
+  background: mat-color($clst-app-accent);
+  border-bottom-right-radius: 0.3rem;
+  border-top-right-radius: 0.3rem;
   button {
     vertical-align: middle;
     margin: 0 0 1.25em 0;
-    padding: 0 0.2em;
     clear: right;
     display: block;
     color: #fff;
-    opacity: 0.3;
+    opacity: 0.4;
     &:last-child {
       margin-bottom: 0;
     }
@@ -78,6 +86,14 @@ mat-checkbox {
 }
 
 /* Design */
+h1 {
+  color: #38761d;
+  border-left: 5px solid #38761d;
+  padding-left: 1.2rem;
+}
+h2 {
+  font-weight: normal;
+}
 .as-link {
   border: none;
   background: transparent;
@@ -100,6 +116,9 @@ button.mat-flat-button {
 
   &.clst-item-primary {
     background-color: mat-color($clst-app-tertiary);
+  }
+  &.clst-item-accent {
+    background-color: mat-color($clst-app-accent);
   }
   &.clst-secondary {
     background-color: mat-color($clst-app-tertiary)
@@ -128,8 +147,11 @@ button.mat-flat-button {
     display: inline-block;
   }
 }
-.clst-btn-grp button {
-  margin-right: 0.5rem;
+.clst-btn-grp {
+  display: inline-block;
+  button {
+    margin-right: 0.5rem;
+  }
 }
 .spinner {
   margin: 0 auto;

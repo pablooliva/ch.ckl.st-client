@@ -1,11 +1,12 @@
-<mat-card>
-  <div class="content-container">
-    <h1>
-      <ng-container *ngIf="cId || newClone; else noCId">Edit </ng-container>
-      <ng-template #noCId>Create </ng-template>
-      Checklist</h1>
-    <form *ngIf="clForm; else loading" novalidate [formGroup]="clForm">
-      <mat-checkbox formControlName="public">Public</mat-checkbox>
+<form *ngIf="clForm; else loading" novalidate [formGroup]="clForm">
+  <mat-card>
+    <div class="content-container">
+      <h1>
+        <ng-container *ngIf="cId || newClone; else noCId">Edit </ng-container>
+        <ng-template #noCId>Create </ng-template>
+        Checklist
+      </h1>
+      <h2>Document Settings</h2>
       <mat-form-field class="control-group">
         <label for="title">Document title</label>
         <input matInput placeholder="Document title" type="text" id="title" formControlName="documentTitle">
@@ -27,14 +28,20 @@
           id="tags">
         </tag-input>
       </div>
-      <div formArrayName="sections">
-        <clst-section *ngFor="let section of sections.controls; let i=index"
-                      [formGroupName]="i"
-                      [section]="section"
-                      [sectionIndex]="i"
-                      [form]="clForm">
-        </clst-section>
-      </div>
+      <mat-checkbox formControlName="public">Public</mat-checkbox>
+    </div>
+  </mat-card>
+  <div formArrayName="sections" class="mat-card-not-first-child-reset">
+    <clst-section *ngFor="let section of sections.controls; let i=index"
+                  [formGroupName]="i"
+                  [section]="section"
+                  [sectionIndex]="i"
+                  [form]="clForm">
+    </clst-section>
+  </div>
+  <mat-card>
+    <div class="content-container">
+      <h2>Save Your Checklist</h2>
       <div [clstSubmitIfValid]="clForm" [reset]="reset()" (valid)="onSubmit()" class="clst-form-submit">
         <button class="pre-submit" mat-flat-button type="button">
           Save <i class="material-icons">assignment_turned_in</i>
@@ -50,13 +57,22 @@
           Success <i class="material-icons">check_circle</i>
         </button>
       </div>
-    </form>
-    <ng-template #loading>
+    </div>
+  </mat-card>
+</form>
+<ng-template #loading>
+  <mat-card >
+    <div class="content-container">
+      <h1>
+        <ng-container *ngIf="cId || newClone; else noCId">Edit </ng-container>
+        <ng-template #noCId>Create </ng-template>
+        Checklist
+      </h1>
       <div id="form-spinner" class="spinner">
         <div class="bounce1"></div>
         <div class="bounce2"></div>
         <div class="bounce3"></div>
       </div>
-    </ng-template>
-  </div>
-</mat-card>
+    </div>
+  </mat-card>
+</ng-template>

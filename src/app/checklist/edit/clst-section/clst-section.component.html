@@ -1,17 +1,20 @@
-<div [formGroup]="section" class="section-highlight rep-level">
-    <div class="elem-highlight">
-        <mat-form-field class="control-group">
-            <label for="title">Section Heading</label>
-            <input matInput placeholder="Section heading" type="text" id="title" formControlName="title">
-        </mat-form-field>
-        <mat-form-field class="control-group">
-            <label for="flexibleText">Description or Introduction</label>
-            <input matInput placeholder="Description or introduction" type="text" id="flexibleText" formControlName="flexibleText">
-        </mat-form-field>
-        <h3>Checklist Items</h3>
-        <div formArrayName="checklistItems" class="clist-item">
-            <clst-checklist-item *ngFor="let checklistItem of section.controls.checklistItems.controls; let i=index" [formGroupName]="i" [checklistItem]="checklistItem" [checklistItemIndex]="i" [section]="section">
-            </clst-checklist-item>
+<mat-card class="section-highlight">
+    <div class="content-container elem-highlight">
+        <h2>Section</h2>
+        <div [formGroup]="section" class="rep-level">
+            <mat-form-field class="control-group">
+                <label for="title">Section heading or title</label>
+                <input matInput placeholder="Section heading or title" type="text" id="title" formControlName="title">
+            </mat-form-field>
+            <mat-form-field class="control-group">
+                <label for="flexibleText">Section description</label>
+                <input matInput placeholder="Section description" type="text" id="flexibleText" formControlName="flexibleText">
+            </mat-form-field>
+            <h3>Checklist Items</h3>
+            <div formArrayName="checklistItems" class="clist-item">
+                <clst-checklist-item *ngFor="let checklistItem of section.controls.checklistItems.controls; let i=index" [formGroupName]="i" [checklistItem]="checklistItem" [checklistItemIndex]="i" [section]="section">
+                </clst-checklist-item>
+            </div>
         </div>
     </div>
     <div class="heading-actions">
@@ -27,4 +30,4 @@
             <i class="material-icons arrow">arrow_drop_down</i>
         </button>
     </div>
-</div>
+</mat-card>
