@@ -1,10 +1,10 @@
 <div class="tag-example">
-  <div class="arrow-left-brdr"></div>
-  <div class="arrow-left" [style.borderRight]="getBorderRight(colorPicked)"></div>
   <div class="tag-label" [style.backgroundColor]="colorPicked">
     <div class="tag-label-icon">
       <i class="material-icons">{{iconPicked}}</i>
     </div>
     <div class="tag-label-text">{{labelPicked}}</div>
   </div>
+  <div class="arrow-right-brdr"></div>
+  <div class="arrow-right" [style.borderLeft]="getBorderLeft(colorPicked)"></div>
 </div>

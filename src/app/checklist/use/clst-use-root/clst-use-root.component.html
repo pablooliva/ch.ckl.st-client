@@ -1,44 +1,51 @@
-<mat-card>
-  <div class="content-container">
-    <ng-container *ngIf="clstData; else loading">
-      <form novalidate [formGroup]="clForm">
-        <h1>{{clstData.documentTitle}}</h1>
-        <div class="doc-tags-container">
-          <div class="dt-label">Tags:</div>
-          <ul class="doc-tags">
-            <li *ngFor="let tag of clstData.documentTags">
-              <i class="material-icons">bookmark_border</i>{{tag.display}}
-            </li>
-          </ul>
-        </div>
-        <clst-use-section *ngFor="let section of clstData.sections; let i = index"
-                          [sectionForm]="getSection(i)"
-                          [sectionData]="section">
-        </clst-use-section>
-        <ng-container *ngIf="!sharePreview">
-          <h3 class="use-action">Checklist Actions</h3>
-          <div class="clst-btn-grp">
-            <div clstSubmitButton [reset]="reset()" (continue)="onSubmit()" class="clst-form-submit">
-              <button class="pre-submit" mat-flat-button type="button">
-                Save <i class="material-icons">save</i>
-              </button>
-              <button class="in-progress" mat-flat-button type="button" disabled="disabled">
-                <div id="inProgress" class="spinner">
-                  <div class="bounce1"></div>
-                  <div class="bounce2"></div>
-                  <div class="bounce3"></div>
-                </div>
-              </button>
-              <button class="post-submit" mat-flat-button type="button" disabled="disabled">
-                Success <i class="material-icons">check_circle</i>
-              </button>
-            </div>
-            <button *ngIf="!isAnon" mat-flat-button type="button" class="clst-secondary" (click)="cloneChecklist()">Clone <i class="material-icons">add_circle</i></button>
+<form novalidate *ngIf="clstData; else loading" [formGroup]="clForm">
+  <mat-card>
+    <div class="content-container">
+      <h1>{{clstData.documentTitle}}</h1>
+      <div class="doc-tags-container">
+        <div class="dt-label">Tags:</div>
+        <ul class="doc-tags">
+          <li *ngFor="let tag of clstData.documentTags">
+            <i class="material-icons">bookmark_border</i>{{tag.display}}
+          </li>
+        </ul>
+      </div>
+      <clst-use-section *ngFor="let section of clstData.sections; let i = index"
+                        [sectionForm]="getSection(i)"
+                        [sectionData]="section"
+                        [sectionIndex]="i">
+      </clst-use-section>
+    </div>
+  </mat-card>
+  <mat-card>
+    <div class="content-container">
+      <ng-container *ngIf="!sharePreview">
+        <h3>Checklist Actions</h3>
+        <div class="clst-btn-grp">
+          <div clstSubmitButton [reset]="reset()" (continue)="onSubmit()" class="clst-form-submit">
+            <button class="pre-submit" mat-flat-button type="button">
+              Save <i class="material-icons">save</i>
+            </button>
+            <button class="in-progress" mat-flat-button type="button" disabled="disabled">
+              <div id="inProgress" class="spinner">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+              </div>
+            </button>
+            <button class="post-submit" mat-flat-button type="button" disabled="disabled">
+              Success <i class="material-icons">check_circle</i>
+            </button>
           </div>
-        </ng-container>
-      </form>
-    </ng-container>
-    <ng-template #loading>
+          <button *ngIf="!isAnon" mat-flat-button type="button" class="clst-secondary" (click)="cloneChecklist()">Clone <i class="material-icons">add_circle</i></button>
+        </div>
+      </ng-container>
+    </div>
+  </mat-card>
+</form>
+<ng-template #loading>
+  <mat-card >
+    <div class="content-container">
       <ng-container *ngIf="noData; else loadingSpinner">
         <h1>Checklist Not Found</h1>
         <p>A checklist is not associated with this URL.</p>
@@ -50,6 +57,6 @@
           <div class="bounce3"></div>
         </div>
       </ng-template>
-    </ng-template>
-  </div>
-</mat-card>
+    </div>
+  </mat-card>
+</ng-template>

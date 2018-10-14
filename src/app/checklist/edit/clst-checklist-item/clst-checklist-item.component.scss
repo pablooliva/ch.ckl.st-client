@@ -25,6 +25,9 @@
     input, clst-tag-display {
       align-self: center;
     }
+    :hover {
+      cursor: pointer;
+    }
   }
   .clst-tag-edit {
     float: right;

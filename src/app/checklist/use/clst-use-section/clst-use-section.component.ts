@@ -11,6 +11,7 @@ import { ISection } from "../../../shared/data-persistence.service";
 export class ClstUseSectionComponent implements OnInit {
   @Input() sectionForm: FormGroup;
   @Input() sectionData: ISection;
+  @Input() sectionIndex: number;
 
   public get items(): FormArray {
     return this.sectionForm.get("checklistItems") as FormArray;

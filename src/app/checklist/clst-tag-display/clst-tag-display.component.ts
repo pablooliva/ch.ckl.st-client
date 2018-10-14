@@ -24,7 +24,7 @@ export class ClstTagDisplayComponent implements OnInit, OnChanges {
     this.iconPicked = this.icon;
   }
 
-  public getBorderRight(color: string): string {
+  public getBorderLeft(color: string): string {
     return "9px solid " + color;
   }
 }

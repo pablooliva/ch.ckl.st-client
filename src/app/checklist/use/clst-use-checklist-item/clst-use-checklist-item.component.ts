@@ -17,6 +17,7 @@ export class ClstUseChecklistItemComponent implements OnInit {
   @Input() itemForm: FormGroup;
   @Input() itemData: IChecklistItem;
   @Input() itemIndex: number;
+  @Input() sectionIndex: number;
 
   public checklistTags: IChecklistItemTag[];
   public isPreview: boolean;
@@ -29,5 +30,15 @@ export class ClstUseChecklistItemComponent implements OnInit {
   public ngOnInit(): void {
     this.checklistTags = this._dataPersistence.getChecklistTags();
     this.isPreview = this._route.snapshot.url[0].path === "share" || null;
+  }
+
+  public onClick(): void {
+    this.itemForm.patchValue({
+      checked: !this.itemForm.controls.checked.value
+    });
+  }
+
+  public onLabelClick(): void {
+    event.stopPropagation();
   }
 }

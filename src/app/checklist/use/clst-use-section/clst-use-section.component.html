@@ -4,6 +4,7 @@
   <clst-use-checklist-item *ngFor="let item of sectionData.checklistItems; let i = index"
                            [itemData]="item"
                            [itemForm]="getItem(i)"
-                           [itemIndex]="i">
+                           [itemIndex]="i"
+                           [sectionIndex]="sectionIndex">
   </clst-use-checklist-item>
 </div>

@@ -8,10 +8,10 @@
       </clst-tag-display>
     </ng-container>
   </div>
-  <div class="cbox-form">
-    <input id="{{'cbox-' + itemIndex}}" type="checkbox" [formControlName]="'checked'" [attr.disabled]="isPreview">
+  <div class="cbox-form" (click)="onClick()">
+    <input id="{{'cbox-' + sectionIndex + '-' + itemIndex}}" type="checkbox" [formControlName]="'checked'" [attr.disabled]="isPreview">
     <div class="label">
-      <label for="{{'cbox-' + itemIndex}}">{{itemData.label}}</label>
+      <label (click)="onLabelClick()" for="{{'cbox-' + sectionIndex + '-'  + itemIndex}}">{{itemData.label}}</label>
       <div class="secondary">{{itemData.flexibleText}}</div>
     </div>
   </div>

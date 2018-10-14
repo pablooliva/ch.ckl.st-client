@@ -1,7 +1,8 @@
 .citem-container {
   display: flex;
   flex-direction: row;
-  margin: 1.5rem 1rem;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
 
   .clst-tags-display {
     flex: 0 0 7rem;
@@ -9,7 +10,7 @@
     flex-direction: column;
 
     clst-tag-display {
-      margin-bottom: 0.1rem;
+      margin-bottom: 0.2rem;
     }
   }
   .cbox-form {
@@ -20,7 +21,13 @@
       margin-right: 0.8rem;
     }
     .label label {
+      &:hover {
+        cursor: pointer;
+      }
       font-size: 1rem;
+    }
+    &:hover {
+      cursor: pointer;
     }
   }
 }

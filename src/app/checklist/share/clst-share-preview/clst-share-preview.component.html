@@ -4,7 +4,7 @@
       <div class="flex-container share-actions">
         <ng-container *ngIf="belongsToUser | async; else notBelongs">
           <h1 class="share-text">Share</h1>
-          <p class="share-text">With this link you can share your checklist.</p>
+          <p class="share-text">With this link you can share a copy your checklist.</p>
           <input [value]="link" type="text">
           <div>
             <button type="button" mat-flat-button ngxClipboard [cbContent]="link" (click)="copyLabel='Copied'">{{copyLabel}}</button>
