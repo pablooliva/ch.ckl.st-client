@@ -1,5 +1,12 @@
 import { Component, Input, OnInit } from "@angular/core";
-import { FormArray, FormGroup } from "@angular/forms";
+import {
+  FormArray,
+  FormControl,
+  FormGroup,
+  FormGroupDirective,
+  NgForm
+} from "@angular/forms";
+import { ErrorStateMatcher } from "@angular/material";
 
 import { FormElementPusherService } from "../../../shared/form-element-pusher.service";
 
@@ -13,6 +20,8 @@ export class ClstSectionComponent implements OnInit {
   @Input() public sectionIndex: number;
   @Input() public form: FormGroup;
 
+  public matcher = new CustomErrorStateMatcher();
+
   constructor(private _fEPusherService: FormElementPusherService) {}
 
   public ngOnInit(): void {}
@@ -22,7 +31,8 @@ export class ClstSectionComponent implements OnInit {
     this._fEPusherService.pushFormElement({
       type: "section",
       group: this.section,
-      index: index
+      index: index,
+      validator: oneOfRequiredValidator
     });
   }
 
@@ -31,5 +41,37 @@ export class ClstSectionComponent implements OnInit {
     if (!(<FormArray>this.form.controls["sections"]).length) {
       this.addSection(0);
     }
+  }
+}
+
+export function oneOfRequiredValidator(
+  group: FormGroup
+): { [s: string]: boolean } {
+  if (group) {
+    if (group.controls["title"].value || group.controls["flexibleText"].value) {
+      return null;
+    }
+  }
+  return { titleOrDescriptionRequired: true };
+}
+
+class CustomErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(
+    control: FormControl | null,
+    form: FormGroupDirective | NgForm | null
+  ): boolean {
+    const controlTouched = !!(control && (control.dirty || control.touched));
+    const controlInvalid = !!(control && control.invalid);
+
+    const parentInvalid = !!(
+      control &&
+      control.parent &&
+      control.parent.invalid &&
+      (control.parent.dirty || control.parent.touched) &&
+      (control.parent.value["title"] === "" &&
+        control.parent.value["flexibleText"] === "")
+    );
+
+    return controlTouched && (controlInvalid || parentInvalid);
   }
 }

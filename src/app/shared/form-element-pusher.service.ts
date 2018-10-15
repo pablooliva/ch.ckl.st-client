@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { FormGroup } from "@angular/forms";
+import { FormGroup, ValidatorFn } from "@angular/forms";
 import { Subject } from "rxjs";
 
 export type pushFEType = "section" | "item";
@@ -8,6 +8,7 @@ export interface IPushFormElement {
   type: pushFEType;
   group: FormGroup;
   index: number;
+  validator?: ValidatorFn;
 }
 
 @Injectable({

@@ -4,6 +4,7 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
+  ValidatorFn,
   Validators
 } from "@angular/forms";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
@@ -24,6 +25,7 @@ import {
 } from "../../../shared/data-persistence.service";
 import { genericValidationTest } from "../../../shared/clst-utils";
 import { DocTagService } from "../../../shared/doc-tag.service";
+import { oneOfRequiredValidator } from "../clst-section/clst-section.component";
 
 interface IParentArray {
   array: FormArray;
@@ -68,7 +70,12 @@ export class ClstFormComponent implements OnInit, OnDestroy {
       .subscribe((newElem: IPushFormElement) => {
         switch (newElem.type) {
           case "section":
-            this._newSection(newElem.index, null, newElem.group);
+            this._newSection(
+              newElem.index,
+              null,
+              newElem.group,
+              newElem.validator
+            );
             break;
           case "item":
             this._newChecklistItem(newElem.index, null, newElem.group);
@@ -198,11 +205,14 @@ export class ClstFormComponent implements OnInit, OnDestroy {
               checklistItems.push(newGroup);
             });
 
-            const sectionGroup = this._fb.group({
-              title: <string>section["title"],
-              flexibleText: <string>section["flexibleText"],
-              checklistItems: checklistItems
-            });
+            const sectionGroup = this._fb.group(
+              {
+                title: <string>section["title"],
+                flexibleText: <string>section["flexibleText"],
+                checklistItems: checklistItems
+              },
+              { validator: oneOfRequiredValidator }
+            );
 
             this.sections.push(sectionGroup);
           });
@@ -218,12 +228,20 @@ export class ClstFormComponent implements OnInit, OnDestroy {
    * or by an internal "self/this" reference via the group reference
    ***/
 
-  private _newSection(idx: number, array: FormArray, group?: FormGroup): void {
-    const section = this._fb.group({
-      title: "",
-      flexibleText: "",
-      checklistItems: this._fb.array([])
-    });
+  private _newSection(
+    idx: number,
+    array: FormArray,
+    group?: FormGroup,
+    validator?: ValidatorFn
+  ): void {
+    const section = this._fb.group(
+      {
+        title: "",
+        flexibleText: "",
+        checklistItems: this._fb.array([])
+      },
+      { validator: validator }
+    );
 
     const arrayRef = this._handleInsert(section, idx, array, group);
     this._newChecklistItem(0, arrayRef);

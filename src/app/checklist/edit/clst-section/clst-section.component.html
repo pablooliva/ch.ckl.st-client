@@ -3,12 +3,14 @@
         <h2>Section</h2>
         <div [formGroup]="section" class="rep-level">
             <mat-form-field class="control-group">
-                <label for="title">Section heading or title</label>
-                <input matInput placeholder="Section heading or title" type="text" id="title" formControlName="title">
+                <label for="title">Section title</label>
+                <input matInput placeholder="Section title" type="text" id="title" formControlName="title" [errorStateMatcher]="matcher">
+                <mat-error *ngIf="section.hasError('titleOrDescriptionRequired')">* Title or description is required.</mat-error>
             </mat-form-field>
             <mat-form-field class="control-group">
                 <label for="flexibleText">Section description</label>
-                <input matInput placeholder="Section description" type="text" id="flexibleText" formControlName="flexibleText">
+                <input matInput placeholder="Section description" type="text" id="flexibleText" formControlName="flexibleText" [errorStateMatcher]="matcher">
+                <mat-error *ngIf="section.hasError('titleOrDescriptionRequired')">* Title or description is required.</mat-error>
             </mat-form-field>
             <h3>Checklist Items</h3>
             <div formArrayName="checklistItems" class="clist-item">
