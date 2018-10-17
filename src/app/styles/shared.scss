@@ -99,6 +99,9 @@ h2 {
   background: transparent;
   cursor: pointer;
 }
+.clst-actions {
+  color: mat-color($clst-app-primary);
+}
 
 /* Form related */
 .control-group {

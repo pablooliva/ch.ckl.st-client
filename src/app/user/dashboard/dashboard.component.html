@@ -7,6 +7,7 @@
         <a [routerLink]="['/checklist', checklist.id]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">edit</a> |
         <a [routerLink]="['/use', checklist.id]">use</a> |
         <a [routerLink]="['/share', checklist.id]">share</a> |
+        <button class="clst-delete" type="button" (click)="cloneChecklist(checklist.id)">copy</button> |
         <button class="clst-delete" type="button" (click)="openDialog(checklist.id)">delete</button>
         ]
       </li>

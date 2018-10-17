@@ -60,6 +60,15 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  public cloneChecklist(id: string): void {
+    this._dataPersistence
+      .prepareClientData(id, this._serverConnectService)
+      .then(() => {
+        this._dataPersistence.prepChecklistDataClone();
+        this._router.navigate(["/clone"]);
+      });
+  }
+
   public delete(cId: string): void {
     const path = "checklists/" + cId;
     this._serverConnectService.deleteChecklist(path).subscribe(

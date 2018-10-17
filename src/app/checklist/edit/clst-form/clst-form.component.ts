@@ -144,6 +144,12 @@ export class ClstFormComponent implements OnInit, OnDestroy {
         val => {
           this._toastr.success(val.uiMessage, val.type);
           this.buttonReset.next(true);
+          if (this.newClone) {
+            this._router.navigate([
+              "/checklist",
+              val.serverResponse.checklistId
+            ]);
+          }
         },
         error => {
           this._toastr.error(error.uiMessage, error.type);
@@ -154,6 +160,19 @@ export class ClstFormComponent implements OnInit, OnDestroy {
 
   public testReq(formField: string): boolean {
     return genericValidationTest(this.clForm, formField, "required");
+  }
+
+  public cloneChecklist(): void {
+    this._dataPersistence.prepChecklistDataClone();
+    this._router.navigate(["/clone"]);
+  }
+
+  public useChecklist(): void {
+    this._router.navigate(["/use", this.cId]);
+  }
+
+  public shareChecklist(): void {
+    this._router.navigate(["/share", this.cId]);
   }
 
   private _handleInsert(

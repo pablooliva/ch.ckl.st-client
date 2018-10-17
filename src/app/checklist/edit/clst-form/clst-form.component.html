@@ -41,21 +41,28 @@
   </div>
   <mat-card>
     <div class="content-container">
-      <h2>Save Your Checklist</h2>
-      <div [clstSubmitIfValid]="clForm" [reset]="reset()" (valid)="onSubmit()" class="clst-form-submit">
-        <button class="pre-submit" mat-flat-button type="button">
-          Save <i class="material-icons">assignment_turned_in</i>
-        </button>
-        <button class="in-progress" mat-flat-button type="button" disabled="disabled">
-          <div id="inProgress" class="spinner">
-            <div class="bounce1"></div>
-            <div class="bounce2"></div>
-            <div class="bounce3"></div>
-          </div>
-        </button>
-        <button class="post-submit" mat-flat-button type="button" disabled="disabled">
-          Success <i class="material-icons">check_circle</i>
-        </button>
+      <h2 class="clst-actions">Checklist Actions</h2>
+      <div class="clst-btn-grp">
+        <div [clstSubmitIfValid]="clForm" [reset]="reset()" (valid)="onSubmit()" class="clst-form-submit">
+          <button class="pre-submit" mat-flat-button type="button">
+            Save <i class="material-icons">assignment_turned_in</i>
+          </button>
+          <button class="in-progress" mat-flat-button type="button" disabled="disabled">
+            <div id="inProgress" class="spinner">
+              <div class="bounce1"></div>
+              <div class="bounce2"></div>
+              <div class="bounce3"></div>
+            </div>
+          </button>
+          <button class="post-submit" mat-flat-button type="button" disabled="disabled">
+            Success <i class="material-icons">check_circle</i>
+          </button>
+        </div>
+        <ng-container *ngIf="!newClone">
+          <button mat-flat-button type="button" class="clst-secondary" (click)="useChecklist()">Use <i class="material-icons">play_circle_filled</i></button>
+          <button mat-flat-button type="button" class="clst-secondary" (click)="shareChecklist()">Share <i class="material-icons">share</i></button>
+          <button  mat-flat-button type="button" class="clst-secondary" (click)="cloneChecklist()">Copy <i class="material-icons">add_circle</i></button>
+        </ng-container>
       </div>
     </div>
   </mat-card>

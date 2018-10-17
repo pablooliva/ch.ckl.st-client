@@ -23,7 +23,7 @@ export class ClstUseRootComponent implements OnInit, OnDestroy {
   @Input() isAnon: boolean;
 
   public cId: string;
-  public clstData: IClstFormDataModel;
+  public clstData: IClstFormDataModel | IClstDataModel;
   public noData: boolean;
   public clForm: FormGroup;
   public buttonReset: Subject<boolean> = new Subject<boolean>();
@@ -80,7 +80,7 @@ export class ClstUseRootComponent implements OnInit, OnDestroy {
 
           this.clstData = data;
           this.hasItemTags =
-            !!(<IClstDataModel>this.clstData).checklistTags.length &&
+            !!(this.clstData as IClstDataModel).checklistTags.length &&
             this._areItemTagsEnabled();
         } else {
           this.noData = true;
@@ -131,6 +131,14 @@ export class ClstUseRootComponent implements OnInit, OnDestroy {
   public cloneChecklist(): void {
     this._dataPersistence.prepChecklistDataClone();
     this._router.navigate(["/clone"]);
+  }
+
+  public editChecklist(): void {
+    this._router.navigate(["/checklist", this.cId]);
+  }
+
+  public shareChecklist(): void {
+    this._router.navigate(["/share", this.cId]);
   }
 
   private _areItemTagsEnabled(): boolean {
