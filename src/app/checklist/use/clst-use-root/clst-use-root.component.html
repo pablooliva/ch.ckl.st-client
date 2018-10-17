@@ -10,10 +10,15 @@
           </li>
         </ul>
       </div>
+    </div>
+  </mat-card>
+  <mat-card>
+    <div class="content-container">
       <clst-use-section *ngFor="let section of clstData.sections; let i = index"
                         [sectionForm]="getSection(i)"
                         [sectionData]="section"
-                        [sectionIndex]="i">
+                        [sectionIndex]="i"
+                        [hasItemTags]="hasItemTags">
       </clst-use-section>
     </div>
   </mat-card>

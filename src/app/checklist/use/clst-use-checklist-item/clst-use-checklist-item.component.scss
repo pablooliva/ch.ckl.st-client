@@ -12,6 +12,10 @@
     clst-tag-display {
       margin-bottom: 0.2rem;
     }
+
+    &.clst-no-tags {
+      display: none;
+    }
   }
   .cbox-form {
     flex: 1 1 auto;

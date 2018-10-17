@@ -18,6 +18,7 @@ export class ClstUseChecklistItemComponent implements OnInit {
   @Input() itemData: IChecklistItem;
   @Input() itemIndex: number;
   @Input() sectionIndex: number;
+  @Input() hasItemTags: boolean;
 
   public checklistTags: IChecklistItemTag[];
   public isPreview: boolean;

@@ -9,6 +9,7 @@ import { takeUntil } from "rxjs/operators";
 import { ServerConnectService } from "../../../shared/server-connect.service";
 import {
   DataPersistenceService,
+  IClstDataModel,
   IClstFormDataModel
 } from "../../../shared/data-persistence.service";
 
@@ -26,6 +27,7 @@ export class ClstUseRootComponent implements OnInit, OnDestroy {
   public noData: boolean;
   public clForm: FormGroup;
   public buttonReset: Subject<boolean> = new Subject<boolean>();
+  public hasItemTags: boolean;
 
   public get sections(): FormArray {
     return this.clForm.get("sections") as FormArray;
@@ -77,6 +79,9 @@ export class ClstUseRootComponent implements OnInit, OnDestroy {
           });
 
           this.clstData = data;
+          this.hasItemTags =
+            !!(<IClstDataModel>this.clstData).checklistTags.length &&
+            this._areItemTagsEnabled();
         } else {
           this.noData = true;
         }
@@ -126,5 +131,15 @@ export class ClstUseRootComponent implements OnInit, OnDestroy {
   public cloneChecklist(): void {
     this._dataPersistence.prepChecklistDataClone();
     this._router.navigate(["/clone"]);
+  }
+
+  private _areItemTagsEnabled(): boolean {
+    return !!this.clstData.sections.find(section => {
+      return !!section.checklistItems.find(item => {
+        return !!item.checklistTagsEnabled.find(tag => {
+          return tag.tag === true;
+        });
+      });
+    });
   }
 }
