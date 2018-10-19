@@ -45,6 +45,13 @@
     }
   }
 }
+.clst-sml-btn {
+  @extend .clst-sml-btn-normalize;
+  border: none;
+  cursor: pointer;
+  line-height: 1.2rem;
+  font-size: 0.8rem;
+}
 clst-checklist-item-tag-edit {
   padding: 2rem;
   border: 1px dotted #ccc;

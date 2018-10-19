@@ -115,6 +115,15 @@ h2 {
     display: none;
   }
 }
+.clst-sml-btn-normalize {
+  text-decoration: none;
+  color: #fff;
+  background: mat-color($clst-app-accent);
+  padding: 0.2rem 0.6rem;
+  margin-right: 0.3rem;
+  border-radius: 0.2rem;
+  font-size: 0.7rem;
+}
 button.mat-flat-button {
   min-height: 38px;
   min-width: 120px;

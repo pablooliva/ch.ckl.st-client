@@ -24,7 +24,7 @@
       <div class="clst-tag-edit" *ngIf="checklistTagsEnabled.controls.length"><button (click)="editTags()" class="as-link">[ Edit tags ]</button></div>
     </div>
     <div class="clst-btn-grp" *ngIf="!displayTagEditComp">
-      <button mat-flat-button class="clst-item-accent" type="button"  (click)="displayTagEditComp = true">Create tag</button>
+      <button class="clst-item-accent clst-sml-btn" type="button" (click)="displayTagEditComp = true">Create tag</button>
     </div>
     <clst-checklist-item-tag-edit *ngIf="displayTagEditComp" [checklistItem]="checklistItem" [tagProps]="pushTagInfo" (tagAdded)="clearTagEdit()">
     </clst-checklist-item-tag-edit>

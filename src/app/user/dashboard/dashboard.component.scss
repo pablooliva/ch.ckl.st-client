@@ -16,27 +16,17 @@ li {
   }
 }
 
-.clst-normalize {
-  text-decoration: none;
-  color: #fff;
-  background: mat-color($clst-app-accent);
-  padding: 0.2rem 0.6rem;
-  margin-right: 0.3rem;
-  border-radius: 0.2rem;
-  font-size: 0.7rem;
-}
-
 .clst-inline-actions {
   margin-top: 0.2rem;
 }
 
 a {
-  @extend .clst-normalize;
+  @extend .clst-sml-btn-normalize;
 }
 
 button {
   @extend .mat-typography;
-  @extend .clst-normalize;
+  @extend .clst-sml-btn-normalize;
 
   border: none;
   cursor: pointer;
