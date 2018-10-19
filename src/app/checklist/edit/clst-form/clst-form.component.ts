@@ -144,7 +144,7 @@ export class ClstFormComponent implements OnInit, OnDestroy {
         val => {
           this._toastr.success(val.uiMessage, val.type);
           this.buttonReset.next(true);
-          if (this.newClone) {
+          if (this.newClone || !this.cId) {
             this._router.navigate([
               "/checklist",
               val.serverResponse.checklistId

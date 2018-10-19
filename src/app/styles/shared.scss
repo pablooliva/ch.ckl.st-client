@@ -87,9 +87,14 @@ mat-checkbox {
 
 /* Design */
 h1 {
-  color: #38761d;
-  border-left: 5px solid #38761d;
+  color: mat-color($clst-app-primary);
+  border-left: 5px solid mat-color($clst-app-primary);
   padding-left: 1.2rem;
+
+  &.clst-accented {
+    color: mat-color($clst-app-secondary);
+    border-left: 5px solid mat-color($clst-app-secondary);
+  }
 }
 h2 {
   font-weight: normal;
