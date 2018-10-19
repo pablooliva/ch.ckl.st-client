@@ -1,14 +1,58 @@
 @import "../../styles/shared";
 
+ol {
+  padding: 0;
+  list-style-type: none;
+}
+
+li {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+
+  &:first-child {
+    border-top: 1px solid #ccc;
+    padding-top: 1rem;
+  }
+}
+
+.clst-normalize {
+  text-decoration: none;
+  color: #fff;
+  background: mat-color($clst-app-accent);
+  padding: 0.2rem 0.6rem;
+  margin-right: 0.3rem;
+  border-radius: 0.2rem;
+  font-size: 0.7rem;
+}
+
+.clst-inline-actions {
+  margin-top: 0.2rem;
+}
+
+a {
+  @extend .clst-normalize;
+}
+
 button {
+  @extend .mat-typography;
+  @extend .clst-normalize;
+
+  border: none;
+  cursor: pointer;
+  line-height: 0.9rem;
+
   i {
     margin-top: -3px;
   }
 
   &.clst-delete {
-    @extend .as-link;
-    padding: 0;
+    background-color: mat-color($clst-app-warn);
   }
+}
+
+.clst-btm-pad {
+  margin-bottom: 1rem;
 }
 
 .spinner {

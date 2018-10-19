@@ -1,15 +1,24 @@
 <mat-card>
   <div class="content-container">
     <h1>Dashboard</h1>
-    <h3>Your Checklists</h3>
+    <h3>Create a New Checklist</h3>
+    <button mat-flat-button type="button" class="clst-btm-pad" (click)="create()">
+      Create <i class="material-icons">add_box</i>
+    </button>
+  </div>
+</mat-card>
+<mat-card>
+  <div class="content-container">
+    <h2>Your Checklists</h2>
     <ol *ngIf="checklists.length; else noChecklists">
-      <li *ngFor="let checklist of checklists">{{checklist.title}} ... [
-        <a [routerLink]="['/checklist', checklist.id]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">edit</a> |
-        <a [routerLink]="['/use', checklist.id]">use</a> |
-        <a [routerLink]="['/share', checklist.id]">share</a> |
-        <button class="clst-delete" type="button" (click)="cloneChecklist(checklist.id)">copy</button> |
-        <button class="clst-delete" type="button" (click)="openDialog(checklist.id)">delete</button>
-        ]
+      <li *ngFor="let checklist of checklists">{{checklist.title}}
+        <div class="clst-inline-actions">
+          <a [routerLink]="['/checklist', checklist.id]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">edit</a>
+          <a [routerLink]="['/use', checklist.id]">use</a>
+          <a [routerLink]="['/share', checklist.id]">share</a>
+          <button type="button" (click)="cloneChecklist(checklist.id)">copy</button>
+          <button class="clst-delete" type="button" (click)="openDialog(checklist.id)">delete</button>
+        </div>
       </li>
     </ol>
     <ng-template #noChecklists>
@@ -20,9 +29,5 @@
         <div class="bounce3"></div>
       </div>
     </ng-template>
-    <h3>Create a New Checklist</h3>
-    <button mat-flat-button type="button" (click)="create()">
-      Create <i class="material-icons">add_box</i>
-    </button>
   </div>
 </mat-card>
