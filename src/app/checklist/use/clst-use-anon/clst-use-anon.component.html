@@ -5,7 +5,7 @@
       <p class="share-text">You are using this checklist anonymously. If you fail to save this link, you will lose access to this checklist.</p>
       <input [value]="link" type="text">
       <div>
-        <button type="button" mat-flat-button ngxClipboard [cbContent]="link" (click)="copyLabel='Copied'">{{copyLabel}}</button>
+        <button type="button" mat-flat-button class="clst-item-primary" ngxClipboard [cbContent]="link" (click)="copyLabel='Copied'">{{copyLabel}}</button>
       </div>
     </div>
   </div>

@@ -14,7 +14,7 @@
         <mat-error *ngIf="testReq('password')">* This field is required.</mat-error>
       </mat-form-field>
       <div [clstSubmitIfValid]="loginForm" [reset]="reset()" (valid)="onSubmit()" class="clst-form-submit">
-        <button class="pre-submit" mat-flat-button type="button">
+        <button class="pre-submit clst-item-primary" mat-flat-button type="button">
           Log In <i class="material-icons">forward</i>
         </button>
         <button class="in-progress" mat-flat-button type="button" disabled="disabled">

@@ -26,6 +26,7 @@ import {
 import { genericValidationTest } from "../../../shared/clst-utils";
 import { DocTagService } from "../../../shared/doc-tag.service";
 import { oneOfRequiredValidator } from "../clst-section/clst-section.component";
+import { ClstBaseComponent } from "../../../shared/clst-base.component";
 
 interface IParentArray {
   array: FormArray;
@@ -37,7 +38,8 @@ interface IParentArray {
   templateUrl: "./clst-form.component.html",
   styleUrls: ["./clst-form.component.scss"]
 })
-export class ClstFormComponent implements OnInit, OnDestroy {
+export class ClstFormComponent extends ClstBaseComponent
+  implements OnInit, OnDestroy {
   @Input() cId: string;
 
   public clForm: FormGroup;
@@ -60,9 +62,13 @@ export class ClstFormComponent implements OnInit, OnDestroy {
     private _toastr: ToastrService,
     private _docTagService: DocTagService,
     private _router: Router
-  ) {}
+  ) {
+    super(_router);
+  }
 
   public ngOnInit(): void {
+    super.ngOnInit();
+
     this.newClone = this._router.url === "/clone";
 
     this._fEPusherService.formElement

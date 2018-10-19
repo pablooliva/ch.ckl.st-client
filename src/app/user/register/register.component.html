@@ -15,7 +15,7 @@
         <mat-error *ngIf="testLen('password')">* Password requires at least 8 characters.</mat-error>
       </mat-form-field>
       <div [clstSubmitIfValid]="registerForm" [reset]="reset()" (valid)="onSubmit()" class="clst-form-submit">
-        <button class="pre-submit" mat-flat-button type="button">
+        <button class="pre-submit clst-item-primary" mat-flat-button type="button">
           Register <i class="material-icons">forward</i>
         </button>
         <button class="in-progress" mat-flat-button type="button" disabled="disabled">

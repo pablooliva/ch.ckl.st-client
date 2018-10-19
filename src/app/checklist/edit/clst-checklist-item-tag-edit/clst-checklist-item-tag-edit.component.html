@@ -35,7 +35,7 @@
     <div class="clst-btn-container">
       <button class="clst-cancel" mat-flat-button type="button" (click)="cancel()">Cancel <i class="material-icons">cancel</i></button>
       <div [clstSubmitIfValid]="tagForm" [reset]="reset()" (valid)="onSubmit()" class="clst-form-submit">
-        <button class="pre-submit" [class.warning]="tagProps && tagProps.delete" mat-flat-button type="button">
+        <button class="pre-submit clst-item-primary" [class.warning]="tagProps && tagProps.delete" mat-flat-button type="button">
           <ng-container *ngIf="tagProps; else addBtn">
             <ng-container *ngIf="tagProps.delete; else editBtn">Delete <i class="material-icons">delete</i></ng-container>
           </ng-container>
