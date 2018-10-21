@@ -15,47 +15,58 @@ import { ClstUseAnonComponent } from "./checklist/use/clst-use-anon/clst-use-ano
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
-  { path: "home", component: HomeComponent },
-  { path: "register", component: RegisterComponent },
-  { path: "login", component: LoginComponent },
+  { path: "home", component: HomeComponent, data: { page: "home" } },
+  {
+    path: "register",
+    component: RegisterComponent,
+    data: { page: "register" }
+  },
+  { path: "login", component: LoginComponent, data: { page: "login" } },
   {
     path: "checklist",
     canActivate: [AuthGuard],
     canDeactivate: [LeaveChecklistGuard],
-    component: ClstCreateComponent
+    component: ClstCreateComponent,
+    data: { page: "create" }
   },
   {
     path: "clone",
     canActivate: [AuthGuard, EnterCloneGuard],
     canDeactivate: [LeaveChecklistGuard],
-    component: ClstCreateComponent
+    component: ClstCreateComponent,
+    data: { page: "copy" }
   },
   {
     path: "checklist/:id",
     canActivate: [AuthGuard],
     canDeactivate: [LeaveChecklistGuard],
-    component: ClstCreateComponent
+    component: ClstCreateComponent,
+    data: { page: "get" }
   },
   {
     path: "use/:id",
     canActivate: [AuthGuard],
     canDeactivate: [LeaveChecklistGuard],
-    component: ClstUseRootComponent
+    component: ClstUseRootComponent,
+    data: { page: "use" }
   },
   {
     path: "dashboard",
     canActivate: [AuthGuard],
-    component: DashboardComponent
+    component: DashboardComponent,
+    data: { page: "dashboard" }
   },
   {
     path: "anon/:id",
     canDeactivate: [LeaveChecklistGuard],
-    component: ClstUseAnonComponent
+    component: ClstUseAnonComponent,
+    data: { page: "anon" }
   },
   {
     path: "share/:id",
     canDeactivate: [LeaveChecklistGuard],
-    component: ClstSharePreviewComponent
+    component: ClstSharePreviewComponent,
+    data: { page: "share" }
   }
 ];
 

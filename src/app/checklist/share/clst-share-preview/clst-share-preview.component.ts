@@ -34,7 +34,7 @@ export class ClstSharePreviewComponent implements OnInit, OnDestroy {
   ) {}
 
   public ngOnInit(): void {
-    this.copyLabel = "Copy";
+    this.copyLabel = "Copy link";
     this.isLoggedIn = this._authService.isLoggedIn.asObservable();
     this.belongsToUser = this._dataPersistence.belongsToOwner.asObservable();
     this.link = window.location.href;

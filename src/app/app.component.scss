@@ -19,14 +19,10 @@ mat-sidenav-content {
   background: #eaeaea;
 }
 footer {
-  padding: 1.5rem;
-  font: 400 0.85em Roboto, "Helvetica Neue", sans-serif;
-
-  h1 {
-    margin-top: 0;
-    font-size: 1.2rem;
-    font-weight: normal;
-  }
+  padding: 1.5rem 1.2rem;
+  font: 400 0.9em Roboto, "Helvetica Neue", sans-serif;
+  display: flex;
+  flex-direction: column;
 
   a {
     color: #e1e7ec;
@@ -34,10 +30,6 @@ footer {
   }
 
   .ch-ckl-st {
-    font-size: 1.1rem;
-    border-top: 1px dashed #fff;
-    padding-top: 2rem;
-    margin-top: 2rem;
     position: relative;
 
     img {
@@ -49,15 +41,33 @@ footer {
       margin: 0;
       margin-left: 1.3rem;
     }
+
+    .material-icons {
+      font-size: 0.9rem;
+      vertical-align: middle;
+      margin-right: 0.2rem;
+    }
+
+    .github {
+      position: relative;
+      bottom: -0.1rem;
+    }
+
+    .clst-footer-link {
+      display: inline-block;
+      margin: 0 0.4rem;
+    }
   }
 
-  .copyright {
+  .clst-footer-copyright {
     font-size: 0.8rem;
   }
 
-  .material-icons {
-    font-size: 0.9rem;
-    vertical-align: middle;
-    margin-right: 0.2rem;
+  div {
+    margin-bottom: 1rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }
