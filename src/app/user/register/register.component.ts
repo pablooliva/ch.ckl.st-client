@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, ElementRef, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { HttpHeaders } from "@angular/common/http";
@@ -8,13 +8,16 @@ import { takeUntil } from "rxjs/operators";
 
 import { ServerConnectService } from "../../shared/server-connect.service";
 import { genericValidationTest } from "../../shared/clst-utils";
+import { RootListenerService } from "../../shared/root-listener.service";
+import { ClstBaseComponent } from "../../shared/clst-base.component";
 
 @Component({
   selector: "clst-register",
   templateUrl: "./register.component.html",
   styleUrls: ["./register.component.scss"]
 })
-export class RegisterComponent implements OnInit, OnDestroy {
+export class RegisterComponent extends ClstBaseComponent
+  implements OnInit, OnDestroy {
   public registerForm: FormGroup;
   public buttonReset: Subject<boolean> = new Subject<boolean>();
 
@@ -24,10 +27,16 @@ export class RegisterComponent implements OnInit, OnDestroy {
     private _serverConnectService: ServerConnectService,
     private _toastr: ToastrService,
     private _fb: FormBuilder,
-    private _router: Router
-  ) {}
+    private _router: Router,
+    private _el: ElementRef,
+    private _rootListener: RootListenerService
+  ) {
+    super(_router, _el, _rootListener);
+  }
 
   public ngOnInit(): void {
+    super.ngOnInit();
+
     this.registerForm = this._fb.group({
       email: ["", Validators.compose([Validators.required, Validators.email])],
       password: [
@@ -38,6 +47,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
+    super.ngOnDestroy();
     this._destroy.next(true);
     this._destroy.complete();
   }

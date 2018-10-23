@@ -9,9 +9,9 @@ import { RegisterComponent } from "./user/register/register.component";
 import { LoginComponent } from "./user/login/login.component";
 import { DashboardComponent } from "./user/dashboard/dashboard.component";
 import { ClstCreateComponent } from "./checklist/edit/clst-create/clst-create.component";
-import { ClstUseRootComponent } from "./checklist/use/clst-use-root/clst-use-root.component";
 import { ClstSharePreviewComponent } from "./checklist/share/clst-share-preview/clst-share-preview.component";
 import { ClstUseAnonComponent } from "./checklist/use/clst-use-anon/clst-use-anon.component";
+import { ClstUseComponent } from "./checklist/use/clst-use/clst-use.component";
 
 const appRoutes: Routes = [
   { path: "", component: HomeComponent },
@@ -47,7 +47,7 @@ const appRoutes: Routes = [
     path: "use/:id",
     canActivate: [AuthGuard],
     canDeactivate: [LeaveChecklistGuard],
-    component: ClstUseRootComponent,
+    component: ClstUseComponent,
     data: { page: "use" }
   },
   {

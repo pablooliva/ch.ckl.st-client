@@ -10,7 +10,7 @@
                     </button>
                 </ng-container>
                 <ng-container *ngIf="!media.isActive('xs')">
-                    <ng-container *ngIf="isLoggedIn; else notLoggedIn">
+                    <ng-container *ngIf="isLoggedIn  | async; else notLoggedIn">
                         <a routerLink="dashboard" mat-button>Dashboard</a>
                         <a routerLink="checklist" mat-button>Create Checklist</a>
                         <a (click)="logOut()" mat-button>Log Out</a>
@@ -26,7 +26,7 @@
     <mat-sidenav-container fxFlex="1 1 auto">
         <mat-sidenav #sidenav fxLayout="column" mode="side" opened="false">
             <button type="button" (click)="sidenav.toggle()">Close Menu</button>
-            <ng-container *ngIf="isLoggedIn; else notLoggedIn">
+            <ng-container *ngIf="isLoggedIn | async; else notLoggedIn">
                 <a routerLink="dashboard" mat-button>Dashboard</a>
                 <a routerLink="checklist" mat-button>Create Checklist</a>
                 <a (click)="logOut()" mat-button>Log Out</a>
@@ -37,7 +37,9 @@
             </ng-template>
         </mat-sidenav>
         <mat-sidenav-content fxFlexFill>
-            <router-outlet></router-outlet>
+            <div [@animRoutes]="getPage(appOutlet)" [style.height]="height | async">
+                <router-outlet #appOutlet="outlet"></router-outlet>
+            </div>
         </mat-sidenav-content>
     </mat-sidenav-container>
 </div>
@@ -49,6 +51,5 @@
             <span class="clst-footer-link"><img class="github" width="12px" src="../assets/github-logo.png"> On <a href="https://github.com/pablooliva/ch.ckl.st-client">GitHub</a></span>
         </p>
     </div>
-    <div>Create, use, share, and build upon others' checklists.</div>
-    <div class="clst-footer-copyright">Copyright © 2018 Pablo Oliva. Licensed under <a href="https://opensource.org/licenses/MIT">MIT.</a></div>
+    <div>Create, use, share, and easily remix checklists. Copyright © 2018 Pablo Oliva. Licensed under <a href="https://opensource.org/licenses/MIT">MIT.</a></div>
 </footer>

@@ -12,15 +12,13 @@ import {
   IClstDataModel,
   IClstFormDataModel
 } from "../../../shared/data-persistence.service";
-import { ClstBaseComponent } from "../../../shared/clst-base.component";
 
 @Component({
   selector: "clst-use-root",
   templateUrl: "./clst-use-root.component.html",
   styleUrls: ["./clst-use-root.component.scss"]
 })
-export class ClstUseRootComponent extends ClstBaseComponent
-  implements OnInit, OnDestroy {
+export class ClstUseRootComponent implements OnInit, OnDestroy {
   @Input() sharePreview: boolean;
   @Input() isAnon: boolean;
 
@@ -44,13 +42,9 @@ export class ClstUseRootComponent extends ClstBaseComponent
     private _toastr: ToastrService,
     private _router: Router,
     private _route: ActivatedRoute
-  ) {
-    super(_router);
-  }
+  ) {}
 
   public ngOnInit(): void {
-    super.ngOnInit();
-
     this.noData = false;
     this.cId = this._route.snapshot.params["id"];
 

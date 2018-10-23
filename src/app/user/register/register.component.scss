@@ -1,1 +1,5 @@
 @import "../../styles/shared";
+
+:host {
+  @extend .clst-host-animate;
+}

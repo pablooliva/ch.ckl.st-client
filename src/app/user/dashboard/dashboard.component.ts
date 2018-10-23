@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { MatDialog } from "@angular/material";
 
@@ -7,6 +7,8 @@ import { ToastrService } from "ngx-toastr";
 import { ServerConnectService } from "../../shared/server-connect.service";
 import { DataPersistenceService } from "../../shared/data-persistence.service";
 import { DeleteConfirmationComponent } from "../delete-confirmation/delete-confirmation.component";
+import { RootListenerService } from "../../shared/root-listener.service";
+import { ClstBaseComponent } from "../../shared/clst-base.component";
 
 interface IChecklistsByUser {
   id: string;
@@ -18,7 +20,7 @@ interface IChecklistsByUser {
   templateUrl: "./dashboard.component.html",
   styleUrls: ["./dashboard.component.scss"]
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent extends ClstBaseComponent implements OnInit {
   public qryResolved: boolean;
   public checklists: IChecklistsByUser[];
 
@@ -27,10 +29,16 @@ export class DashboardComponent implements OnInit {
     private _serverConnectService: ServerConnectService,
     private _dataPersistence: DataPersistenceService,
     private _toastr: ToastrService,
+    private _el: ElementRef,
+    private _rootListener: RootListenerService,
     public dialog: MatDialog
-  ) {}
+  ) {
+    super(_router, _el, _rootListener);
+  }
 
   public ngOnInit(): void {
+    super.ngOnInit();
+
     this.checklists = [];
     this.qryResolved = false;
 

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, ElementRef, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { HttpHeaders } from "@angular/common/http";
 import { Router } from "@angular/router";
@@ -10,13 +10,16 @@ import { ServerConnectService } from "../../shared/server-connect.service";
 import { AppStateService } from "../../shared/app-state.service";
 import { genericValidationTest } from "../../shared/clst-utils";
 import { deepClone } from "../../shared/data-persistence.service";
+import { RootListenerService } from "../../shared/root-listener.service";
+import { ClstBaseComponent } from "../../shared/clst-base.component";
 
 @Component({
   selector: "clst-login",
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"]
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent extends ClstBaseComponent
+  implements OnInit, OnDestroy {
   public loginForm: FormGroup;
   public buttonReset: Subject<boolean> = new Subject<boolean>();
 
@@ -27,10 +30,16 @@ export class LoginComponent implements OnInit, OnDestroy {
     private _toastr: ToastrService,
     private _fb: FormBuilder,
     private _router: Router,
-    private _appStateService: AppStateService
-  ) {}
+    private _appStateService: AppStateService,
+    private _el: ElementRef,
+    private _rootListener: RootListenerService
+  ) {
+    super(_router, _el, _rootListener);
+  }
 
   public ngOnInit(): void {
+    super.ngOnInit();
+
     this.loginForm = this._fb.group({
       email: ["", Validators.compose([Validators.required, Validators.email])],
       password: ["", Validators.required]
@@ -38,6 +47,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
+    super.ngOnDestroy();
     this._destroy.next(true);
     this._destroy.complete();
   }

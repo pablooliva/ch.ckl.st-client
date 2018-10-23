@@ -33,6 +33,7 @@ import { ClstUseSectionComponent } from "./checklist/use/clst-use-section/clst-u
 import { ClstUseChecklistItemComponent } from "./checklist/use/clst-use-checklist-item/clst-use-checklist-item.component";
 import { ClstSharePreviewComponent } from "./checklist/share/clst-share-preview/clst-share-preview.component";
 import { ClstUseAnonComponent } from "./checklist/use/clst-use-anon/clst-use-anon.component";
+import { ClstUseComponent } from "./checklist/use/clst-use/clst-use.component";
 
 import { SubmitButtonDirective } from "./shared/submit-button.directive";
 import { SubmitIfValidDirective } from "./shared/submit-if-valid.directive";
@@ -58,7 +59,8 @@ import { AuthenticationInterceptor } from "./shared/authentication.inteceptor";
     SubmitButtonDirective,
     ClstSharePreviewComponent,
     ClstUseAnonComponent,
-    DeleteConfirmationComponent
+    DeleteConfirmationComponent,
+    ClstUseComponent
   ],
   imports: [
     BrowserModule,

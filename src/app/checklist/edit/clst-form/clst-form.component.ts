@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { Component, ElementRef, Input, OnDestroy, OnInit } from "@angular/core";
 import {
   FormArray,
   FormBuilder,
@@ -27,6 +27,7 @@ import { genericValidationTest } from "../../../shared/clst-utils";
 import { DocTagService } from "../../../shared/doc-tag.service";
 import { oneOfRequiredValidator } from "../clst-section/clst-section.component";
 import { ClstBaseComponent } from "../../../shared/clst-base.component";
+import { RootListenerService } from "../../../shared/root-listener.service";
 
 interface IParentArray {
   array: FormArray;
@@ -61,9 +62,11 @@ export class ClstFormComponent extends ClstBaseComponent
     private _fb: FormBuilder,
     private _toastr: ToastrService,
     private _docTagService: DocTagService,
-    private _router: Router
+    private _router: Router,
+    private _el: ElementRef,
+    private _rootListener: RootListenerService
   ) {
-    super(_router);
+    super(_router, _el, _rootListener);
   }
 
   public ngOnInit(): void {
@@ -95,6 +98,7 @@ export class ClstFormComponent extends ClstBaseComponent
   }
 
   public ngOnDestroy(): void {
+    super.ngOnDestroy();
     this._destroy.next(true);
     this._destroy.complete();
   }

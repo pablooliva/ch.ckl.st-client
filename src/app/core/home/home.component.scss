@@ -1,5 +1,9 @@
 @import "../../styles/shared";
 
+:host {
+  @extend .clst-host-animate;
+}
+
 .media-container {
   width: 468px;
   border: 1px solid #000;

@@ -1,5 +1,9 @@
 @import "../../styles/shared";
 
+:host {
+  @extend .clst-host-animate;
+}
+
 ol {
   padding: 0;
   list-style-type: none;

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, ElementRef, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { HttpHeaders } from "@angular/common/http";
 import { Observable, Subject } from "rxjs";
@@ -10,13 +10,16 @@ import { DataPersistenceService } from "../../../shared/data-persistence.service
 import { AuthService } from "../../../shared/auth.service";
 import { AppStateService } from "../../../shared/app-state.service";
 import { ServerConnectService } from "../../../shared/server-connect.service";
+import { RootListenerService } from "../../../shared/root-listener.service";
+import { ClstBaseComponent } from "../../../shared/clst-base.component";
 
 @Component({
   selector: "clst-share-preview",
   templateUrl: "./clst-share-preview.component.html",
   styleUrls: ["./clst-share-preview.component.scss"]
 })
-export class ClstSharePreviewComponent implements OnInit, OnDestroy {
+export class ClstSharePreviewComponent extends ClstBaseComponent
+  implements OnInit, OnDestroy {
   public belongsToUser: Observable<boolean>;
   public isLoggedIn: Observable<boolean>;
   public link: string;
@@ -30,10 +33,16 @@ export class ClstSharePreviewComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _appStateService: AppStateService,
     private _serverConnectService: ServerConnectService,
-    private _toastr: ToastrService
-  ) {}
+    private _toastr: ToastrService,
+    private _el: ElementRef,
+    private _rootListener: RootListenerService
+  ) {
+    super(_router, _el, _rootListener);
+  }
 
   public ngOnInit(): void {
+    super.ngOnInit();
+
     this.copyLabel = "Copy link";
     this.isLoggedIn = this._authService.isLoggedIn.asObservable();
     this.belongsToUser = this._dataPersistence.belongsToOwner.asObservable();
@@ -41,6 +50,7 @@ export class ClstSharePreviewComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
+    super.ngOnDestroy();
     this._destroy.next(true);
     this._destroy.complete();
   }

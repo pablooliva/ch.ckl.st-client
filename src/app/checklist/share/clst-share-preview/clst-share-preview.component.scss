@@ -1,5 +1,9 @@
 @import "../../../styles/shared";
 
+:host {
+  @extend .clst-host-animate;
+}
+
 .content-container {
   padding-bottom: 0;
 }
