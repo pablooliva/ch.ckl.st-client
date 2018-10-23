@@ -246,7 +246,7 @@ export class ClstFormComponent extends ClstBaseComponent
             this.sections.push(sectionGroup);
           });
         } else {
-          this._newSection(0, this.sections);
+          this._newSection(0, this.sections, null, oneOfRequiredValidator);
         }
       });
   }
