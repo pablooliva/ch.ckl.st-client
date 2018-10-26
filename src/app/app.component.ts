@@ -12,7 +12,7 @@ import {
   animateChild
 } from "@angular/animations";
 import { Observable, Subject } from "rxjs";
-import { map, takeUntil } from "rxjs/operators";
+import { filter, map, takeUntil } from "rxjs/operators";
 
 import { AuthService } from "./shared/auth.service";
 import { RootListenerService } from "./shared/root-listener.service";
@@ -63,6 +63,7 @@ export class AppComponent implements OnInit, OnDestroy {
   public height: Observable<string>;
 
   private _destroy: Subject<boolean> = new Subject<boolean>();
+  private _lastHeight: number;
 
   constructor(
     public media: ObservableMedia,
@@ -77,8 +78,13 @@ export class AppComponent implements OnInit, OnDestroy {
       .subscribe(() => this._handleSideNav());
 
     this.isLoggedIn = this._authService.isLoggedIn;
+    this._lastHeight = 0;
     this.height = this._rootListener.changeEmitted.pipe(
-      map((height: number) => height + "px")
+      filter(height => height !== this._lastHeight),
+      map((height: number) => {
+        this._lastHeight = height;
+        return height + "px";
+      })
     );
   }
 
