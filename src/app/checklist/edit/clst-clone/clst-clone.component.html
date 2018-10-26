@@ -1,47 +1,13 @@
 <form *ngIf="clForm; else loading" novalidate [formGroup]="clForm">
   <mat-card>
     <div class="content-container">
-      <h1>
-        <ng-container *ngIf="cId; else noCId">Edit </ng-container>
-        <ng-template #noCId>Create </ng-template>
-        Checklist
-      </h1>
-      <h2>Document Settings</h2>
+      <h1>Create a Copy</h1>
+      <p>Give the new checklist a name/title.</p>
       <mat-form-field class="control-group">
-        <label for="title">Document title</label>
-        <input matInput placeholder="Document title" type="text" id="title" formControlName="documentTitle">
+        <label for="title">Checklist title</label>
+        <input matInput placeholder="Checklist title" type="text" id="title" formControlName="documentTitle">
         <mat-error *ngIf="testReq('documentTitle')">* This field is required.</mat-error>
       </mat-form-field>
-      <div class="control-group">
-        <label for="tags">Document tags</label>
-        <tag-input
-          placeholder="Document tags"
-          secondaryPlaceholder="Document tags"
-          formControlName="documentTags"
-          separatorKeyCodes="9"
-          editable="true"
-          addOnBlur="true"
-          inputClass="clst-ngxc-input"
-          (onAdd)="onTagAdd($event)"
-          [validators]="validators"
-          [animationDuration]="{enter: '0ms', leave: '0ms'}"
-          id="tags">
-        </tag-input>
-      </div>
-      <mat-checkbox formControlName="public">Public</mat-checkbox>
-    </div>
-  </mat-card>
-  <div formArrayName="sections" class="mat-card-not-first-child-reset">
-    <clst-section *ngFor="let section of sections.controls; let i=index"
-                  [formGroupName]="i"
-                  [section]="section"
-                  [sectionIndex]="i"
-                  [form]="clForm">
-    </clst-section>
-  </div>
-  <mat-card>
-    <div class="content-container">
-      <h2 class="clst-actions">Checklist Actions</h2>
       <div class="clst-btn-grp">
         <div [clstSubmitIfValid]="clForm" [reset]="reset()" (valid)="onSubmit()" class="clst-form-submit">
           <button class="pre-submit clst-item-primary" mat-flat-button type="button">

@@ -2,6 +2,10 @@
 
 $border-color: #949494;
 
+:host {
+  @extend .clst-host-animate;
+}
+
 tag-input {
   padding-bottom: 2em;
 }

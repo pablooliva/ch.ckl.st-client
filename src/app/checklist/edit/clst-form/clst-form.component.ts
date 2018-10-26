@@ -8,7 +8,7 @@ import {
   Validators
 } from "@angular/forms";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { ToastrService } from "ngx-toastr";
 import { Observable, Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
@@ -41,12 +41,10 @@ interface IParentArray {
 })
 export class ClstFormComponent extends ClstBaseComponent
   implements OnInit, OnDestroy {
-  @Input() cId: string;
-
   public clForm: FormGroup;
   public buttonReset: Subject<boolean> = new Subject<boolean>();
   public validators = [this._notDuplicate.bind(this)];
-  public newClone: boolean;
+  public cId: string;
 
   public get sections(): FormArray {
     return this.clForm.get("sections") as FormArray;
@@ -62,6 +60,7 @@ export class ClstFormComponent extends ClstBaseComponent
     private _fb: FormBuilder,
     private _toastr: ToastrService,
     private _docTagService: DocTagService,
+    private _route: ActivatedRoute,
     private _router: Router,
     private _el: ElementRef,
     private _rootListener: RootListenerService
@@ -72,7 +71,7 @@ export class ClstFormComponent extends ClstBaseComponent
   public ngOnInit(): void {
     super.ngOnInit();
 
-    this.newClone = this._router.url === "/clone";
+    this.cId = this._route.snapshot.params["id"];
 
     this._fEPusherService.formElement
       .pipe(takeUntil(this._destroy))
@@ -154,7 +153,7 @@ export class ClstFormComponent extends ClstBaseComponent
         val => {
           this._toastr.success(val.uiMessage, val.type);
           this.buttonReset.next(true);
-          if (this.newClone || !this.cId) {
+          if (!this.cId) {
             this._router.navigate([
               "/checklist",
               val.serverResponse.checklistId

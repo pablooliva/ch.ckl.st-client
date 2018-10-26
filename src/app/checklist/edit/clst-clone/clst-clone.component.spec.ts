@@ -1,25 +1,25 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChecklistComponent } from './checklist.component';
+import { ClstCloneComponent } from './clst-clone.component';
 
-describe('ChecklistComponent', () => {
-  let component: ChecklistComponent;
-  let fixture: ComponentFixture<ChecklistComponent>;
+describe('ClstCloneComponent', () => {
+  let component: ClstCloneComponent;
+  let fixture: ComponentFixture<ClstCloneComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChecklistComponent ]
+      declarations: [ ClstCloneComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChecklistComponent);
+    fixture = TestBed.createComponent(ClstCloneComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
-  it('should clst-create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 });

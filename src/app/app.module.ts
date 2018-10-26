@@ -20,7 +20,6 @@ import { AppComponent } from "./app.component";
 import { HomeComponent } from "./core/home/home.component";
 import { LoginComponent } from "./user/login/login.component";
 import { RegisterComponent } from "./user/register/register.component";
-import { ClstCreateComponent } from "./checklist/edit/clst-create/clst-create.component";
 import { ClstFormComponent } from "./checklist/edit/clst-form/clst-form.component";
 import { ClstSectionComponent } from "./checklist/edit/clst-section/clst-section.component";
 import { ClstChecklistItemComponent } from "./checklist/edit/clst-checklist-item/clst-checklist-item.component";
@@ -34,6 +33,7 @@ import { ClstUseChecklistItemComponent } from "./checklist/use/clst-use-checklis
 import { ClstSharePreviewComponent } from "./checklist/share/clst-share-preview/clst-share-preview.component";
 import { ClstUseAnonComponent } from "./checklist/use/clst-use-anon/clst-use-anon.component";
 import { ClstUseComponent } from "./checklist/use/clst-use/clst-use.component";
+import { ClstCloneComponent } from "./checklist/edit/clst-clone/clst-clone.component";
 
 import { SubmitButtonDirective } from "./shared/submit-button.directive";
 import { SubmitIfValidDirective } from "./shared/submit-if-valid.directive";
@@ -45,7 +45,6 @@ import { AuthenticationInterceptor } from "./shared/authentication.inteceptor";
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    ClstCreateComponent,
     ClstFormComponent,
     ClstSectionComponent,
     ClstChecklistItemComponent,
@@ -60,7 +59,8 @@ import { AuthenticationInterceptor } from "./shared/authentication.inteceptor";
     ClstSharePreviewComponent,
     ClstUseAnonComponent,
     DeleteConfirmationComponent,
-    ClstUseComponent
+    ClstUseComponent,
+    ClstCloneComponent
   ],
   imports: [
     BrowserModule,
