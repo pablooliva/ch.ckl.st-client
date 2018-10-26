@@ -34,9 +34,11 @@ export class ClstUseChecklistItemComponent implements OnInit {
   }
 
   public onClick(): void {
-    this.itemForm.patchValue({
-      checked: !this.itemForm.controls.checked.value
-    });
+    if (!this.isPreview) {
+      this.itemForm.patchValue({
+        checked: !this.itemForm.controls.checked.value
+      });
+    }
   }
 
   public onLabelClick(): void {

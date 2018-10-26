@@ -24,14 +24,18 @@
     input[type=checkbox] {
       margin-right: 0.8rem;
     }
-    .label label {
+    &.clickable {
+      .label label {
+        &:hover {
+          cursor: pointer;
+        }
+      }
       &:hover {
         cursor: pointer;
       }
-      font-size: 1rem;
     }
-    &:hover {
-      cursor: pointer;
+    .label label {
+      font-size: 1rem;
     }
   }
 }
