@@ -21,10 +21,10 @@
           <button (click)="deleteTag(i)" class="as-link clst-tag-updates" title="Delete"><i class="material-icons">delete</i></button>
         </div>
       </div>
-      <div class="clst-tag-edit" *ngIf="checklistTagsEnabled.controls.length"><button (click)="editTags()" class="as-link">[ Edit tags ]</button></div>
     </div>
     <div class="clst-btn-grp" *ngIf="!displayTagEditComp">
       <button class="clst-item-accent clst-sml-btn" type="button" (click)="displayTagEditComp = true">Create tag</button>
+      <button class="clst-item-accent clst-sml-btn" type="button" *ngIf="checklistTagsEnabled.controls.length" (click)="editTags()">Edit tags</button>
     </div>
     <clst-checklist-item-tag-edit *ngIf="displayTagEditComp" [checklistItem]="checklistItem" [tagProps]="pushTagInfo" (tagAdded)="clearTagEdit()">
     </clst-checklist-item-tag-edit>

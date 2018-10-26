@@ -1,7 +1,7 @@
 <mat-card>
   <div class="content-container">
     <h1>Dashboard</h1>
-    <h3>Create a New Checklist</h3>
+    <h3 class="clst-h-faint">Create a New Checklist</h3>
     <button mat-flat-button type="button" class="clst-btm-pad clst-item-primary" (click)="create()">
       Create <i class="material-icons">add_box</i>
     </button>
@@ -9,7 +9,7 @@
 </mat-card>
 <mat-card>
   <div class="content-container">
-    <h2>Your Checklists</h2>
+    <h2 class="clst-h-faint">Your Checklists</h2>
     <ol *ngIf="checklists.length; else noChecklists">
       <li *ngFor="let checklist of checklists">{{checklist.title}}
         <div class="clst-inline-actions">

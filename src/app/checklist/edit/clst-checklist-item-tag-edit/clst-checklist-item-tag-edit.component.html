@@ -1,12 +1,12 @@
 <div class="clst-tag-edit-container">
 <form novalidate [formGroup]="tagForm">
-  <h4>
+  <h3 class="clst-h-faint">
     <ng-container *ngIf="tagProps; else addTag">
       <ng-container *ngIf="tagProps.delete; else editTag">Delete tag</ng-container>
     </ng-container>
     <ng-template #addTag>Create tag</ng-template>
     <ng-template #editTag>Edit tag</ng-template>
-  </h4>
+  </h3>
   <clst-tag-display class="tag-layout" [color]="colorPicked" [label]="labelPicked" [icon]="iconPicked"></clst-tag-display>
   <div class="flex-container">
     <ng-container *ngIf="tagProps && tagProps.delete; else addOrEdit"><p class="important">Confirm that you would like to delete the "{{tagForm.get("label").value}}" tag.</p></ng-container>

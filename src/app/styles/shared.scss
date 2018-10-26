@@ -88,15 +88,19 @@ mat-checkbox {
 }
 
 /* Design */
-h1 {
-  color: mat-color($clst-app-primary);
-  border-left: 5px solid mat-color($clst-app-primary);
+.clst-h-accented {
+  color: mat-color($clst-app-secondary);
+  border-left: 5px solid mat-color($clst-app-secondary);
   padding-left: 1.2rem;
+}
+.clst-h-faint {
+  color: mat-color($clst-app-tertiary);
+}
 
-  &.clst-accented {
-    color: mat-color($clst-app-secondary);
-    border-left: 5px solid mat-color($clst-app-secondary);
-  }
+h1 {
+  @extend .clst-h-accented;
+  color: mat-color($clst-app-primary);
+  border-left-color: mat-color($clst-app-primary);
 }
 h2 {
   font-weight: normal;

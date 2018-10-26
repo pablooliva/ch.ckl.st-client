@@ -1,6 +1,6 @@
 <mat-card class="section-highlight">
     <div class="content-container elem-highlight">
-        <h2>Section</h2>
+        <h2 class="clst-h-faint">Section</h2>
         <div [formGroup]="section" class="rep-level">
             <mat-form-field class="control-group">
                 <label for="title">Section title</label>
@@ -12,7 +12,7 @@
                 <input matInput placeholder="Section description" type="text" id="flexibleText" formControlName="flexibleText" [errorStateMatcher]="matcher">
                 <mat-error *ngIf="section.hasError('titleOrDescriptionRequired')">* Title or description is required for this section.</mat-error>
             </mat-form-field>
-            <h3>Checklist Items</h3>
+            <h3 class="clst-h-faint">Checklist Items</h3>
             <div formArrayName="checklistItems" class="clist-item">
                 <clst-checklist-item *ngFor="let checklistItem of section.controls.checklistItems.controls; let i=index" [formGroupName]="i" [checklistItem]="checklistItem" [checklistItemIndex]="i" [section]="section">
                 </clst-checklist-item>
