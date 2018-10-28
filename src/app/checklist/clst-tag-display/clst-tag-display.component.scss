@@ -21,11 +21,11 @@
     border-top: 10px solid transparent;
     border-bottom: 12px solid transparent;
     border-left: 10px solid #b9b9b9;
-    left: 5.6rem;
+    left: 6.1rem;
   }
   .tag-label {
-    min-width: 5rem;
-    max-width: 5rem;
+    min-width: 5.5rem;
+    max-width: 5.5rem;
     border: 1px solid #b9b9b9;
     padding: 0 0.3em;
   }
@@ -45,6 +45,9 @@
   }
   .tag-label-text {
     font-size: 0.9em;
-    width: 4rem;
+    width: 4.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }

@@ -25,6 +25,7 @@
       <mat-form-field class="control-group">
         <label for="icon">Icon</label>
         <input matInput placeholder="Icon" type="text" id="icon" formControlName="icon" [matAutocomplete]="icons">
+        <mat-error *ngIf="testIcon('icon')">* Icon must be a valid <a href="https://material.io/tools/icons/?style=baseline" target="_blank">Material Icon</a>.</mat-error>
       </mat-form-field>
       <mat-autocomplete #icons="matAutocomplete">
         <ng-container *ngIf="(filteredOptions|async).length">

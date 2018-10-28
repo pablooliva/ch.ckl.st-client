@@ -15,7 +15,7 @@ import { map, startWith } from "rxjs/operators";
 import { DataPersistenceService } from "../../../shared/data-persistence.service";
 import { ChecklistItemTagsSyncService } from "../../../shared/checklist-item-tags-sync.service";
 import { genericValidationTest } from "../../../shared/clst-utils";
-import { UniqueLabel } from "./clst-checklist-item-tag.validator";
+import { UniqueLabel, ValidMatIcon } from "./clst-checklist-item-tag.validator";
 import { materialIconsNames } from "./material-icons-names";
 import { ITagInfo } from "../clst-checklist-item/clst-checklist-item.component";
 
@@ -24,11 +24,13 @@ import { ITagInfo } from "../clst-checklist-item/clst-checklist-item.component";
   templateUrl: "./clst-checklist-item-tag-edit.component.html",
   styleUrls: ["./clst-checklist-item-tag-edit.component.scss"]
 })
-export class ClstChecklistItemTagEditComponent
-  implements OnInit, OnDestroy, OnChanges {
-  @Input() public checklistItem: FormGroup;
-  @Input() tagProps: ITagInfo;
-  @Output() tagAdded: EventEmitter<boolean> = new EventEmitter<boolean>();
+export class ClstChecklistItemTagEditComponent implements OnInit, OnDestroy, OnChanges {
+  @Input()
+  public checklistItem: FormGroup;
+  @Input()
+  tagProps: ITagInfo;
+  @Output()
+  tagAdded: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   public tagForm: FormGroup;
   public colorPicked: string;
@@ -58,27 +60,19 @@ export class ClstChecklistItemTagEditComponent
 
   public ngOnInit(): void {
     this.defaultColor = "#fff";
-    this.colorPicked = this.tagProps
-      ? this.tagProps.tag.color
-      : this.defaultColor;
+    this.colorPicked = this.tagProps ? this.tagProps.tag.color : this.defaultColor;
     this.labelPicked = this.tagProps ? this.tagProps.tag.label : "Preview";
     this.iconPicked = this.tagProps ? this.tagProps.tag.icon : "";
     this.options = materialIconsNames;
 
-    this.filteredOptions = this.tagForm
-      .get("icon")
-      .valueChanges.pipe(
-        startWith(""),
-        map(value => value && this._filter(value))
-      );
+    this.filteredOptions = this.tagForm.get("icon").valueChanges.pipe(
+      startWith(""),
+      map(value => value && this._filter(value))
+    );
 
-    this.tagForm
-      .get("label")
-      .valueChanges.subscribe(val => (this.labelPicked = val));
+    this.tagForm.get("label").valueChanges.subscribe(val => (this.labelPicked = val));
 
-    this.tagForm
-      .get("icon")
-      .valueChanges.subscribe(val => (this.iconPicked = val));
+    this.tagForm.get("icon").valueChanges.subscribe(val => (this.iconPicked = val));
   }
 
   public ngOnChanges(changes: SimpleChanges): void {
@@ -100,12 +94,9 @@ export class ClstChecklistItemTagEditComponent
 
   private _initForm(): void {
     this.tagForm = this._fb.group({
-      label: [
-        "",
-        Validators.compose([Validators.required, UniqueLabel.bind(this)])
-      ],
+      label: ["", Validators.compose([Validators.required, UniqueLabel.bind(this)])],
       color: this.colorPicked,
-      icon: ""
+      icon: ["", ValidMatIcon.bind(this)]
     });
   }
 
@@ -138,16 +129,9 @@ export class ClstChecklistItemTagEditComponent
   }
 
   public onSubmit(): void {
-    if (
-      this.tagProps &&
-      this.tagProps.delete &&
-      this._syncTags.deleteTag(this.tagProps.index)
-    ) {
+    if (this.tagProps && this.tagProps.delete && this._syncTags.deleteTag(this.tagProps.index)) {
       this._completeSubmit();
-    } else if (
-      this.tagProps &&
-      this._syncTags.updateTag(this.tagForm.value, this.tagProps.index)
-    ) {
+    } else if (this.tagProps && this._syncTags.updateTag(this.tagForm.value, this.tagProps.index)) {
       this._completeSubmit();
     } else if (this._syncTags.addTag(this.tagForm.value)) {
       this._completeSubmit();
@@ -169,10 +153,12 @@ export class ClstChecklistItemTagEditComponent
     return genericValidationTest(this.tagForm, formField, "uniqueLabel");
   }
 
+  public testIcon(formField: string): boolean {
+    return genericValidationTest(this.tagForm, formField, "validMatIcon");
+  }
+
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
-    return this.options.filter(option =>
-      option.toLowerCase().includes(filterValue)
-    );
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 }
