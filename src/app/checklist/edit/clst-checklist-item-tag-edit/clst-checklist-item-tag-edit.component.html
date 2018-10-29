@@ -29,7 +29,7 @@
       </mat-form-field>
       <mat-autocomplete #icons="matAutocomplete">
         <ng-container *ngIf="(filteredOptions|async).length">
-          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{option}}</mat-option>
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option"><i class="material-icons">{{option}}</i> {{option}}</mat-option>
         </ng-container>
       </mat-autocomplete>
     </ng-template>

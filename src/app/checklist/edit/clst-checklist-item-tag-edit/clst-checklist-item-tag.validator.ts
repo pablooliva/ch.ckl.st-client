@@ -18,5 +18,7 @@ export function UniqueLabel(control: AbstractControl) {
 
 export function ValidMatIcon(control: AbstractControl) {
   const iconNames = this.options ? this.options : materialIconsNames;
-  return iconNames.find(option => option === control.value) ? null : { validMatIcon: true };
+  return control.value === "" || iconNames.find(option => option === control.value)
+    ? null
+    : { validMatIcon: true };
 }
