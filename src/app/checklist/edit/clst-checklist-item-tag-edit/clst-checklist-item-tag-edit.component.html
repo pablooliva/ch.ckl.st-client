@@ -26,12 +26,12 @@
         <label for="icon">Icon</label>
         <input matInput placeholder="Icon" type="text" id="icon" formControlName="icon" [matAutocomplete]="icons">
         <mat-error *ngIf="testIcon('icon')">* Icon must be a valid <a href="https://material.io/tools/icons/?style=baseline" target="_blank">Material Icon</a>.</mat-error>
+        <mat-autocomplete #icons="matAutocomplete">
+          <ng-container *ngIf="(filteredOptions | async).length">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option"><i class="material-icons">{{option}}</i> {{option}}</mat-option>
+          </ng-container>
+        </mat-autocomplete>
       </mat-form-field>
-      <mat-autocomplete #icons="matAutocomplete">
-        <ng-container *ngIf="(filteredOptions|async).length">
-          <mat-option *ngFor="let option of filteredOptions | async" [value]="option"><i class="material-icons">{{option}}</i> {{option}}</mat-option>
-        </ng-container>
-      </mat-autocomplete>
     </ng-template>
     <div class="clst-btn-container">
       <button class="clst-cancel" mat-flat-button type="button" (click)="cancel()">Cancel <i class="material-icons">cancel</i></button>

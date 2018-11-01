@@ -67,7 +67,7 @@ export class ClstChecklistItemTagEditComponent implements OnInit, OnDestroy, OnC
 
     this.filteredOptions = this.tagForm.get("icon").valueChanges.pipe(
       startWith(""),
-      map(value => value && this._filter(value))
+      map(value => this._filter(value))
     );
 
     this.tagForm.get("label").valueChanges.subscribe(val => (this.labelPicked = val));
@@ -158,7 +158,11 @@ export class ClstChecklistItemTagEditComponent implements OnInit, OnDestroy, OnC
   }
 
   private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+    if (value === "" || value === null) {
+      return this.options;
+    } else {
+      const filterValue = value.toLowerCase();
+      return this.options.filter(option => option.toLowerCase().includes(filterValue));
+    }
   }
 }
