@@ -23,29 +23,15 @@
   </mat-card>
   <mat-card *ngIf="!sharePreview">
     <div class="content-container">
-      <h2 class="clst-actions">Checklist Actions</h2>
-      <div class="clst-btn-grp">
-        <div clstSubmitButton [reset]="reset()" (continue)="onSubmit()" class="clst-form-submit">
-          <button class="pre-submit clst-item-primary" mat-flat-button type="button">
-            Save <i class="material-icons">save</i>
-          </button>
-          <button class="in-progress" mat-flat-button type="button" disabled="disabled">
-            <div id="inProgress" class="spinner">
-              <div class="bounce1"></div>
-              <div class="bounce2"></div>
-              <div class="bounce3"></div>
-            </div>
-          </button>
-          <button class="post-submit" mat-flat-button type="button" disabled="disabled">
-            Success <i class="material-icons">check_circle</i>
-          </button>
-        </div>
-        <ng-container *ngIf="!isAnon">
+      <ng-container *ngIf="!isAnon">
+        <h2 class="clst-actions">Checklist Actions</h2>
+        <div class="clst-btn-grp">
           <button mat-flat-button type="button" class="clst-secondary" (click)="editChecklist()">Edit <i class="material-icons">swap_vertical_circle</i></button>
           <button mat-flat-button type="button" class="clst-secondary" (click)="shareChecklist()">Share <i class="material-icons">share</i></button>
           <button mat-flat-button type="button" class="clst-secondary" (click)="cloneChecklist()">Copy <i class="material-icons">add_circle</i></button>
-        </ng-container>
-      </div>
+        </div>
+      </ng-container>
+      <p class="clst-action-msg"><i class="material-icons">autorenew</i> Your use of this checklist is saved automatically.</p>
     </div>
   </mat-card>
 </form>

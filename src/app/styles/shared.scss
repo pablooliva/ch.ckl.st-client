@@ -113,6 +113,17 @@ h2 {
 .clst-actions {
   color: mat-color($clst-app-primary);
 }
+.clst-action-msg {
+  margin: 0;
+  color: mat-color($clst-app-tertiary);
+  .material-icons {
+    vertical-align: text-bottom;
+    font-size: 1.2rem;
+  }
+}
+.clst-btn-grp + .clst-action-msg {
+  margin: 1rem 0 0 0;
+}
 
 /* Form related */
 .control-group {

@@ -3,8 +3,8 @@ import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { HttpHeaders } from "@angular/common/http";
 import { ToastrService } from "ngx-toastr";
-import { Observable, Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
+import { Subject } from "rxjs";
+import { auditTime, takeUntil } from "rxjs/operators";
 
 import { ServerConnectService } from "../../../shared/server-connect.service";
 import {
@@ -19,14 +19,15 @@ import {
   styleUrls: ["./clst-use-root.component.scss"]
 })
 export class ClstUseRootComponent implements OnInit, OnDestroy {
-  @Input() sharePreview: boolean;
-  @Input() isAnon: boolean;
+  @Input()
+  sharePreview: boolean;
+  @Input()
+  isAnon: boolean;
 
   public cId: string;
   public clstData: IClstFormDataModel | IClstDataModel;
   public noData: boolean;
   public clForm: FormGroup;
-  public buttonReset: Subject<boolean> = new Subject<boolean>();
   public hasItemTags: boolean;
 
   public get sections(): FormArray {
@@ -60,9 +61,7 @@ export class ClstUseRootComponent implements OnInit, OnDestroy {
             const checklistItems = this._fb.array([]);
 
             section["checklistItems"].forEach(cItem => {
-              const showChecked = this.sharePreview
-                ? false
-                : cItem.checked ? cItem.checked : false;
+              const showChecked = this.sharePreview ? false : cItem.checked ? cItem.checked : false;
 
               const item = this._fb.group({
                 label: cItem.label,
@@ -80,11 +79,17 @@ export class ClstUseRootComponent implements OnInit, OnDestroy {
 
           this.clstData = data;
           this.hasItemTags =
-            !!(this.clstData as IClstDataModel).checklistTags.length &&
-            this._areItemTagsEnabled();
+            !!(this.clstData as IClstDataModel).checklistTags.length && this._areItemTagsEnabled();
         } else {
           this.noData = true;
         }
+
+        this.clForm.valueChanges
+          .pipe(
+            takeUntil(this._destroy),
+            auditTime(500)
+          )
+          .subscribe(() => this._postFormData());
       });
   }
 
@@ -97,11 +102,7 @@ export class ClstUseRootComponent implements OnInit, OnDestroy {
     return <FormGroup>this.sections.get([idx]);
   }
 
-  public reset(): Observable<boolean> {
-    return this.buttonReset;
-  }
-
-  public onSubmit(): void {
+  private _postFormData(): void {
     const checklistPath = this.isAnon ? "anonchecklists" : "use";
     const httpOptions = {
       headers: new HttpHeaders({
@@ -118,12 +119,10 @@ export class ClstUseRootComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this._destroy))
       .subscribe(
         val => {
-          this._toastr.success(val.uiMessage, val.type);
-          this.buttonReset.next(true);
+          console.log(val.uiMessage);
         },
         error => {
           this._toastr.error(error.uiMessage, error.type);
-          this.buttonReset.next(true);
         }
       );
   }
