@@ -27,7 +27,7 @@ const appRoutes: Routes = [
   {
     path: "checklist",
     canActivate: [AuthGuard],
-    canDeactivate: [PendingChangesGuard, LeaveChecklistGuard],
+    canDeactivate: [PendingChangesGuard],
     component: ClstFormComponent,
     data: { page: "create" }
   },
@@ -41,7 +41,7 @@ const appRoutes: Routes = [
   {
     path: "checklist/:id",
     canActivate: [AuthGuard],
-    canDeactivate: [PendingChangesGuard, LeaveChecklistGuard],
+    canDeactivate: [PendingChangesGuard],
     component: ClstFormComponent,
     data: { page: "get" }
   },

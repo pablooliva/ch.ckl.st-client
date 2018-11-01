@@ -64,9 +64,7 @@ export class DataPersistenceService {
   private _token: string;
   private _checklistId: string;
 
-  public belongsToOwner: BehaviorSubject<boolean> = new BehaviorSubject<
-    boolean
-  >(false);
+  public belongsToOwner: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   public set user(uId: string) {
     this._user = uId;
@@ -104,9 +102,7 @@ export class DataPersistenceService {
   constructor(private _router: Router) {}
 
   public prepChecklistDataClone(): void {
-    this._clDataModelClone = <IClstDataModel>DataPersistenceService.deepClone(
-      this._clDataModel
-    );
+    this._clDataModelClone = <IClstDataModel>DataPersistenceService.deepClone(this._clDataModel);
     this._clDataModelClone.parentChecklist = this.checklistId;
   }
 
@@ -147,12 +143,8 @@ export class DataPersistenceService {
   }
 
   public prepareDBData(formValues: IClstFormDataModel): IClstDataModel {
-    const formValuesClone = <IClstFormDataModel>DataPersistenceService.deepClone(
-      formValues
-    );
-    formValuesClone.documentTags = <any[]>this._toDBDocTags(
-      formValuesClone.documentTags
-    );
+    const formValuesClone = <IClstFormDataModel>DataPersistenceService.deepClone(formValues);
+    formValuesClone.documentTags = <any[]>this._toDBDocTags(formValuesClone.documentTags);
     this._removeEmptyGroups("sections", formValuesClone);
     this._clDataModel = <any>{ ...this._clDataModel, ...formValuesClone };
     const dataModelClone = DataPersistenceService.deepClone(this._clDataModel);
@@ -170,19 +162,11 @@ export class DataPersistenceService {
       this.applyChecklistDataClone();
     } else if (this._router.url.substring(0, 6) === "/anon/") {
       this._clDataModel = this.checklistId
-        ? await this._getDBData(
-            "anonchecklists",
-            this.checklistId,
-            serverConnectService
-          )
+        ? await this._getDBData("anonchecklists", this.checklistId, serverConnectService)
         : null;
     } else {
       this._clDataModel = this.checklistId
-        ? await this._getDBData(
-            "checklists",
-            this.checklistId,
-            serverConnectService
-          )
+        ? await this._getDBData("checklists", this.checklistId, serverConnectService)
         : this._createDefaultModel();
     }
 
@@ -226,10 +210,7 @@ export class DataPersistenceService {
     return this._clDataModel.checklistTags;
   }
 
-  public updateChecklistTag(
-    tag: IChecklistItemTag,
-    index: number
-  ): IChecklistItemTag[] {
+  public updateChecklistTag(tag: IChecklistItemTag, index: number): IChecklistItemTag[] {
     this._clDataModel.checklistTags[index] = tag;
     return this._clDataModel.checklistTags;
   }
@@ -250,16 +231,12 @@ export class DataPersistenceService {
   ): Promise<IClstDataModel> {
     const path = prePath + "/" + checklistId;
     let checklist: IClstDataModel = <any>{};
-    await serverConnectService
-      .getChecklists(path)
-      .then((response: IClstDataModel) => {
-        if (!!response) {
-          response.documentTags = this._fromDBDocTags(
-            <any>response.documentTags
-          );
-        }
-        return (checklist = response);
-      });
+    await serverConnectService.getChecklists(path).then((response: IClstDataModel) => {
+      if (!!response) {
+        response.documentTags = this._fromDBDocTags(<any>response.documentTags);
+      }
+      return (checklist = response);
+    });
 
     // invalid request will return checklist = null
     return Promise.resolve(checklist);
@@ -281,10 +258,10 @@ export class DataPersistenceService {
 
   private _removeEmptyGroups(property: string, objRef: Object): void {
     if (!Array.isArray(objRef[property])) {
-      console.error(
-        "We expected an array for this property, but we received: ",
-        [objRef, property]
-      );
+      console.error("We expected an array for this property, but we received: ", [
+        objRef,
+        property
+      ]);
     } else {
       let hasValue = false;
       objRef[property].forEach(obj => {

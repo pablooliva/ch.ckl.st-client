@@ -1,9 +1,9 @@
 import { Injectable } from "@angular/core";
 import { CanDeactivate } from "@angular/router";
 import { MatDialog } from "@angular/material";
-import * as _ from "lodash";
 
 import { ClstDialogComponent, IDialogBody } from "./dialog/clst-dialog/clst-dialog.component";
+import { DataPersistenceService } from "./data-persistence.service";
 
 export interface ComponentCanDeactivate {
   canDeactivate: () => boolean;
@@ -16,10 +16,10 @@ export interface ComponentCanDeactivate {
 export class PendingChangesGuard implements CanDeactivate<ComponentCanDeactivate> {
   private _componentRef: any;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private _dataPersistence: DataPersistenceService) {}
 
   async canDeactivate(component: ComponentCanDeactivate): Promise<boolean> {
-    this._componentRef = _.cloneDeep(component);
+    this._componentRef = component;
 
     return component.canDeactivate()
       ? true
@@ -58,9 +58,17 @@ export class PendingChangesGuard implements CanDeactivate<ComponentCanDeactivate
       .afterClosed()
       .toPromise()
       .then(dialogResult => {
-        if (dialogResult) {
-          return this._componentRef.savePendingChanges().then(saveResult => saveResult);
+        if (dialogResult === undefined) {
+          return false;
+        } else if (dialogResult) {
+          return this._componentRef.savePendingChanges().then(saveResult => {
+            if (saveResult) {
+              this._dataPersistence.resetData();
+            }
+            return saveResult;
+          });
         } else {
+          this._dataPersistence.resetData();
           return true;
         }
       });
