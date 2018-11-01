@@ -1,11 +1,7 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import {
-  HTTP_INTERCEPTORS,
-  HttpClientModule,
-  HttpClientXsrfModule
-} from "@angular/common/http";
+import { HTTP_INTERCEPTORS, HttpClientModule, HttpClientXsrfModule } from "@angular/common/http";
 import { ReactiveFormsModule } from "@angular/forms";
 import { NgMaterialModule } from "./material.module";
 
@@ -26,7 +22,6 @@ import { ClstChecklistItemComponent } from "./checklist/edit/clst-checklist-item
 import { ClstChecklistItemTagEditComponent } from "./checklist/edit/clst-checklist-item-tag-edit/clst-checklist-item-tag-edit.component";
 import { ClstTagDisplayComponent } from "./checklist/clst-tag-display/clst-tag-display.component";
 import { DashboardComponent } from "./user/dashboard/dashboard.component";
-import { DeleteConfirmationComponent } from "./user/delete-confirmation/delete-confirmation.component";
 import { ClstUseRootComponent } from "./checklist/use/clst-use-root/clst-use-root.component";
 import { ClstUseSectionComponent } from "./checklist/use/clst-use-section/clst-use-section.component";
 import { ClstUseChecklistItemComponent } from "./checklist/use/clst-use-checklist-item/clst-use-checklist-item.component";
@@ -34,6 +29,7 @@ import { ClstSharePreviewComponent } from "./checklist/share/clst-share-preview/
 import { ClstUseAnonComponent } from "./checklist/use/clst-use-anon/clst-use-anon.component";
 import { ClstUseComponent } from "./checklist/use/clst-use/clst-use.component";
 import { ClstCloneComponent } from "./checklist/edit/clst-clone/clst-clone.component";
+import { ClstDialogComponent } from "./shared/dialog/clst-dialog/clst-dialog.component";
 
 import { SubmitButtonDirective } from "./shared/submit-button.directive";
 import { SubmitIfValidDirective } from "./shared/submit-if-valid.directive";
@@ -58,9 +54,9 @@ import { AuthenticationInterceptor } from "./shared/authentication.inteceptor";
     SubmitButtonDirective,
     ClstSharePreviewComponent,
     ClstUseAnonComponent,
-    DeleteConfirmationComponent,
     ClstUseComponent,
-    ClstCloneComponent
+    ClstCloneComponent,
+    ClstDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +78,7 @@ import { AuthenticationInterceptor } from "./shared/authentication.inteceptor";
     ColorPickerModule,
     ClipboardModule
   ],
-  entryComponents: [DeleteConfirmationComponent],
+  entryComponents: [ClstDialogComponent],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

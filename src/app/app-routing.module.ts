@@ -3,6 +3,7 @@ import { Routes, RouterModule, PreloadAllModules } from "@angular/router";
 
 import { AuthGuard } from "./shared/auth.guard";
 import { EnterCloneGuard } from "./checklist/enter-clone.guard";
+import { PendingChangesGuard } from "./shared/pending-changes.guard";
 import { LeaveChecklistGuard } from "./checklist/leave-checklist.guard";
 import { HomeComponent } from "./core/home/home.component";
 import { RegisterComponent } from "./user/register/register.component";
@@ -26,7 +27,7 @@ const appRoutes: Routes = [
   {
     path: "checklist",
     canActivate: [AuthGuard],
-    canDeactivate: [LeaveChecklistGuard],
+    canDeactivate: [PendingChangesGuard, LeaveChecklistGuard],
     component: ClstFormComponent,
     data: { page: "create" }
   },
@@ -40,7 +41,7 @@ const appRoutes: Routes = [
   {
     path: "checklist/:id",
     canActivate: [AuthGuard],
-    canDeactivate: [LeaveChecklistGuard],
+    canDeactivate: [PendingChangesGuard, LeaveChecklistGuard],
     component: ClstFormComponent,
     data: { page: "get" }
   },
@@ -72,9 +73,7 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules })
-  ],
+  imports: [RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules })],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit } from "@angular/core";
+import { Component, ElementRef, HostListener, OnDestroy, OnInit } from "@angular/core";
 import {
   FormArray,
   FormBuilder,
@@ -23,11 +23,13 @@ import {
   IClstFormDataModel,
   INgxChips
 } from "../../../shared/data-persistence.service";
-import { genericValidationTest } from "../../../shared/clst-utils";
+import { genericValidationTest, traverseControls } from "../../../shared/clst-utils";
 import { DocTagService } from "../../../shared/doc-tag.service";
 import { oneOfRequiredValidator } from "../clst-section/clst-section.component";
 import { ClstBaseComponent } from "../../../shared/clst-base.component";
 import { RootListenerService } from "../../../shared/root-listener.service";
+import { ComponentCanDeactivate } from "../../../shared/pending-changes.guard";
+import { HttpReqStatus } from "../../../shared/status-types";
 
 interface IParentArray {
   array: FormArray;
@@ -40,7 +42,7 @@ interface IParentArray {
   styleUrls: ["./clst-form.component.scss"]
 })
 export class ClstFormComponent extends ClstBaseComponent
-  implements OnInit, OnDestroy {
+  implements OnInit, OnDestroy, ComponentCanDeactivate {
   public clForm: FormGroup;
   public buttonReset: Subject<boolean> = new Subject<boolean>();
   public validators = [this._notDuplicate.bind(this)];
@@ -51,6 +53,13 @@ export class ClstFormComponent extends ClstBaseComponent
   }
 
   private _destroy: Subject<boolean> = new Subject<boolean>();
+  private _pendingChanges: boolean;
+
+  @HostListener("window:beforeunload")
+  canDeactivate(): boolean {
+    // returning false will show a confirm dialog before navigating away
+    return !this._pendingChanges;
+  }
 
   constructor(
     private _http: HttpClient,
@@ -71,6 +80,7 @@ export class ClstFormComponent extends ClstBaseComponent
   public ngOnInit(): void {
     super.ngOnInit();
 
+    this._pendingChanges = false;
     this.cId = this._route.snapshot.params["id"];
 
     this._fEPusherService.formElement
@@ -78,12 +88,7 @@ export class ClstFormComponent extends ClstBaseComponent
       .subscribe((newElem: IPushFormElement) => {
         switch (newElem.type) {
           case "section":
-            this._newSection(
-              newElem.index,
-              null,
-              newElem.group,
-              newElem.validator
-            );
+            this._newSection(newElem.index, null, newElem.group, newElem.validator);
             break;
           case "item":
             this._newChecklistItem(newElem.index, null, newElem.group);
@@ -93,7 +98,11 @@ export class ClstFormComponent extends ClstBaseComponent
         }
       });
 
-    this._initForm();
+    this._initForm().then(() =>
+      this.clForm.valueChanges
+        .pipe(takeUntil(this._destroy))
+        .subscribe(() => (this._pendingChanges = true))
+    );
   }
 
   public ngOnDestroy(): void {
@@ -120,9 +129,7 @@ export class ClstFormComponent extends ClstBaseComponent
   }
 
   private _notDuplicate(control: FormControl) {
-    const displayVals: string[] = this.clForm
-      .get("documentTags")
-      .value.map(tags => tags.display);
+    const displayVals: string[] = this.clForm.get("documentTags").value.map(tags => tags.display);
     if (displayVals.find(val => val === control.value)) {
       return { duplicate: true };
     } else {
@@ -135,29 +142,15 @@ export class ClstFormComponent extends ClstBaseComponent
   }
 
   public onSubmit(): void {
-    const checklistPath = "checklists";
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-Type": "application/json"
-      })
-    };
-
-    this._serverConnectService
-      .postChecklist(
-        checklistPath,
-        JSON.stringify(this._dataPersistence.prepareDBData(this.clForm.value)),
-        httpOptions
-      )
+    this._postFormData()
       .pipe(takeUntil(this._destroy))
       .subscribe(
         val => {
           this._toastr.success(val.uiMessage, val.type);
           this.buttonReset.next(true);
           if (!this.cId) {
-            this._router.navigate([
-              "/checklist",
-              val.serverResponse.checklistId
-            ]);
+            this._pendingChanges = false;
+            this._router.navigate(["/checklist", val.serverResponse.checklistId]);
           }
         },
         error => {
@@ -165,6 +158,40 @@ export class ClstFormComponent extends ClstBaseComponent
           this.buttonReset.next(true);
         }
       );
+  }
+
+  public savePendingChanges(): Promise<boolean> {
+    traverseControls(this.clForm.controls);
+    if (this.clForm.invalid) {
+      this._toastr.error("Please review the form for errors and try again.", "Save Failed");
+      return Promise.resolve(false);
+    }
+
+    return this._postFormData()
+      .toPromise()
+      .then(val => {
+        this._toastr.success(val.uiMessage, val.type);
+        return true;
+      })
+      .catch(error => {
+        this._toastr.error(error.uiMessage, error.type);
+        return false;
+      });
+  }
+
+  private _postFormData(): Observable<HttpReqStatus> {
+    const checklistPath = "checklists";
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json"
+      })
+    };
+
+    return this._serverConnectService.postChecklist(
+      checklistPath,
+      JSON.stringify(this._dataPersistence.prepareDBData(this.clForm.value)),
+      httpOptions
+    );
   }
 
   public testReq(formField: string): boolean {
@@ -201,8 +228,8 @@ export class ClstFormComponent extends ClstBaseComponent
     return { array: fbArray, index: index };
   }
 
-  private _initForm(): void {
-    this._dataPersistence
+  private _initForm(): Promise<void> {
+    return this._dataPersistence
       .prepareClientData(this.cId, this._serverConnectService)
       .then((data: IClstFormDataModel) => {
         this.clForm = this._fb.group({
@@ -247,6 +274,8 @@ export class ClstFormComponent extends ClstBaseComponent
         } else {
           this._newSection(0, this.sections, null, oneOfRequiredValidator);
         }
+
+        return Promise.resolve(null);
       });
   }
 
@@ -275,11 +304,7 @@ export class ClstFormComponent extends ClstBaseComponent
     this._newChecklistItem(0, arrayRef);
   }
 
-  private _newChecklistItem(
-    idx: number,
-    parentArray: IParentArray,
-    group?: FormGroup
-  ): void {
+  private _newChecklistItem(idx: number, parentArray: IParentArray, group?: FormGroup): void {
     const item = this._fb.group({
       label: ["", Validators.required],
       flexibleText: "",

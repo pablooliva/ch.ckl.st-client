@@ -6,9 +6,12 @@ import { ToastrService } from "ngx-toastr";
 
 import { ServerConnectService } from "../../shared/server-connect.service";
 import { DataPersistenceService } from "../../shared/data-persistence.service";
-import { DeleteConfirmationComponent } from "../delete-confirmation/delete-confirmation.component";
 import { RootListenerService } from "../../shared/root-listener.service";
 import { ClstBaseComponent } from "../../shared/clst-base.component";
+import {
+  ClstDialogComponent,
+  IDialogBody
+} from "../../shared/dialog/clst-dialog/clst-dialog.component";
 
 interface IChecklistsByUser {
   id: string;
@@ -43,12 +46,10 @@ export class DashboardComponent extends ClstBaseComponent implements OnInit {
     this.qryResolved = false;
 
     const path = "checklists/user/" + this._dataPersistence.user;
-    this._serverConnectService
-      .getChecklists(path)
-      .then((response: IChecklistsByUser[]) => {
-        this.checklists = response;
-        this.qryResolved = true;
-      });
+    this._serverConnectService.getChecklists(path).then((response: IChecklistsByUser[]) => {
+      this.checklists = response;
+      this.qryResolved = true;
+    });
   }
 
   public create(): void {
@@ -56,9 +57,27 @@ export class DashboardComponent extends ClstBaseComponent implements OnInit {
   }
 
   public openDialog(cId: string): void {
-    const dialogRef = this.dialog.open(DeleteConfirmationComponent, {
+    const dialogBody: IDialogBody = {
+      title: "Delete Checklist",
+      body: "Are you sure?",
+      buttons: {
+        primary: {
+          color: "warn",
+          label: "Yes",
+          value: true
+        },
+        secondary: {
+          color: "primary",
+          label: "No",
+          value: false
+        }
+      }
+    };
+
+    const dialogRef = this.dialog.open(ClstDialogComponent, {
       height: "200px",
-      width: "250px"
+      width: "250px",
+      data: dialogBody
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -69,12 +88,10 @@ export class DashboardComponent extends ClstBaseComponent implements OnInit {
   }
 
   public cloneChecklist(id: string): void {
-    this._dataPersistence
-      .prepareClientData(id, this._serverConnectService)
-      .then(() => {
-        this._dataPersistence.prepChecklistDataClone();
-        this._router.navigate(["/clone"]);
-      });
+    this._dataPersistence.prepareClientData(id, this._serverConnectService).then(() => {
+      this._dataPersistence.prepChecklistDataClone();
+      this._router.navigate(["/clone"]);
+    });
   }
 
   public delete(cId: string): void {
