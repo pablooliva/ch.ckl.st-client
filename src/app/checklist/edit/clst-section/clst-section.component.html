@@ -7,11 +7,21 @@
                 <input matInput placeholder="Section title" type="text" id="title" formControlName="title" [errorStateMatcher]="matcher">
                 <mat-error *ngIf="section.hasError('titleOrDescriptionRequired')">* Title or description is required for this section.</mat-error>
             </mat-form-field>
-            <mat-form-field class="control-group">
-                <label for="flexibleText">Section description</label>
-                <input matInput placeholder="Section description" type="text" id="flexibleText" formControlName="flexibleText" [errorStateMatcher]="matcher">
-                <mat-error *ngIf="section.hasError('titleOrDescriptionRequired')">* Title or description is required for this section.</mat-error>
-            </mat-form-field>
+            <div class="control-group mat-form-field mat-form-field-appearance-legacy" [class.mat-form-field-invalid]="errorEval()">
+                <div class="mat-form-field-wrapper">
+                    <div class="mat-form-field-flex">
+                        <clst-flex-text
+                          [control]="section.get('flexibleText')"
+                          [hasError]="errorEval()"
+                          label="Section description">
+                        </clst-flex-text>
+                    </div>
+                    <div class="mat-form-field-underline"><span class="mat-form-field-ripple"></span></div>
+                    <div class="mat-form-field-subscript-wrapper">
+                        <mat-error *ngIf="errorEval()">* Title or description is required for this section.</mat-error>
+                    </div>
+                </div>
+            </div>
             <h3 class="clst-h-faint">Checklist Items</h3>
             <div formArrayName="checklistItems" class="clist-item">
                 <clst-checklist-item *ngFor="let checklistItem of section.controls.checklistItems.controls; let i=index" [formGroupName]="i" [checklistItem]="checklistItem" [checklistItemIndex]="i" [section]="section">

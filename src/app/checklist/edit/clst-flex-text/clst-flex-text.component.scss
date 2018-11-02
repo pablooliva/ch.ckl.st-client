@@ -1,0 +1,19 @@
+$empty-color: #0000008a;
+$has-error-color: #f44336;
+
+:host {
+  width: 100%;
+}
+.clst-desc-display {
+  width: 100%;
+  margin: 0;
+  &:focus {
+    outline: none;
+  }
+}
+.clst-md-empty {
+  color: $empty-color;
+}
+.has-error {
+  color: $has-error-color;
+}

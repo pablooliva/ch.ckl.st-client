@@ -1,0 +1,18 @@
+  <div class="clst-desc-display mat-form-field-infix"
+       tabindex="0"
+       [class.clst-md-empty]="!inFocus && noValue(control.value)"
+       [class.has-error]="hasError"
+       (focus)="inFocus = true">
+    <ng-container *ngIf="!inFocus">
+      <ng-container *ngIf="control.value; else noValue">{{control.value}}</ng-container>
+      <ng-template #noValue>{{label}}</ng-template>
+    </ng-container>
+    <ng-container *ngIf="inFocus">
+      <quill-editor
+        [formControl]="control"
+        (change)="onChange($event)"
+        (blur)="onBlur()">
+        {{control.value}}
+      </quill-editor>
+    </ng-container>
+  </div>

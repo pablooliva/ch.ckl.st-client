@@ -1,11 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
-import {
-  FormArray,
-  FormControl,
-  FormGroup,
-  FormGroupDirective,
-  NgForm
-} from "@angular/forms";
+import { FormArray, FormControl, FormGroup, FormGroupDirective, NgForm } from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material";
 
 import { FormElementPusherService } from "../../../shared/form-element-pusher.service";
@@ -16,9 +10,12 @@ import { FormElementPusherService } from "../../../shared/form-element-pusher.se
   styleUrls: ["./clst-section.component.scss"]
 })
 export class ClstSectionComponent implements OnInit {
-  @Input() public section: FormGroup;
-  @Input() public sectionIndex: number;
-  @Input() public form: FormGroup;
+  @Input()
+  public section: FormGroup;
+  @Input()
+  public sectionIndex: number;
+  @Input()
+  public form: FormGroup;
 
   public matcher = new CustomErrorStateMatcher();
 
@@ -42,11 +39,16 @@ export class ClstSectionComponent implements OnInit {
       this.addSection(0);
     }
   }
+
+  public errorEval(): boolean {
+    return (
+      this.section.hasError("titleOrDescriptionRequired") &&
+      this.matcher.isErrorState(<FormControl>this.section.controls["flexibleText"], null)
+    );
+  }
 }
 
-export function oneOfRequiredValidator(
-  group: FormGroup
-): { [s: string]: boolean } {
+export function oneOfRequiredValidator(group: FormGroup): { [s: string]: boolean } {
   if (group) {
     if (group.controls["title"].value || group.controls["flexibleText"].value) {
       return null;
@@ -56,10 +58,7 @@ export function oneOfRequiredValidator(
 }
 
 class CustomErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(
-    control: FormControl | null,
-    form: FormGroupDirective | NgForm | null
-  ): boolean {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     const controlTouched = !!(control && (control.dirty || control.touched));
     const controlInvalid = !!(control && control.invalid);
 
@@ -68,8 +67,7 @@ class CustomErrorStateMatcher implements ErrorStateMatcher {
       control.parent &&
       control.parent.invalid &&
       (control.parent.dirty || control.parent.touched) &&
-      (control.parent.value["title"] === "" &&
-        control.parent.value["flexibleText"] === "")
+      (control.parent.value["title"] === "" && control.parent.value["flexibleText"] === "")
     );
 
     return controlTouched && (controlInvalid || parentInvalid);

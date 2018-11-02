@@ -10,6 +10,7 @@ import { ToastrModule } from "ngx-toastr";
 import { AutosizeModule } from "ngx-autosize";
 import { ColorPickerModule } from "./color-picker-module/color-picker.module";
 import { ClipboardModule } from "ngx-clipboard";
+import { QuillEditorModule } from "ngx-quill-editor";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -30,6 +31,7 @@ import { ClstUseAnonComponent } from "./checklist/use/clst-use-anon/clst-use-ano
 import { ClstUseComponent } from "./checklist/use/clst-use/clst-use.component";
 import { ClstCloneComponent } from "./checklist/edit/clst-clone/clst-clone.component";
 import { ClstDialogComponent } from "./shared/dialog/clst-dialog/clst-dialog.component";
+import { ClstFlexTextComponent } from "./checklist/edit/clst-flex-text/clst-flex-text.component";
 
 import { SubmitButtonDirective } from "./shared/submit-button.directive";
 import { SubmitIfValidDirective } from "./shared/submit-if-valid.directive";
@@ -56,7 +58,8 @@ import { AuthenticationInterceptor } from "./shared/authentication.inteceptor";
     ClstUseAnonComponent,
     ClstUseComponent,
     ClstCloneComponent,
-    ClstDialogComponent
+    ClstDialogComponent,
+    ClstFlexTextComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +79,8 @@ import { AuthenticationInterceptor } from "./shared/authentication.inteceptor";
     TagInputModule,
     AutosizeModule,
     ColorPickerModule,
-    ClipboardModule
+    ClipboardModule,
+    QuillEditorModule
   ],
   entryComponents: [ClstDialogComponent],
   providers: [
