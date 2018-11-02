@@ -1,18 +1,24 @@
   <div class="clst-desc-display mat-form-field-infix"
        tabindex="0"
-       [class.clst-md-empty]="!inFocus && noValue(control.value)"
+       [class.is-default]="!inFocus && noValue(control.value)"
        [class.has-error]="hasError"
-       (focus)="inFocus = true">
-    <ng-container *ngIf="!inFocus">
-      <ng-container *ngIf="control.value; else noValue">{{control.value}}</ng-container>
+       [class.has-focus]="inFocus"
+       (focusin)="onFocus()">
+    <ng-container *ngIf="!inFocus; else qEditor">
+      <ng-container *ngIf="control.value; else noValue">
+        <div class="in-focus-label"
+           [ngClass]="{'has-error': hasError, 'is-default': !hasError}">{{label}}</div>
+        {{control.value}}
+      </ng-container>
       <ng-template #noValue>{{label}}</ng-template>
     </ng-container>
-    <ng-container *ngIf="inFocus">
+    <ng-template #qEditor>
+      <div class="in-focus-label"
+        [ngClass]="{'has-error': hasError, 'is-valid': !hasError}">{{label}}</div>
       <quill-editor
         [formControl]="control"
-        (change)="onChange($event)"
-        (blur)="onBlur()">
-        {{control.value}}
+        [options]="editorOptions"
+        (change)="onChange($event)">
       </quill-editor>
-    </ng-container>
+    </ng-template>
   </div>

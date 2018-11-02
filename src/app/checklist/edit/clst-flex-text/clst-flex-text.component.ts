@@ -15,23 +15,39 @@ export class ClstFlexTextComponent implements OnInit {
   label: string;
 
   public inFocus: boolean;
+  public editorOptions: Object;
 
   constructor() {}
 
   public ngOnInit(): void {
-    console.log("control", this.control);
     this.inFocus = false;
+    this.editorOptions = {
+      placeholder: this.label,
+      modules: {
+        toolbar: [
+          ["bold", "italic", "underline", "strike"],
+          [{ list: "ordered" }, { list: "bullet" }],
+          [{ header: [1, 2, 3, 4, false] }],
+          [{ color: [] }, { background: [] }],
+          [{ align: [] }],
+          ["link", "image", "video"],
+          ["clean"]
+        ]
+      }
+    };
   }
 
-  public onBlur(): void {
-    this.control.markAsTouched();
-    this.inFocus = false;
+  public onFocus() {
+    this.inFocus = true;
   }
 
   public onChange(e: any): void {
-    if (e.html === null) {
+    if (e.text && e.text.length === 1) {
+      this.control.patchValue(e.text.replace(/\r?\n|\r/g, ""));
+    } else if (e.text === null) {
       this.control.patchValue("");
     }
+    this.control.markAsTouched();
   }
 
   public noValue(val: any): boolean {

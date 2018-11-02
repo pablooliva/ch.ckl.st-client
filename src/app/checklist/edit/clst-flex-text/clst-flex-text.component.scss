@@ -1,19 +1,32 @@
-$empty-color: #0000008a;
+$default-color: #0000008a;
 $has-error-color: #f44336;
+$is-valid-color: #38761d;
 
 :host {
   width: 100%;
 }
 .clst-desc-display {
+  border-top: none;
   width: 100%;
   margin: 0;
   &:focus {
     outline: none;
   }
 }
-.clst-md-empty {
-  color: $empty-color;
+.is-default {
+  color: $default-color;
 }
 .has-error {
   color: $has-error-color;
+}
+.is-valid {
+  color: $is-valid-color;
+}
+.has-focus {
+  padding-bottom: 0;
+  border-top: none;
+}
+.in-focus-label {
+  font-size: 0.7rem;
+  margin-bottom: 0.4rem;
 }

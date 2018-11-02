@@ -7,7 +7,8 @@
                 <input matInput placeholder="Section title" type="text" id="title" formControlName="title" [errorStateMatcher]="matcher">
                 <mat-error *ngIf="section.hasError('titleOrDescriptionRequired')">* Title or description is required for this section.</mat-error>
             </mat-form-field>
-            <div class="control-group mat-form-field mat-form-field-appearance-legacy" [class.mat-form-field-invalid]="errorEval()">
+            <div class="control-group mat-form-field mat-form-field-appearance-legacy"
+                [class.mat-form-field-invalid]="errorEval()">
                 <div class="mat-form-field-wrapper">
                     <div class="mat-form-field-flex">
                         <clst-flex-text
