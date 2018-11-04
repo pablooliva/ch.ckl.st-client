@@ -5,10 +5,18 @@
       <input matInput placeholder="Item label" type="text" id="label" formControlName="label">
       <mat-error *ngIf="testReq('label')">* This field is required.</mat-error>
     </mat-form-field>
-    <mat-form-field class="control-group">
-      <label for="flexibleText">Item description</label>
-      <input matInput placeholder="Item description" type="text" id="flexibleText" formControlName="flexibleText">
-    </mat-form-field>
+    <div class="control-group mat-form-field mat-form-field-appearance-legacy" (focusout)="onBlur()">
+      <div class="mat-form-field-wrapper">
+        <div class="mat-form-field-flex">
+          <clst-flex-text
+            [control]="checklistItem.get('flexibleText')"
+            [inFocusObs]="inFocusObs"
+            label="Item description">
+          </clst-flex-text>
+        </div>
+        <div class="mat-form-field-underline"><span class="mat-form-field-ripple"></span></div>
+      </div>
+    </div>
     <label class="clst-label-heading">Item Tags</label>
     <div formArrayName="checklistTagsEnabled" class="clst-tags-display" *ngIf="checklistTagsEnabled.controls.length">
       <div class="clst-tag" *ngFor="let checklistTagEnabled of checklistTagsEnabled.controls; let i=index" [formGroupName]="i">

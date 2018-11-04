@@ -23,14 +23,18 @@ export interface ITagInfo {
   styleUrls: ["./clst-checklist-item.component.scss"]
 })
 export class ClstChecklistItemComponent implements OnInit, OnDestroy {
-  @Input() public checklistItem: FormGroup;
-  @Input() public checklistItemIndex: number;
-  @Input() public section: FormGroup;
+  @Input()
+  public checklistItem: FormGroup;
+  @Input()
+  public checklistItemIndex: number;
+  @Input()
+  public section: FormGroup;
 
   public displayTagEditComp: boolean;
   public displayEditTagOptions: boolean;
   public tags: IChecklistItemTag[];
   public pushTagInfo: ITagInfo;
+  public inFocusObs = new Subject<boolean>();
 
   public get checklistTagsEnabled(): FormArray {
     return this.checklistItem.get("checklistTagsEnabled") as FormArray;
@@ -121,5 +125,9 @@ export class ClstChecklistItemComponent implements OnInit, OnDestroy {
     this.clearTagEdit();
     this.displayTagEditComp = true;
     this.pushTagInfo = { tag: this.tags[i], index: i, delete: true };
+  }
+
+  public onBlur(): void {
+    this.inFocusObs.next(false);
   }
 }
