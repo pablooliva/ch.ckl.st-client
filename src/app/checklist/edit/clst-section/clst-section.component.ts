@@ -1,9 +1,13 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { FormArray, FormControl, FormGroup, FormGroupDirective, NgForm } from "@angular/forms";
-import { ErrorStateMatcher } from "@angular/material";
+import { ErrorStateMatcher, MatDialog } from "@angular/material";
 import { Subject } from "rxjs";
 
 import { FormElementPusherService } from "../../../shared/form-element-pusher.service";
+import {
+  ClstDialogComponent,
+  IDialogBody
+} from "../../../shared/dialog/clst-dialog/clst-dialog.component";
 
 @Component({
   selector: "clst-section",
@@ -21,7 +25,7 @@ export class ClstSectionComponent implements OnInit {
   public matcher = new CustomErrorStateMatcher();
   public inFocusObs = new Subject<boolean>();
 
-  constructor(private _fEPusherService: FormElementPusherService) {}
+  constructor(private _fEPusherService: FormElementPusherService, public dialog: MatDialog) {}
 
   public ngOnInit(): void {}
 
@@ -35,7 +39,38 @@ export class ClstSectionComponent implements OnInit {
     });
   }
 
-  public removeSection(index: number): void {
+  public confirmSectionDelete(index: number): void {
+    const dialogBody: IDialogBody = {
+      title: "Delete Section",
+      body: "Are you sure?",
+      buttons: {
+        primary: {
+          color: "warn",
+          label: "Yes",
+          value: true
+        },
+        secondary: {
+          color: "primary",
+          label: "No",
+          value: false
+        }
+      }
+    };
+
+    const dialogRef = this.dialog.open(ClstDialogComponent, {
+      height: "200px",
+      width: "250px",
+      data: dialogBody
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this._removeSection(index);
+      }
+    });
+  }
+
+  private _removeSection(index: number): void {
     (<FormArray>this.form.controls["sections"]).removeAt(index);
     if (!(<FormArray>this.form.controls["sections"]).length) {
       this.addSection(0);

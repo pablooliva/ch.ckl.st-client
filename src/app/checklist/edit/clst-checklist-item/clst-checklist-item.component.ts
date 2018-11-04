@@ -1,5 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
+import { MatDialog } from "@angular/material";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 
@@ -10,6 +11,10 @@ import {
 } from "../../../shared/checklist-item-tags-sync.service";
 import { genericValidationTest } from "../../../shared/clst-utils";
 import { IChecklistItemTag } from "../../../shared/data-persistence.service";
+import {
+  ClstDialogComponent,
+  IDialogBody
+} from "../../../shared/dialog/clst-dialog/clst-dialog.component";
 
 export interface ITagInfo {
   tag: IChecklistItemTag;
@@ -45,7 +50,8 @@ export class ClstChecklistItemComponent implements OnInit, OnDestroy {
   constructor(
     private _fb: FormBuilder,
     private _fEPusherService: FormElementPusherService,
-    private _syncTags: ChecklistItemTagsSyncService
+    private _syncTags: ChecklistItemTagsSyncService,
+    public dialog: MatDialog
   ) {}
 
   public ngOnInit(): void {
@@ -98,7 +104,38 @@ export class ClstChecklistItemComponent implements OnInit, OnDestroy {
     });
   }
 
-  public removeItem(index: number): void {
+  public confirmItemDelete(index: number): void {
+    const dialogBody: IDialogBody = {
+      title: "Delete Checklist Item",
+      body: "Are you sure?",
+      buttons: {
+        primary: {
+          color: "warn",
+          label: "Yes",
+          value: true
+        },
+        secondary: {
+          color: "primary",
+          label: "No",
+          value: false
+        }
+      }
+    };
+
+    const dialogRef = this.dialog.open(ClstDialogComponent, {
+      height: "200px",
+      width: "250px",
+      data: dialogBody
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this._removeItem(index);
+      }
+    });
+  }
+
+  private _removeItem(index: number): void {
     (<FormArray>this.section.controls["checklistItems"]).removeAt(index);
     if (!(<FormArray>this.section.controls["checklistItems"]).length) {
       this.addItem(0);
