@@ -61,22 +61,21 @@ export class ClstFlexTextComponent implements OnInit, OnDestroy {
     this.inFocusObs.next(true);
   }
 
-  public onChange(e: any): void {
-    /*
-    console.error("editor value", e);
-    if (e.text && e.text.length === 1) {
-      this.control.patchValue(e.text.replace(/\r?\n|\r/g, ""));
-    } else if (e.text === null) {
+  public onBlur(): void {
+    const val = this.control.value;
+    if (val === null) {
       this.control.patchValue("");
+    } else if (val.length === 1) {
+      this.control.patchValue(val.replace(/\r?\n|\r/g, ""));
     }
-    */
-    if (e.html === null) {
-      this.control.patchValue("");
-    }
-    this.control.markAsTouched();
   }
 
-  public noValue(val: any): boolean {
-    return val === "" || val === null || val === undefined;
+  public onChange(e: any): void {
+    if (e.text === null || e.html === null) {
+      this.control.patchValue("");
+    } else if (e.text && e.text.length === 1) {
+      this.control.patchValue(e.text.replace(/\r?\n|\r/g, ""));
+    }
+    this.control.markAsTouched();
   }
 }
