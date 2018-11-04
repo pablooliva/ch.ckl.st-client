@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from "@angular/core";
 import { FormArray, FormControl, FormGroup, FormGroupDirective, NgForm } from "@angular/forms";
 import { ErrorStateMatcher } from "@angular/material";
+import { Subject } from "rxjs";
 
 import { FormElementPusherService } from "../../../shared/form-element-pusher.service";
 
@@ -18,6 +19,7 @@ export class ClstSectionComponent implements OnInit {
   public form: FormGroup;
 
   public matcher = new CustomErrorStateMatcher();
+  public inFocusObs = new Subject<boolean>();
 
   constructor(private _fEPusherService: FormElementPusherService) {}
 
@@ -45,6 +47,10 @@ export class ClstSectionComponent implements OnInit {
       this.section.hasError("titleOrDescriptionRequired") &&
       this.matcher.isErrorState(<FormControl>this.section.controls["flexibleText"], null)
     );
+  }
+
+  public onBlur(): void {
+    this.inFocusObs.next(false);
   }
 }
 

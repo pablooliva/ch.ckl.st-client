@@ -8,12 +8,14 @@
                 <mat-error *ngIf="section.hasError('titleOrDescriptionRequired')">* Title or description is required for this section.</mat-error>
             </mat-form-field>
             <div class="control-group mat-form-field mat-form-field-appearance-legacy"
-                [class.mat-form-field-invalid]="errorEval()">
+                [class.mat-form-field-invalid]="errorEval()"
+                (focusout)="onBlur()">
                 <div class="mat-form-field-wrapper">
                     <div class="mat-form-field-flex">
                         <clst-flex-text
                           [control]="section.get('flexibleText')"
                           [hasError]="errorEval()"
+                          [inFocusObs]="inFocusObs"
                           label="Section description">
                         </clst-flex-text>
                     </div>
