@@ -64,6 +64,7 @@ import { AuthenticationInterceptor } from "./shared/authentication.inteceptor";
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    ColorPickerModule,
     ToastrModule.forRoot({
       timeOut: 5000,
       positionClass: "toast-top-full-width"
@@ -78,7 +79,6 @@ import { AuthenticationInterceptor } from "./shared/authentication.inteceptor";
     NgMaterialModule,
     TagInputModule,
     AutosizeModule,
-    ColorPickerModule,
     ClipboardModule,
     QuillEditorModule
   ],

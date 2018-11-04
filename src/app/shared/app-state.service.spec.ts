@@ -1,15 +1,15 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, inject } from "@angular/core/testing";
 
-import { RedirectionService } from './app-state.service';
+import { AppStateService } from "./app-state.service";
 
-describe('RedirectionService', () => {
+describe("AppStateService", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [RedirectionService]
+      providers: [AppStateService]
     });
   });
 
-  it('should be created', inject([RedirectionService], (service: RedirectionService) => {
+  it("should be created", inject([AppStateService], (service: AppStateService) => {
     expect(service).toBeTruthy();
   }));
 });

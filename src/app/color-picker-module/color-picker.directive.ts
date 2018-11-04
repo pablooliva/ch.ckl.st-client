@@ -15,6 +15,7 @@ import { Rgba, Hsla, Hsva, SliderPosition, SliderDimension } from "./classes";
 import { NgModule, Compiler, ReflectiveInjector } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 
+/* tslint:disable */
 @Directive({
   selector: "[colorPicker]",
   host: {
@@ -23,29 +24,52 @@ import { BrowserModule } from "@angular/platform-browser";
   }
 })
 export class ColorPickerDirective implements OnInit, OnChanges {
-  @Input() colorPicker: string;
-  @Output() colorPickerChange = new EventEmitter<string>(true);
-  @Input() cpToggle: boolean;
-  @Output() cpToggleChange = new EventEmitter<boolean>(true);
-  @Input() cpPosition: string = "right";
-  @Input() cpPositionOffset: string = "0%";
-  @Input() cpPositionRelativeToArrow: boolean = false;
-  @Input() cpOutputFormat: string = "hex";
-  @Input() cpPresetLabel: string = "Preset colors";
-  @Input() cpPresetColors: Array<string>;
-  @Input() cpCancelButton: boolean = false;
-  @Input() cpCancelButtonClass: string = "cp-cancel-button-class";
-  @Input() cpCancelButtonText: string = "Cancel";
-  @Input() cpOKButton: boolean = false;
-  @Input() cpOKButtonClass: string = "cp-ok-button-class";
-  @Input() cpOKButtonText: string = "OK";
-  @Input() cpFallbackColor: string = "#fff";
-  @Input() cpHeight: string = "auto";
-  @Input() cpWidth: string = "230px";
-  @Input() cpIgnoredElements: any = [];
-  @Input() cpDialogDisplay: string = "popup";
-  @Input() cpSaveClickOutside: boolean = true;
-  @Input() cpAlphaChannel: string = "hex6";
+  @Input()
+  colorPicker: string;
+  @Output()
+  colorPickerChange = new EventEmitter<string>(true);
+  @Input()
+  cpToggle: boolean;
+  @Output()
+  cpToggleChange = new EventEmitter<boolean>(true);
+  @Input()
+  cpPosition: string = "right";
+  @Input()
+  cpPositionOffset: string = "0%";
+  @Input()
+  cpPositionRelativeToArrow: boolean = false;
+  @Input()
+  cpOutputFormat: string = "hex";
+  @Input()
+  cpPresetLabel: string = "Preset colors";
+  @Input()
+  cpPresetColors: Array<string>;
+  @Input()
+  cpCancelButton: boolean = false;
+  @Input()
+  cpCancelButtonClass: string = "cp-cancel-button-class";
+  @Input()
+  cpCancelButtonText: string = "Cancel";
+  @Input()
+  cpOKButton: boolean = false;
+  @Input()
+  cpOKButtonClass: string = "cp-ok-button-class";
+  @Input()
+  cpOKButtonText: string = "OK";
+  @Input()
+  cpFallbackColor: string = "#fff";
+  @Input()
+  cpHeight: string = "auto";
+  @Input()
+  cpWidth: string = "230px";
+  @Input()
+  cpIgnoredElements: any = [];
+  @Input()
+  cpDialogDisplay: string = "popup";
+  @Input()
+  cpSaveClickOutside: boolean = true;
+  @Input()
+  cpAlphaChannel: string = "hex6";
 
   private dialog: any;
   private created: boolean;
@@ -89,20 +113,12 @@ export class ColorPickerDirective implements OnInit, OnChanges {
       hsva = this.service.stringToHsva(this.cpFallbackColor);
     }
     this.colorPickerChange.emit(
-      this.service.outputFormat(
-        hsva,
-        this.cpOutputFormat,
-        this.cpAlphaChannel === "hex8"
-      )
+      this.service.outputFormat(hsva, this.cpOutputFormat, this.cpAlphaChannel === "hex8")
     );
   }
 
   onClick() {
-    if (
-      this.cpIgnoredElements.filter(
-        (item: any) => item === this.el.nativeElement
-      ).length === 0
-    ) {
+    if (this.cpIgnoredElements.filter((item: any) => item === this.el.nativeElement).length === 0) {
       this.openDialog();
     }
   }
@@ -110,47 +126,37 @@ export class ColorPickerDirective implements OnInit, OnChanges {
   openDialog() {
     if (!this.created) {
       this.created = true;
-      this.compiler
-        .compileModuleAndAllComponentsAsync(DynamicCpModule)
-        .then(factory => {
-          const compFactory = factory.componentFactories.find(
-            x => x.componentType === DialogComponent
-          );
-          const injector = ReflectiveInjector.fromResolvedProviders(
-            [],
-            this.vcRef.parentInjector
-          );
-          const cmpRef = this.vcRef.createComponent(
-            compFactory,
-            0,
-            injector,
-            []
-          );
-          cmpRef.instance.setDialog(
-            this,
-            this.el,
-            this.colorPicker,
-            this.cpPosition,
-            this.cpPositionOffset,
-            this.cpPositionRelativeToArrow,
-            this.cpOutputFormat,
-            this.cpPresetLabel,
-            this.cpPresetColors,
-            this.cpCancelButton,
-            this.cpCancelButtonClass,
-            this.cpCancelButtonText,
-            this.cpOKButton,
-            this.cpOKButtonClass,
-            this.cpOKButtonText,
-            this.cpHeight,
-            this.cpWidth,
-            this.cpIgnoredElements,
-            this.cpDialogDisplay,
-            this.cpSaveClickOutside,
-            this.cpAlphaChannel
-          );
-          this.dialog = cmpRef.instance;
-        });
+      this.compiler.compileModuleAndAllComponentsAsync(DynamicCpModule).then(factory => {
+        const compFactory = factory.componentFactories.find(
+          x => x.componentType === DialogComponent
+        );
+        const injector = ReflectiveInjector.fromResolvedProviders([], this.vcRef.parentInjector);
+        const cmpRef = this.vcRef.createComponent(compFactory, 0, injector, []);
+        cmpRef.instance.setDialog(
+          this,
+          this.el,
+          this.colorPicker,
+          this.cpPosition,
+          this.cpPositionOffset,
+          this.cpPositionRelativeToArrow,
+          this.cpOutputFormat,
+          this.cpPresetLabel,
+          this.cpPresetColors,
+          this.cpCancelButton,
+          this.cpCancelButtonClass,
+          this.cpCancelButtonText,
+          this.cpOKButton,
+          this.cpOKButtonClass,
+          this.cpOKButtonText,
+          this.cpHeight,
+          this.cpWidth,
+          this.cpIgnoredElements,
+          this.cpDialogDisplay,
+          this.cpSaveClickOutside,
+          this.cpAlphaChannel
+        );
+        this.dialog = cmpRef.instance;
+      });
     } else if (this.dialog) {
       this.dialog.openDialog(this.colorPicker);
     }
@@ -177,9 +183,12 @@ export class ColorPickerDirective implements OnInit, OnChanges {
   }
 })
 export class TextDirective {
-  @Output() newValue = new EventEmitter<any>();
-  @Input() text: any;
-  @Input() rg: number;
+  @Output()
+  newValue = new EventEmitter<any>();
+  @Input()
+  text: any;
+  @Input()
+  rg: number;
 
   changeInput(value: string) {
     if (this.rg === undefined) {
@@ -201,10 +210,14 @@ export class TextDirective {
   }
 })
 export class SliderDirective {
-  @Output() newValue = new EventEmitter<any>();
-  @Input() slider: string;
-  @Input() rgX: number;
-  @Input() rgY: number;
+  @Output()
+  newValue = new EventEmitter<any>();
+  @Input()
+  slider: string;
+  @Input()
+  rgX: number;
+  @Input()
+  rgY: number;
   private listenerMove: any;
   private listenerStop: any;
 
@@ -280,54 +293,57 @@ export class SliderDirective {
   styleUrls: ["./templates/default/color-picker.scss"]
 })
 export class DialogComponent implements OnInit {
-  private hsva: Hsva;
-  private rgbaText: Rgba;
-  private hslaText: Hsla;
-  private hexText: string;
-  private outputColor: string;
-  private selectedColor: string;
-  private alphaSliderColor: string;
-  private hueSliderColor: string;
-  private slider: SliderPosition;
-  private sliderDimMax: SliderDimension;
-  private format: number;
-  private show: boolean;
-  private top: number;
-  private left: number;
-  private position: string;
-  private directiveInstance: any;
-  private initialColor: string;
-  private directiveElementRef: ElementRef;
+  public hsva: Hsva;
+  public rgbaText: Rgba;
+  public hslaText: Hsla;
+  public hexText: string;
+  public outputColor: string;
+  public selectedColor: string;
+  public alphaSliderColor: string;
+  public hueSliderColor: string;
+  public slider: SliderPosition;
+  public sliderDimMax: SliderDimension;
+  public format: number;
+  public show: boolean;
+  public top: number;
+  public left: number;
+  public position: string;
+  public directiveInstance: any;
+  public initialColor: string;
+  public directiveElementRef: ElementRef;
 
-  private listenerMouseDown: any;
-  private listenerResize: any;
+  public listenerMouseDown: any;
+  public listenerResize: any;
 
-  private cpPosition: string;
-  private cpPositionOffset: number;
-  private cpOutputFormat: string;
-  private cpPresetLabel: string;
-  private cpPresetColors: Array<string>;
-  private cpCancelButton: boolean;
-  private cpCancelButtonClass: string;
-  private cpCancelButtonText: string;
-  private cpOKButton: boolean;
-  private cpOKButtonClass: string;
-  private cpOKButtonText: string;
-  private cpHeight: number;
-  private cpWidth: number;
-  private cpIgnoredElements: any;
-  private cpDialogDisplay: string;
-  private cpSaveClickOutside: boolean;
-  private cpAlphaChannel: string;
+  public cpPosition: string;
+  public cpPositionOffset: number;
+  public cpOutputFormat: string;
+  public cpPresetLabel: string;
+  public cpPresetColors: Array<string>;
+  public cpCancelButton: boolean;
+  public cpCancelButtonClass: string;
+  public cpCancelButtonText: string;
+  public cpOKButton: boolean;
+  public cpOKButtonClass: string;
+  public cpOKButtonText: string;
+  public cpHeight: number;
+  public cpWidth: number;
+  public cpIgnoredElements: any;
+  public cpDialogDisplay: string;
+  public cpSaveClickOutside: boolean;
+  public cpAlphaChannel: string;
 
-  private dialogArrowSize: number = 10;
-  private dialogArrowOffset: number = 15;
-  private arrowTop: number;
+  public dialogArrowSize: number = 10;
+  public dialogArrowOffset: number = 15;
+  public arrowTop: number;
 
-  @ViewChild("hueSlider") hueSlider: any;
-  @ViewChild("alphaSlider") alphaSlider: any;
+  @ViewChild("hueSlider")
+  hueSlider: any;
+  @ViewChild("alphaSlider")
+  alphaSlider: any;
 
-  @ViewChild("dialogPopup") dialogElement: any;
+  @ViewChild("dialogPopup")
+  dialogElement: any;
 
   constructor(private el: ElementRef, private service: ColorPickerService) {}
 
@@ -386,12 +402,7 @@ export class DialogComponent implements OnInit {
   ngOnInit() {
     const alphaWidth = this.alphaSlider.nativeElement.offsetWidth;
     const hueWidth = this.hueSlider.nativeElement.offsetWidth;
-    this.sliderDimMax = new SliderDimension(
-      hueWidth,
-      this.cpWidth,
-      130,
-      alphaWidth
-    );
+    this.sliderDimMax = new SliderDimension(hueWidth, this.cpWidth, 130, alphaWidth);
     this.slider = new SliderPosition(0, 0, 0, 0);
     if (this.cpOutputFormat === "rgba") {
       this.format = 1;
@@ -453,8 +464,7 @@ export class DialogComponent implements OnInit {
     if (
       !this.isDescendant(this.el.nativeElement, event.target) &&
       event.target !== this.directiveElementRef.nativeElement &&
-      this.cpIgnoredElements.filter((item: any) => item === event.target)
-        .length === 0 &&
+      this.cpIgnoredElements.filter((item: any) => item === event.target).length === 0 &&
       this.cpDialogDisplay === "popup"
     ) {
       if (!this.cpSaveClickOutside) {
@@ -507,10 +517,7 @@ export class DialogComponent implements OnInit {
       node = node.parentNode;
     }
     if (position !== "fixed") {
-      boxDirective = this.createBox(
-        this.directiveElementRef.nativeElement,
-        true
-      );
+      boxDirective = this.createBox(this.directiveElementRef.nativeElement, true);
       if (parentNode === null) {
         parentNode = node;
       }
@@ -518,34 +525,23 @@ export class DialogComponent implements OnInit {
       this.top = boxDirective.top - boxParent.top;
       this.left = boxDirective.left - boxParent.left;
     } else {
-      boxDirective = this.createBox(
-        this.directiveElementRef.nativeElement,
-        false
-      );
+      boxDirective = this.createBox(this.directiveElementRef.nativeElement, false);
       this.top = boxDirective.top;
       this.left = boxDirective.left;
       this.position = "fixed";
     }
     if (this.cpPosition === "left") {
-      this.top +=
-        boxDirective.height * this.cpPositionOffset / 100 -
-        this.dialogArrowOffset;
+      this.top += (boxDirective.height * this.cpPositionOffset) / 100 - this.dialogArrowOffset;
       this.left -= this.cpWidth + this.dialogArrowSize - 2;
     } else if (this.cpPosition === "top") {
       this.top -= dialogHeight + this.dialogArrowSize;
-      this.left +=
-        this.cpPositionOffset / 100 * boxDirective.width -
-        this.dialogArrowOffset;
+      this.left += (this.cpPositionOffset / 100) * boxDirective.width - this.dialogArrowOffset;
       this.arrowTop = dialogHeight - 1;
     } else if (this.cpPosition === "bottom") {
       this.top += boxDirective.height + this.dialogArrowSize;
-      this.left +=
-        this.cpPositionOffset / 100 * boxDirective.width -
-        this.dialogArrowOffset;
+      this.left += (this.cpPositionOffset / 100) * boxDirective.width - this.dialogArrowOffset;
     } else {
-      this.top +=
-        boxDirective.height * this.cpPositionOffset / 100 -
-        this.dialogArrowOffset;
+      this.top += (boxDirective.height * this.cpPositionOffset) / 100 - this.dialogArrowOffset;
       this.left += boxDirective.width + this.dialogArrowSize;
     }
   }
@@ -593,12 +589,7 @@ export class DialogComponent implements OnInit {
     this.update();
   }
 
-  setSaturationAndBrightness(val: {
-    s: number;
-    v: number;
-    rgX: number;
-    rgY: number;
-  }) {
+  setSaturationAndBrightness(val: { s: number; v: number; rgX: number; rgY: number }) {
     this.hsva.s = val.s / val.rgX;
     this.hsva.v = val.v / val.rgY;
     this.update();
@@ -606,11 +597,7 @@ export class DialogComponent implements OnInit {
 
   formatPolicy(): number {
     this.format = (this.format + 1) % 3;
-    if (
-      this.format === 0 &&
-      this.hsva.a < 1 &&
-      this.cpAlphaChannel === "hex6"
-    ) {
+    if (this.format === 0 && this.hsva.a < 1 && this.cpAlphaChannel === "hex6") {
       this.format++;
     }
     return this.format;
@@ -618,9 +605,7 @@ export class DialogComponent implements OnInit {
 
   update(emit: boolean = true) {
     const hsla = this.service.hsva2hsla(this.hsva);
-    const rgba = this.service.denormalizeRGBA(
-      this.service.hsvaToRgba(this.hsva)
-    );
+    const rgba = this.service.denormalizeRGBA(this.service.hsvaToRgba(this.hsva));
     const hueRgba = this.service.denormalizeRGBA(
       this.service.hsvaToRgba(new Hsva(this.hsva.h, 1, 1, 1))
     );
@@ -631,23 +616,13 @@ export class DialogComponent implements OnInit {
       Math.round(hsla.l * 100),
       Math.round(hsla.a * 100) / 100
     );
-    this.rgbaText = new Rgba(
-      rgba.r,
-      rgba.g,
-      rgba.b,
-      Math.round(rgba.a * 100) / 100
-    );
+    this.rgbaText = new Rgba(rgba.r, rgba.g, rgba.b, Math.round(rgba.a * 100) / 100);
     this.hexText = this.service.hexText(rgba, this.cpAlphaChannel === "hex8");
 
     this.alphaSliderColor = "rgb(" + rgba.r + "," + rgba.g + "," + rgba.b + ")";
-    this.hueSliderColor =
-      "rgb(" + hueRgba.r + "," + hueRgba.g + "," + hueRgba.b + ")";
+    this.hueSliderColor = "rgb(" + hueRgba.r + "," + hueRgba.g + "," + hueRgba.b + ")";
 
-    if (
-      this.format === 0 &&
-      this.hsva.a < 1 &&
-      this.cpAlphaChannel === "hex6"
-    ) {
+    if (this.format === 0 && this.hsva.a < 1 && this.cpAlphaChannel === "hex6") {
       this.format++;
     }
 
@@ -684,11 +659,8 @@ export class DialogComponent implements OnInit {
 
   createBox(element: any, offset: boolean): any {
     return {
-      top:
-        element.getBoundingClientRect().top + (offset ? window.pageYOffset : 0),
-      left:
-        element.getBoundingClientRect().left +
-        (offset ? window.pageXOffset : 0),
+      top: element.getBoundingClientRect().top + (offset ? window.pageYOffset : 0),
+      left: element.getBoundingClientRect().left + (offset ? window.pageXOffset : 0),
       width: element.offsetWidth,
       height: element.offsetHeight
     };

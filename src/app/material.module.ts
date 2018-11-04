@@ -31,11 +31,8 @@ const ngMat = [
 ];
 
 @NgModule({
-  imports: ngMat,
-  exports: ngMat
-})
-@NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, ...ngMat],
+  exports: ngMat,
   declarations: []
 })
 export class NgMaterialModule {}

@@ -1,15 +1,15 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, inject } from "@angular/core/testing";
 
-import { DataPersistence.ServiceService } from './data-persistence.service.service';
+import { DataPersistenceService } from "./data-persistence.service";
 
-describe('DataPersistenceService.ServiceService', () => {
+describe("DataPersistenceService.ServiceService", () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [DataPersistence.ServiceService]
+      providers: [DataPersistenceService]
     });
   });
 
-  it('should be created', inject([DataPersistence.ServiceService], (service: DataPersistence.ServiceService) => {
+  it("should be created", inject([DataPersistenceService], (service: DataPersistenceService) => {
     expect(service).toBeTruthy();
   }));
 });
