@@ -1,3 +1,5 @@
+@import "./styles/shared";
+
 :host {
   display: block;
   min-height: 100vh;
@@ -19,6 +21,34 @@ mat-sidenav-container {
   background: #eaeaea;
   .mat-drawer-content {
     overflow: hidden;
+  }
+}
+mat-sidenav {
+  &.mat-drawer {
+    background-color: #fafafa;
+  }
+  ::ng-deep .mat-drawer-inner-container {
+    display: flex;
+    flex-direction: column;
+    a {
+      color: mat-color($clst-app-primary);
+      background-color: #fff;
+      text-align: right;
+      border-radius: 0;
+      margin-bottom: 0.2rem;
+      &:first-child {
+        margin-top: 1rem;
+      }
+      &.clst-close {
+        font-weight: 400;
+        color: #9c9c9c;
+        .material-icons {
+          font-size: 1rem;
+          line-height: 1rem;
+          margin-bottom: 0.2rem;
+        }
+      }
+    }
   }
 }
 footer {

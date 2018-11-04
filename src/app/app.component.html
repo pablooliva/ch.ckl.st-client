@@ -25,7 +25,6 @@
     </mat-toolbar>
     <mat-sidenav-container fxFlex="1 1 auto">
         <mat-sidenav #sidenav fxLayout="column" mode="side" opened="false">
-            <button type="button" (click)="sidenav.toggle()">Close Menu</button>
             <ng-container *ngIf="isLoggedIn | async; else notLoggedIn">
                 <a routerLink="dashboard" mat-button>Dashboard</a>
                 <a routerLink="checklist" mat-button>Create Checklist</a>
@@ -35,6 +34,7 @@
                 <a routerLink="login" mat-button>Login</a>
                 <a routerLink="register" mat-button>Register</a>
             </ng-template>
+            <a mat-button class="clst-close" (click)="sidenav.toggle()"><i class="material-icons">close</i> Close Menu</a>
         </mat-sidenav>
         <mat-sidenav-content fxFlexFill>
             <div [@animRoutes]="getPage(appOutlet)" [style.height]="height | async">
