@@ -5,13 +5,49 @@
   min-height: 100vh;
 }
 .logo {
+  margin-top: 0.3rem;
+  display: block;
+  padding: 1.4rem 6rem 1.4rem 0;
   color: #fff;
   text-decoration: none;
-
+  &:hover {
+    .clst-logo-hover {
+      opacity: 1;
+      visibility: visible;
+      font-size: inherit;
+      transition: font-size .5s, opacity .5s, visibility .5s ease-in;
+      -moz-transition: font-size .5s, opacity .5s, visibility .5s ease-in;
+      -webkit-transition: font-size .5s, opacity .5s, visibility .5s ease-in;
+    }
+    .clst-logo-display {
+      opacity: 0;
+      visibility: hidden;
+      font-size: 0;
+      transition: font-size .5s, opacity .5s, visibility .5s ease-in-out;
+      -moz-transition: font-size .5s, opacity .5s, visibility .5s ease-in-out;
+      -webkit-transition: font-size .5s, opacity .5s, visibility .5s ease-in-out;
+    }
+  }
   img {
     width: 1.1rem;
     margin-bottom: -0.15em;
     margin-left: 0.7rem;
+  }
+  .clst-logo-hover {
+    visibility: hidden;
+    font-size: 0;
+    opacity: 0;
+    transition: font-size 1s, opacity 1s, visibility 1s ease-in-out;
+    -moz-transition: font-size 1s, opacity 1s, visibility 1s ease-in-out;
+    -webkit-transition: font-size 1s, opacity 1s, visibility 1s ease-in-out;
+  }
+  .clst-logo-display {
+    opacity: 1;
+    visibility: visible;
+    font-size: inherit;
+    transition: font-size 1s, opacity 1s, visibility 1s ease-in;
+    -moz-transition: font-size 1s, opacity 1s, visibility 1s ease-in;
+    -webkit-transition: font-size 1s, opacity 1s, visibility 1s ease-in;
   }
 }
 .nav-bar-spacer {
