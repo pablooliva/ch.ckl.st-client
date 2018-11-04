@@ -148,8 +148,8 @@ export class ClstFormComponent extends ClstBaseComponent
         val => {
           this._toastr.success(val.uiMessage, val.type);
           this.buttonReset.next(true);
+          this._pendingChanges = false;
           if (!this.cId) {
-            this._pendingChanges = false;
             this._router.navigate(["/checklist", val.serverResponse.checklistId]);
           }
         },
