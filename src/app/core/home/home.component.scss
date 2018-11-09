@@ -8,3 +8,23 @@
   width: 468px;
   border: 1px solid #000;
 }
+
+h1 {
+  color: mat-color($clst-app-secondary);
+  border-left: none;
+  padding-left: 0;
+}
+
+.clst-home-actions {
+  margin: 2rem 0;
+
+  .clst-home-action {
+    a {
+      color: #fff;
+      font-size: 1rem;
+      background: mat-color($clst-app-secondary);
+      margin-right: 0.5rem;
+    }
+    margin-bottom: 0.5rem;
+  }
+}

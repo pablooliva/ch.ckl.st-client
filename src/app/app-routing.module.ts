@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { Routes, RouterModule, PreloadAllModules } from "@angular/router";
 
 import { AuthGuard } from "./shared/auth.guard";
+import { HomeGuard } from "./shared/home.guard";
 import { EnterCloneGuard } from "./checklist/enter-clone.guard";
 import { PendingChangesGuard } from "./shared/pending-changes.guard";
 import { LeaveChecklistGuard } from "./checklist/leave-checklist.guard";
@@ -16,8 +17,8 @@ import { ClstCloneComponent } from "./checklist/edit/clst-clone/clst-clone.compo
 import { ClstFormComponent } from "./checklist/edit/clst-form/clst-form.component";
 
 const appRoutes: Routes = [
-  { path: "", component: HomeComponent },
-  { path: "home", component: HomeComponent, data: { page: "home" } },
+  { path: "", canActivate: [HomeGuard], component: HomeComponent },
+  { path: "home", canActivate: [HomeGuard], component: HomeComponent, data: { page: "home" } },
   {
     path: "register",
     component: RegisterComponent,
