@@ -53,8 +53,10 @@
 .nav-bar-spacer {
   flex: 1 1 auto;
 }
+.mat-drawer-container {
+  background: #e8e8e8;
+}
 mat-sidenav-container {
-  background: #eaeaea;
   .mat-drawer-content {
     overflow: hidden;
   }

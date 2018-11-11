@@ -6,7 +6,6 @@
 
 .media-container {
   width: 468px;
-  border: 1px solid #000;
 }
 
 h1 {
@@ -16,15 +15,52 @@ h1 {
 }
 
 .clst-home-actions {
-  margin: 2rem 0;
-
+  &:not(.closing-actions) {
+    margin-bottom: 2rem;
+  }
   .clst-home-action {
     a {
       color: #fff;
       font-size: 1rem;
-      background: mat-color($clst-app-secondary);
+      background: mat-color($clst-app-accent);
       margin-right: 0.5rem;
+
+      &:last-child {
+        margin-bottom: 1rem;
+      }
     }
     margin-bottom: 0.5rem;
+  }
+  &.closing-actions {
+    .clst-home-action {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.clst-home-checklist {
+  margin-left: 1rem;
+  mat-checkbox:last-child {
+    margin-bottom: 1.1rem;
+  }
+}
+
+.shareable-checklists {
+  position: relative;
+  background: none;
+  &:after{
+    content : "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url("../../../assets/shareable-checklists.png");
+    background-position: 35% 60%;
+    background-repeat: no-repeat;
+    background-size: 250px;
+    width: 100%;
+    height: 100%;
+    opacity : 0.5;
+    z-index: -1;
   }
 }
