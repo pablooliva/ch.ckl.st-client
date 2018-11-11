@@ -41,6 +41,7 @@ export interface IClstDataModel {
   public: boolean;
   documentTitle: string;
   documentTags: string[] | INgxChips[];
+  flexibleText: string;
   checklistTags: IChecklistItemTag[];
   customCss: string;
   sections: ISection[];
@@ -50,6 +51,7 @@ export interface IClstFormDataModel {
   public: boolean;
   documentTitle: string;
   documentTags: INgxChips[];
+  flexibleText: string;
   customCss: string;
   sections: ISection[];
 }
@@ -181,6 +183,7 @@ export class DataPersistenceService {
       public: this._clDataModel.public,
       documentTitle: this._clDataModel.documentTitle,
       documentTags: <any>this._clDataModel.documentTags,
+      flexibleText: this._clDataModel.flexibleText,
       checklistTags: this._clDataModel.checklistTags,
       customCss: this._clDataModel.customCss,
       sections: this._clDataModel.sections
@@ -250,6 +253,7 @@ export class DataPersistenceService {
       public: true,
       documentTitle: "",
       documentTags: [],
+      flexibleText: "",
       checklistTags: [],
       customCss: "",
       sections: []

@@ -28,6 +28,18 @@
           id="tags">
         </tag-input>
       </div>
+      <div class="control-group mat-form-field mat-form-field-appearance-legacy" (focusout)="onBlur()">
+        <div class="mat-form-field-wrapper">
+          <div class="mat-form-field-flex">
+            <clst-flex-text
+              [control]="clForm.get('flexibleText')"
+              [inFocusObs]="inFocusObs"
+              label="Document description">
+            </clst-flex-text>
+          </div>
+          <div class="mat-form-field-underline"><span class="mat-form-field-ripple"></span></div>
+        </div>
+      </div>
       <mat-checkbox formControlName="public">Public</mat-checkbox>
     </div>
   </mat-card>

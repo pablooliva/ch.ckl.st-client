@@ -47,6 +47,7 @@ export class ClstFormComponent extends ClstBaseComponent
   public buttonReset: Subject<boolean> = new Subject<boolean>();
   public validators = [this._notDuplicate.bind(this)];
   public cId: string;
+  public inFocusObs = new Subject<boolean>();
 
   public get sections(): FormArray {
     return this.clForm.get("sections") as FormArray;
@@ -109,6 +110,10 @@ export class ClstFormComponent extends ClstBaseComponent
     super.ngOnDestroy();
     this._destroy.next(true);
     this._destroy.complete();
+  }
+
+  public onBlur(): void {
+    this.inFocusObs.next(false);
   }
 
   public onTagAdd(tag: INgxChips): any {
@@ -236,6 +241,7 @@ export class ClstFormComponent extends ClstBaseComponent
           public: data.public,
           documentTitle: [data.documentTitle, Validators.required],
           documentTags: [data.documentTags],
+          flexibleText: data.flexibleText,
           customCss: data.customCss,
           sections: this._fb.array([])
         });
