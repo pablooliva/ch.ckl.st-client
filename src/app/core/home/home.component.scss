@@ -4,8 +4,20 @@
   @extend .clst-host-animate;
 }
 
-.media-container {
-  width: 468px;
+.media-container  {
+  position: relative;
+  max-width: 468px;
+  height: 300px;
+  max-height: 300px;
+  iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-width: 468px;
+    height: 100%;
+    max-height: 300px;
+  }
 }
 
 h1 {
