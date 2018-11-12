@@ -16,6 +16,10 @@ h1 {
   }
 }
 
+h2 {
+  line-height: 1.6rem;
+}
+
 .clst-home-actions {
   &:not(.closing-actions) {
     margin-bottom: 2rem;
@@ -69,4 +73,8 @@ h1 {
 .diffused {
   background: none;
   padding-top: 1.2rem;
+}
+
+.clst-emphasis {
+  font-size: 1rem;
 }
