@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnDestroy, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { HttpHeaders } from "@angular/common/http";
-import { Observable, Subject } from "rxjs";
+import { BehaviorSubject, Observable, Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
 
 import { ToastrService } from "ngx-toastr";
@@ -18,10 +18,10 @@ import { ClstBaseComponent } from "../../../shared/clst-base.component";
   templateUrl: "./clst-share-preview.component.html",
   styleUrls: ["./clst-share-preview.component.scss"]
 })
-export class ClstSharePreviewComponent extends ClstBaseComponent
-  implements OnInit, OnDestroy {
+export class ClstSharePreviewComponent extends ClstBaseComponent implements OnInit, OnDestroy {
   public belongsToUser: Observable<boolean>;
   public isLoggedIn: Observable<boolean>;
+  public isCListLoaded: BehaviorSubject<boolean> = new BehaviorSubject(false);
   public link: string;
   public copyLabel: string;
 
@@ -130,5 +130,9 @@ export class ClstSharePreviewComponent extends ClstBaseComponent
   public useAsToBeRegistered(): void {
     this._appStateService.setUsePending(this._dataPersistence.checklistId);
     this._router.navigate(["/register"]);
+  }
+
+  public handleCListLoaded(e: any): void {
+    this.isCListLoaded.next(e);
   }
 }

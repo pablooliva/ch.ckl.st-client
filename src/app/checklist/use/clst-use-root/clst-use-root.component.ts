@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from "@angular/core";
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { HttpHeaders } from "@angular/common/http";
@@ -23,6 +23,8 @@ export class ClstUseRootComponent implements OnInit, OnDestroy {
   sharePreview: boolean;
   @Input()
   isAnon: boolean;
+  @Output()
+  cListLoaded: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   public cId: string;
   public clstData: IClstFormDataModel | IClstDataModel;
@@ -47,6 +49,7 @@ export class ClstUseRootComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.noData = false;
+    this.cListLoaded.next(false);
     this.cId = this._route.snapshot.params["id"];
 
     this._dataPersistence
@@ -80,16 +83,18 @@ export class ClstUseRootComponent implements OnInit, OnDestroy {
           this.clstData = data;
           this.hasItemTags =
             !!(this.clstData as IClstDataModel).checklistTags.length && this._areItemTagsEnabled();
+
+          this.clForm.valueChanges
+            .pipe(
+              takeUntil(this._destroy),
+              auditTime(500)
+            )
+            .subscribe(() => this._postFormData());
+
+          this.cListLoaded.next(true);
         } else {
           this.noData = true;
         }
-
-        this.clForm.valueChanges
-          .pipe(
-            takeUntil(this._destroy),
-            auditTime(500)
-          )
-          .subscribe(() => this._postFormData());
       });
   }
 

@@ -1,4 +1,4 @@
-<mat-card class="sub-header">
+<mat-card class="sub-header" *ngIf="isCListLoaded | async">
   <div class="sub-header-container">
     <ng-container *ngIf="isLoggedIn | async; else notUser">
       <div class="flex-container share-actions">
@@ -36,4 +36,4 @@
     </ng-template>
   </div>
 </mat-card>
-<clst-use-root [sharePreview]="true"></clst-use-root>
+<clst-use-root (cListLoaded)="handleCListLoaded($event)" [sharePreview]="true"></clst-use-root>

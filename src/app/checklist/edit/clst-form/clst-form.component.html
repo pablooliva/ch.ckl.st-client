@@ -1,97 +1,107 @@
-<form *ngIf="clForm; else loading" novalidate [formGroup]="clForm">
-  <mat-card>
-    <div class="content-container">
-      <h1>
-        <ng-container *ngIf="cId; else noCId">Edit </ng-container>
-        <ng-template #noCId>Create </ng-template>
-        Checklist
-      </h1>
-      <h3 class="clst-h-faint">Document Settings</h3>
-      <mat-form-field class="control-group">
-        <label for="title">Document title</label>
-        <input matInput placeholder="Document title" type="text" id="title" formControlName="documentTitle">
-        <mat-error *ngIf="testReq('documentTitle')">* This field is required.</mat-error>
-      </mat-form-field>
-      <div class="control-group">
-        <label for="tags">Document tags</label>
-        <tag-input
-          placeholder="Document tags"
-          secondaryPlaceholder="Document tags"
-          formControlName="documentTags"
-          separatorKeyCodes="9"
-          editable="true"
-          addOnBlur="true"
-          inputClass="clst-ngxc-input"
-          (onAdd)="onTagAdd($event)"
-          [validators]="validators"
-          [animationDuration]="{enter: '0ms', leave: '0ms'}"
-          id="tags">
-        </tag-input>
-      </div>
-      <div class="control-group mat-form-field mat-form-field-appearance-legacy" (focusout)="onBlur()">
-        <div class="mat-form-field-wrapper">
-          <div class="mat-form-field-flex">
-            <clst-flex-text
-              [control]="clForm.get('flexibleText')"
-              [inFocusObs]="inFocusObs"
-              label="Document description">
-            </clst-flex-text>
-          </div>
-          <div class="mat-form-field-underline"><span class="mat-form-field-ripple"></span></div>
+<ng-container *ngIf="!showNotFound; else notFound">
+  <form *ngIf="clForm; else loading" novalidate [formGroup]="clForm">
+    <mat-card>
+      <div class="content-container">
+        <h1>
+          <ng-container *ngIf="cId; else noCId">Edit </ng-container>
+          <ng-template #noCId>Create </ng-template>
+          Checklist
+        </h1>
+        <h3 class="clst-h-faint">Document Settings</h3>
+        <mat-form-field class="control-group">
+          <label for="title">Document title</label>
+          <input matInput placeholder="Document title" type="text" id="title" formControlName="documentTitle">
+          <mat-error *ngIf="testReq('documentTitle')">* This field is required.</mat-error>
+        </mat-form-field>
+        <div class="control-group">
+          <label for="tags">Document tags</label>
+          <tag-input
+            placeholder="Document tags"
+            secondaryPlaceholder="Document tags"
+            formControlName="documentTags"
+            separatorKeyCodes="9"
+            editable="true"
+            addOnBlur="true"
+            inputClass="clst-ngxc-input"
+            (onAdd)="onTagAdd($event)"
+            [validators]="validators"
+            [animationDuration]="{enter: '0ms', leave: '0ms'}"
+            id="tags">
+          </tag-input>
         </div>
-      </div>
-      <mat-checkbox formControlName="public">Public</mat-checkbox>
-    </div>
-  </mat-card>
-  <div formArrayName="sections" class="mat-card-not-first-child-reset">
-    <clst-section *ngFor="let section of sections.controls; let i=index"
-                  [formGroupName]="i"
-                  [section]="section"
-                  [sectionIndex]="i"
-                  [form]="clForm">
-    </clst-section>
-  </div>
-  <mat-card>
-    <div class="content-container">
-      <h2 class="clst-actions">Checklist Actions</h2>
-      <div class="clst-btn-grp">
-        <div [clstSubmitIfValid]="clForm" [reset]="reset()" (valid)="onSubmit()" class="clst-form-submit">
-          <button class="pre-submit clst-item-primary" mat-flat-button type="button">
-            Save <i class="material-icons">assignment_turned_in</i>
-          </button>
-          <button class="in-progress" mat-flat-button type="button" disabled="disabled">
-            <div id="inProgress" class="spinner">
-              <div class="bounce1"></div>
-              <div class="bounce2"></div>
-              <div class="bounce3"></div>
+        <div class="control-group mat-form-field mat-form-field-appearance-legacy" (focusout)="onBlur()">
+          <div class="mat-form-field-wrapper">
+            <div class="mat-form-field-flex">
+              <clst-flex-text
+                [control]="clForm.get('flexibleText')"
+                [inFocusObs]="inFocusObs"
+                label="Document description">
+              </clst-flex-text>
             </div>
-          </button>
-          <button class="post-submit" mat-flat-button type="button" disabled="disabled">
-            Success <i class="material-icons">check_circle</i>
-          </button>
+            <div class="mat-form-field-underline"><span class="mat-form-field-ripple"></span></div>
+          </div>
         </div>
-        <ng-container *ngIf="cId">
-          <button mat-flat-button type="button" class="clst-secondary" (click)="useChecklist()">Use <i class="material-icons">play_circle_filled</i></button>
-          <button mat-flat-button type="button" class="clst-secondary" (click)="shareChecklist()">Share <i class="material-icons">share</i></button>
-          <button mat-flat-button type="button" class="clst-secondary" (click)="cloneChecklist()">Copy <i class="material-icons">add_circle</i></button>
-        </ng-container>
+        <mat-checkbox formControlName="public">Public</mat-checkbox>
       </div>
+    </mat-card>
+    <div formArrayName="sections" class="mat-card-not-first-child-reset">
+      <clst-section *ngFor="let section of sections.controls; let i=index"
+                    [formGroupName]="i"
+                    [section]="section"
+                    [sectionIndex]="i"
+                    [form]="clForm">
+      </clst-section>
     </div>
-  </mat-card>
-</form>
-<ng-template #loading>
+    <mat-card>
+      <div class="content-container">
+        <h2 class="clst-actions">Checklist Actions</h2>
+        <div class="clst-btn-grp">
+          <div [clstSubmitIfValid]="clForm" [reset]="reset()" (valid)="onSubmit()" class="clst-form-submit">
+            <button class="pre-submit clst-item-primary" mat-flat-button type="button">
+              Save <i class="material-icons">assignment_turned_in</i>
+            </button>
+            <button class="in-progress" mat-flat-button type="button" disabled="disabled">
+              <div id="inProgress" class="spinner">
+                <div class="bounce1"></div>
+                <div class="bounce2"></div>
+                <div class="bounce3"></div>
+              </div>
+            </button>
+            <button class="post-submit" mat-flat-button type="button" disabled="disabled">
+              Success <i class="material-icons">check_circle</i>
+            </button>
+          </div>
+          <ng-container *ngIf="cId">
+            <button mat-flat-button type="button" class="clst-secondary" (click)="useChecklist()">Use <i class="material-icons">play_circle_filled</i></button>
+            <button mat-flat-button type="button" class="clst-secondary" (click)="shareChecklist()">Share <i class="material-icons">share</i></button>
+            <button mat-flat-button type="button" class="clst-secondary" (click)="cloneChecklist()">Copy <i class="material-icons">add_circle</i></button>
+          </ng-container>
+        </div>
+      </div>
+    </mat-card>
+  </form>
+  <ng-template #loading>
+    <mat-card >
+      <div class="content-container">
+        <h1>
+          <ng-container *ngIf="cId; else noCId">Edit </ng-container>
+          <ng-template #noCId>Create </ng-template>
+          Checklist
+        </h1>
+        <div id="form-spinner" class="spinner">
+          <div class="bounce1"></div>
+          <div class="bounce2"></div>
+          <div class="bounce3"></div>
+        </div>
+      </div>
+    </mat-card>
+  </ng-template>
+</ng-container>
+<ng-template #notFound>
   <mat-card >
     <div class="content-container">
-      <h1>
-        <ng-container *ngIf="cId; else noCId">Edit </ng-container>
-        <ng-template #noCId>Create </ng-template>
-        Checklist
-      </h1>
-      <div id="form-spinner" class="spinner">
-        <div class="bounce1"></div>
-        <div class="bounce2"></div>
-        <div class="bounce3"></div>
-      </div>
+      <h1>Checklist Not Found</h1>
+      <p>A checklist is not associated with this URL.</p>
     </div>
   </mat-card>
 </ng-template>

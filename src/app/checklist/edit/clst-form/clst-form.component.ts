@@ -48,6 +48,7 @@ export class ClstFormComponent extends ClstBaseComponent
   public validators = [this._notDuplicate.bind(this)];
   public cId: string;
   public inFocusObs = new Subject<boolean>();
+  public showNotFound: boolean;
 
   public get sections(): FormArray {
     return this.clForm.get("sections") as FormArray;
@@ -81,6 +82,7 @@ export class ClstFormComponent extends ClstBaseComponent
   public ngOnInit(): void {
     super.ngOnInit();
 
+    this.showNotFound = false;
     this._pendingChanges = false;
     this.cId = this._route.snapshot.params["id"];
 
@@ -99,11 +101,15 @@ export class ClstFormComponent extends ClstBaseComponent
         }
       });
 
-    this._initForm().then(() =>
-      this.clForm.valueChanges
-        .pipe(takeUntil(this._destroy))
-        .subscribe(() => (this._pendingChanges = true))
-    );
+    this._initForm().then((result: boolean) => {
+      if (result) {
+        this.clForm.valueChanges
+          .pipe(takeUntil(this._destroy))
+          .subscribe(() => (this._pendingChanges = true));
+      } else {
+        this.showNotFound = true;
+      }
+    });
   }
 
   public ngOnDestroy(): void {
@@ -233,10 +239,14 @@ export class ClstFormComponent extends ClstBaseComponent
     return { array: fbArray, index: index };
   }
 
-  private _initForm(): Promise<void> {
+  private _initForm(): Promise<boolean> {
     return this._dataPersistence
       .prepareClientData(this.cId, this._serverConnectService)
       .then((data: IClstFormDataModel) => {
+        if (!data) {
+          return Promise.resolve(false);
+        }
+
         this.clForm = this._fb.group({
           public: data.public,
           documentTitle: [data.documentTitle, Validators.required],
@@ -281,7 +291,7 @@ export class ClstFormComponent extends ClstBaseComponent
           this._newSection(0, this.sections, null, oneOfRequiredValidator);
         }
 
-        return Promise.resolve(null);
+        return Promise.resolve(true);
       });
   }
 
