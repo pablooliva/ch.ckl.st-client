@@ -41,7 +41,11 @@
             <a mat-button class="clst-close" (click)="sidenav.toggle()"><i class="material-icons">close</i> Close Menu</a>
         </mat-sidenav>
         <mat-sidenav-content fxFlexFill>
-            <div [@animRoutes]="getPage(appOutlet)" [style.height]="height | async">
+            <div [@animRoutes]="getPage(appOutlet)"
+                 [style.height]="height | async"
+                 ngClass.gt-sm="clst-gt-sm-res"
+                 ngClass.gt-md="clst-gt-md-res"
+                 ngClass.gt-lg="clst-gt-lg-res">
                 <router-outlet #appOutlet="outlet"></router-outlet>
             </div>
         </mat-sidenav-content>

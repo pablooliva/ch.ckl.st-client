@@ -60,6 +60,18 @@ mat-sidenav-container {
   .mat-drawer-content {
     overflow: hidden;
   }
+  .clst-gt-sm-res ::ng-deep mat-card {
+    width: 75%;
+    margin: 0 auto;
+  }
+  .clst-gt-md-res ::ng-deep mat-card {
+    width: 60%;
+    margin: 0 auto;
+  }
+  .clst-gt-lg-res ::ng-deep mat-card {
+    width: 45%;
+    margin: 0 auto;
+  }
 }
 mat-sidenav {
   &.mat-drawer {
