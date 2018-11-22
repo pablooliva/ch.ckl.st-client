@@ -6,21 +6,29 @@
 
 .doc-tags-container {
   overflow: auto;
-  margin-bottom: 1rem;
+  color: #ccc;
+  font-size: 0.7rem;
+  margin-bottom: 0.8rem;
 
   .dt-label {
     float: left;
   }
   .doc-tags {
     margin: 0;
+    padding: 0;
+
     li {
       display: inline;
-      padding-left: 0.7rem;
+      padding-left: 0.4rem;
       float: left;
 
       i {
         font-size: 1rem;
         vertical-align: text-bottom;
+      }
+
+      &:first-child {
+        padding-left: 0;
       }
     }
   }
