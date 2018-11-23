@@ -36,7 +36,9 @@ export class ClstFlexTextComponent implements OnInit, OnDestroy {
           [{ header: [1, 2, 3, 4, false] }],
           [{ color: [] }, { background: [] }],
           [{ align: [] }],
-          ["link", "image"], // "video" requires iframe, requires overriding https://angular.io/guide/security
+          // "image" does not work, attempts to load from local
+          // "video" requires iframe, requires overriding https://angular.io/guide/security
+          ["link"],
           ["clean"]
         ]
       }
