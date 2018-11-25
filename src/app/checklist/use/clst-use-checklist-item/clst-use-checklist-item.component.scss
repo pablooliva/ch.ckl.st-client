@@ -34,8 +34,15 @@
         cursor: pointer;
       }
     }
-    .label label {
-      font-size: 1.1rem;
+    .label {
+      label {
+        font-size: 1.1rem;
+      }
+      .secondary ::ng-deep {
+        ol, ul {
+          padding: 0 0 0 1.5rem;
+        }
+      }
     }
   }
 }
