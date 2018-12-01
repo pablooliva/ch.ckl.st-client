@@ -1,7 +1,24 @@
-clnt:
-  build: .
-  command: npm start
-  volumes:
-    - .:/app
-  ports:
-    - "4200:4200"
+version: '3'
+services:
+  clnt-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile-dev
+    command: npm start
+    volumes:
+      - .:/app
+    ports:
+      - "4200:4200"
+  clnt-prod:
+    image: pablooliva/ch.ckl.st-client:latest
+      deploy:
+        replicas: 1
+        resources:
+          limits:
+            cpus: "0.5"
+            memory: 500M
+        restart_policy:
+          condition: on-failure
+    command: nginx -g daemon off;
+    ports:
+      - "80:80"
