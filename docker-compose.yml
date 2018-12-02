@@ -9,7 +9,7 @@ services:
       - .:/app
     ports:
       - "4200:4200"
-  clnt-prod:
+  clnt-stage:
     image: pablooliva/ch.ckl.st-client:latest
     command: nginx -g 'daemon off;'
     ports:
