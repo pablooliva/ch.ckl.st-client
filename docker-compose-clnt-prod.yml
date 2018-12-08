@@ -6,10 +6,15 @@ services:
       replicas: 1
       resources:
         limits:
-          cpus: "0.5"
-          memory: 500M
+          cpus: "1"
+          memory: 1000M
       restart_policy:
         condition: on-failure
     command: nginx -g 'daemon off;'
     ports:
       - "80:80"
+      - "443:443"
+    volumes:
+      - /home/dhparam-2048.pem:/etc/ssl/certs/dhparam-2048.pem
+      - /etc/letsencrypt/live/ch.ckl.st/fullchain.pem:/etc/letsencrypt/live/ch.ckl.st/fullchain.pem
+      - /etc/letsencrypt/live/ch.ckl.st/privkey.pem:/etc/letsencrypt/live/ch.ckl.st/privkey.pem
