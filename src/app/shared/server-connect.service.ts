@@ -18,7 +18,7 @@ export class ServerConnectService {
     private _dataPersistence: DataPersistenceService,
     private _authService: AuthService
   ) {
-    this._serverBaseLoc = isDevMode() ? "http://127.0.0.1:3000" : "http://ch.ckl.st:3000";
+    this._serverBaseLoc = isDevMode() ? "http://127.0.0.1:3000" : "http://api.ch.ckl.st:3000";
   }
 
   public registerUser(path: string, body: string, httpOptions: any): Observable<HttpReqStatus> {

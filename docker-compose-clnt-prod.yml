@@ -18,3 +18,5 @@ services:
       - /home/dhparam-2048.pem:/etc/ssl/certs/dhparam-2048.pem
       - /etc/letsencrypt/live/ch.ckl.st/fullchain.pem:/etc/letsencrypt/live/ch.ckl.st/fullchain.pem
       - /etc/letsencrypt/live/ch.ckl.st/privkey.pem:/etc/letsencrypt/live/ch.ckl.st/privkey.pem
+      - /home/nginx-logs:/etc/nginx/logs
+      - /data/letsencrypt:/data/letsencrypt
