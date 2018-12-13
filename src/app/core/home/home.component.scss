@@ -32,28 +32,20 @@ h2 {
   line-height: 1.6rem;
 }
 
-.clst-home-actions {
-  &:not(.closing-actions) {
-    margin-bottom: 2rem;
-  }
-  .clst-home-action {
-    a {
-      color: #fff;
-      font-size: 1rem;
-      background: mat-color($clst-app-accent);
-      margin-right: 0.5rem;
-
-      &:last-child {
-        margin-bottom: 1rem;
-      }
+.clst-home-action {
+  a {
+    color: #fff;
+    font-size: 1rem;
+    background: mat-color($clst-app-accent);
+    margin-right: 0.5rem;
+    &:hover {
+      text-decoration: none;
     }
-    margin-bottom: 0.5rem;
-  }
-  &.closing-actions {
-    .clst-home-action {
-      margin-bottom: 0;
+    &:last-child {
+      margin-bottom: 1rem;
     }
   }
+  margin-bottom: 0.5rem;
 }
 
 .clst-home-checklist {
