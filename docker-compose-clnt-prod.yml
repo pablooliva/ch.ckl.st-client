@@ -15,7 +15,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - /home/dhparam-2048.pem:/etc/ssl/certs/dhparam-2048.pem
+      - /home/dhparam.pem:/etc/ssl/certs/dhparam.pem
       - /etc/letsencrypt/live/ch.ckl.st/fullchain.pem:/etc/letsencrypt/live/ch.ckl.st/fullchain.pem
       - /etc/letsencrypt/live/ch.ckl.st/privkey.pem:/etc/letsencrypt/live/ch.ckl.st/privkey.pem
       - /home/nginx-logs:/etc/nginx/logs
