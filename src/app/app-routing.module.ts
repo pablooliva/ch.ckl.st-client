@@ -15,6 +15,7 @@ import { ClstUseAnonComponent } from "./checklist/use/clst-use-anon/clst-use-ano
 import { ClstUseComponent } from "./checklist/use/clst-use/clst-use.component";
 import { ClstCloneComponent } from "./checklist/edit/clst-clone/clst-clone.component";
 import { ClstFormComponent } from "./checklist/edit/clst-form/clst-form.component";
+import { ClstRedirectionComponent } from "./redirection/redirection.component";
 
 const appRoutes: Routes = [
   { path: "", canActivate: [HomeGuard], component: HomeComponent },
@@ -70,6 +71,11 @@ const appRoutes: Routes = [
     canDeactivate: [LeaveChecklistGuard],
     component: ClstSharePreviewComponent,
     data: { page: "share" }
+  },
+  {
+    path: "r/:rSource",
+    component: ClstRedirectionComponent,
+    data: { page: "redirect" }
   }
 ];
 

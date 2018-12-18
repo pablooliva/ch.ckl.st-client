@@ -163,4 +163,9 @@ export class ServerConnectService {
     const fullUrlPath = new URL(path, this._serverBaseLoc);
     return this._http.post<any>(fullUrlPath.toString(), body, httpOptions).toPromise();
   }
+
+  public getRedirection(path: string): Promise<Object> {
+    const fullUrlPath = new URL(path, this._serverBaseLoc);
+    return this._http.get(fullUrlPath.toString()).toPromise();
+  }
 }

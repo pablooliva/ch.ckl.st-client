@@ -32,6 +32,7 @@ import { ClstUseComponent } from "./checklist/use/clst-use/clst-use.component";
 import { ClstCloneComponent } from "./checklist/edit/clst-clone/clst-clone.component";
 import { ClstDialogComponent } from "./shared/dialog/clst-dialog/clst-dialog.component";
 import { ClstFlexTextComponent } from "./checklist/edit/clst-flex-text/clst-flex-text.component";
+import { ClstRedirectionComponent } from "./redirection/redirection.component";
 
 import { SubmitButtonDirective } from "./shared/submit-button.directive";
 import { SubmitIfValidDirective } from "./shared/submit-if-valid.directive";
@@ -59,7 +60,8 @@ import { AuthenticationInterceptor } from "./shared/authentication.inteceptor";
     ClstUseComponent,
     ClstCloneComponent,
     ClstDialogComponent,
-    ClstFlexTextComponent
+    ClstFlexTextComponent,
+    ClstRedirectionComponent
   ],
   imports: [
     BrowserModule,
