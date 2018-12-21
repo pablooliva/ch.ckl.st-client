@@ -1,5 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { FormControl } from "@angular/forms";
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Subject } from "rxjs";
 import { debounceTime, takeUntil } from "rxjs/operators";
 
@@ -20,12 +21,14 @@ export class ClstFlexTextComponent implements OnInit, OnDestroy {
 
   public inFocus: boolean;
   public editorOptions: Object;
+  public displayHtml: SafeHtml;
 
   private _destroy: Subject<boolean> = new Subject<boolean>();
 
-  constructor() {}
+  constructor(private _sanitizer: DomSanitizer) {}
 
   public ngOnInit(): void {
+    this.displayHtml = this._sanitizer.bypassSecurityTrustHtml(this.control.value);
     this.inFocus = false;
     this.editorOptions = {
       placeholder: this.label,
@@ -36,9 +39,7 @@ export class ClstFlexTextComponent implements OnInit, OnDestroy {
           [{ header: [1, 2, 3, 4, false] }],
           [{ color: [] }, { background: [] }],
           [{ align: [] }],
-          // "image" does not work, attempts to load from local
-          // "video" requires iframe, requires overriding https://angular.io/guide/security
-          ["link"],
+          ["link", "image", "video"],
           ["clean"]
         ]
       }
@@ -52,6 +53,10 @@ export class ClstFlexTextComponent implements OnInit, OnDestroy {
       .subscribe(state => {
         this.inFocus = state;
       });
+
+    this.control.valueChanges
+      .pipe(takeUntil(this._destroy))
+      .subscribe(val => (this.displayHtml = this._sanitizer.bypassSecurityTrustHtml(val)));
   }
 
   public ngOnDestroy(): void {

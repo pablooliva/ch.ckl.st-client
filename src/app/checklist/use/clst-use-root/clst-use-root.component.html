@@ -9,7 +9,7 @@
           </li>
         </ul>
       </div>
-      <div *ngIf="clstData.flexibleText" [innerHTML]="clstData.flexibleText"></div>
+      <div *ngIf="clstData.flexibleText" [innerHTML]="displayHtml"></div>
     </div>
   </mat-card>
   <mat-card *ngFor="let section of clstData.sections; let i = index">

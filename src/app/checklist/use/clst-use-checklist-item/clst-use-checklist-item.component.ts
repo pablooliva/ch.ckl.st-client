@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { FormGroup } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 
@@ -22,13 +23,16 @@ export class ClstUseChecklistItemComponent implements OnInit {
 
   public checklistTags: IChecklistItemTag[];
   public isPreview: boolean;
+  public displayHtml: SafeHtml;
 
   constructor(
     private _dataPersistence: DataPersistenceService,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _sanitizer: DomSanitizer
   ) {}
 
   public ngOnInit(): void {
+    this.displayHtml = this._sanitizer.bypassSecurityTrustHtml(this.itemData.flexibleText);
     this.checklistTags = this._dataPersistence.getChecklistTags();
     this.isPreview = this._route.snapshot.url[0].path === "share" || null;
   }

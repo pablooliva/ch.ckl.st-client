@@ -12,7 +12,7 @@
     <input id="{{'cbox-' + sectionIndex + '-' + itemIndex}}" type="checkbox" [formControlName]="'checked'" [attr.disabled]="isPreview">
     <div class="label">
       <label (click)="onLabelClick()" for="{{'cbox-' + sectionIndex + '-'  + itemIndex}}">{{itemData.label}}</label>
-      <div class="secondary" [innerHTML]="itemData.flexibleText"></div>
+      <div class="secondary" [innerHTML]="displayHtml"></div>
     </div>
   </div>
 </div>

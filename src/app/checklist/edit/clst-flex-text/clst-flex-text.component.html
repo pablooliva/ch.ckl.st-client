@@ -6,7 +6,7 @@
   <ng-container *ngIf="!inFocus; else displayEditor">
     <ng-container *ngIf="control.value; else noValue">
       <div class="as-label">{{label}}</div>
-      <span class="as-value" [innerHTML]="control.value"></span>
+      <span class="as-value" [innerHTML]="displayHtml"></span>
     </ng-container>
     <ng-template #noValue>{{label}}</ng-template>
   </ng-container>

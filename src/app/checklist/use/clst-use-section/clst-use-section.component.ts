@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from "@angular/core";
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { FormArray, FormGroup } from "@angular/forms";
 
 import { ISection } from "../../../shared/data-persistence.service";
@@ -14,13 +15,17 @@ export class ClstUseSectionComponent implements OnInit {
   @Input() sectionIndex: number;
   @Input() hasItemTags: boolean;
 
+  public displayHtml: SafeHtml;
+
   public get items(): FormArray {
     return this.sectionForm.get("checklistItems") as FormArray;
   }
 
-  constructor() {}
+  constructor(private _sanitizer: DomSanitizer) {}
 
-  public ngOnInit(): void {}
+  public ngOnInit(): void {
+    this.displayHtml = this._sanitizer.bypassSecurityTrustHtml(this.sectionData.flexibleText);
+  }
 
   public getItem(idx: number): FormGroup {
     return <FormGroup>this.items.get([idx]);

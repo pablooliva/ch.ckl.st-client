@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from "@angular/core";
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { HttpHeaders } from "@angular/common/http";
@@ -28,6 +29,7 @@ export class ClstUseRootComponent implements OnInit, OnDestroy {
 
   public cId: string;
   public clstData: IClstFormDataModel | IClstDataModel;
+  public displayHtml: SafeHtml;
   public noData: boolean;
   public clForm: FormGroup;
   public hasItemTags: boolean;
@@ -44,7 +46,8 @@ export class ClstUseRootComponent implements OnInit, OnDestroy {
     private _fb: FormBuilder,
     private _toastr: ToastrService,
     private _router: Router,
-    private _route: ActivatedRoute
+    private _route: ActivatedRoute,
+    private _sanitizer: DomSanitizer
   ) {}
 
   public ngOnInit(): void {
@@ -81,6 +84,7 @@ export class ClstUseRootComponent implements OnInit, OnDestroy {
           });
 
           this.clstData = data;
+          this.displayHtml = this._sanitizer.bypassSecurityTrustHtml(this.clstData.flexibleText);
           this.hasItemTags =
             !!(this.clstData as IClstDataModel).checklistTags.length && this._areItemTagsEnabled();
 
