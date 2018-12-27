@@ -1,14 +1,13 @@
 <form novalidate *ngIf="clstData; else loading" [formGroup]="clForm">
   <mat-card>
     <div class="content-container">
-      <h1 class="clst-h-accented">{{clstData.documentTitle}}</h1>
       <div class="doc-tags-container">
+        <div class="dt-label"><i class="material-icons">bookmark_border</i> Tags:</div>
         <ul class="doc-tags">
-          <li *ngFor="let tag of clstData.documentTags">
-            <i class="material-icons">bookmark_border</i>{{tag.display}}
-          </li>
+          <li *ngFor="let tag of clstData.documentTags">{{tag.display}}</li>
         </ul>
       </div>
+      <h1 class="clst-h-accented">{{clstData.documentTitle}}</h1>
       <div *ngIf="clstData.flexibleText" class="as-value" ngClass.lt-sm="clst-lt-sm-res" [innerHTML]="displayHtml" clstResizeElement></div>
     </div>
   </mat-card>

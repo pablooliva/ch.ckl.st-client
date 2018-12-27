@@ -1,4 +1,4 @@
-<div class="citem-container" [formGroup]="itemForm">
+<div class="citem-container" ngClass.lt-sm="clst-lt-sm-res" [formGroup]="itemForm">
   <div class="clst-tags-display" [class.clst-no-tags]="!hasItemTags">
     <ng-container *ngFor="let tag of itemData.checklistTagsEnabled; let i=index">
       <clst-tag-display *ngIf="tag.tag" class="tag-layout"

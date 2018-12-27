@@ -12,6 +12,12 @@
   padding: 1.5rem 2rem 2rem 2rem;
   background-color: mat-color($clst-app-secondary);
 
+  h1, h2, h3, h4, h5, h6 {
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-left: 0;
+  }
+
   .share-text {
     color: white;
   }

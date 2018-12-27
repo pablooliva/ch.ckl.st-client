@@ -88,10 +88,18 @@ mat-checkbox {
 }
 
 /* Design */
+.clst-h-adjust {
+  line-height: 1.3;
+}
+h1, h2, h3, h4, h5 {
+  @extend .clst-h-adjust;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
 .clst-h-accented {
   color: mat-color($clst-app-secondary);
   border-left: 15px solid mat-color($clst-app-secondary);
-  padding-left: 1.2rem;
+  padding-left: 1rem;
   margin-bottom: 1.5rem;
   margin-left: -2rem;
 }

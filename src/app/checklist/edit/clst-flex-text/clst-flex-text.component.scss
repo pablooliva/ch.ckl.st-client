@@ -56,6 +56,9 @@ $is-valid-color: #38761d;
       .ql-video.ql-align-right {
         @extend .clst-flx-txt-video-align-right;
       }
+      h1, h2, h3, h4, h5, h6 {
+        @extend .clst-h-adjust;
+      }
     }
   }
   .as-label {

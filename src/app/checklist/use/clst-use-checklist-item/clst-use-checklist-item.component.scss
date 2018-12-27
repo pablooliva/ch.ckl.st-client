@@ -67,12 +67,25 @@
           .ql-video.ql-align-right {
             @extend .clst-flx-txt-video-align-right;
           }
+          h1, h2, h3, h4, h5, h6 {
+            @extend .clst-h-adjust;
+          }
         }
       }
       .clst-lt-sm-res ::ng-deep iframe {
         width: 100%;
         max-width: 100%;
       }
+    }
+  }
+
+  &.clst-lt-sm-res {
+    flex-flow: row-reverse wrap;
+    .clst-tags-display {
+      flex: 1 0 7rem;
+      order: 1;
+      margin-bottom: 1rem;
+      margin-left: 1.9rem;
     }
   }
 }

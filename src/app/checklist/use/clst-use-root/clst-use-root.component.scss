@@ -8,27 +8,42 @@
   overflow: auto;
   color: #ccc;
   font-size: 0.7rem;
-  margin-bottom: 0.6rem;
+  margin-bottom: 1.2rem;
+  margin-top: -33px;
+  border: 1px dotted #e7e7e7;
+  border-top: none;
+  border-radius: 0 0 3px 3px;
+  padding: 0.5rem 0.7rem;
+  display: flex;
 
   .dt-label {
-    float: left;
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 0;
+    padding-right: 0.5rem;
+    i {
+      font-size: 1rem;
+      vertical-align: text-bottom;
+      margin-bottom: -1px;
+    }
   }
   .doc-tags {
-    margin: 0;
+    margin: 0.1rem 0 0 0;
     padding: 0;
+    flex-basis: auto;
+    flex-grow: 0;
+    flex-shrink: 1;
+    line-height: 1.6;
 
     li {
       display: inline;
-      padding-left: 0.4rem;
+      padding-right: 0.4rem;
       float: left;
-
-      i {
-        font-size: 1rem;
-        vertical-align: text-bottom;
+      &::after {
+        content: ","
       }
-
-      &:first-child {
-        padding-left: 0;
+      &:last-child::after {
+        content: ""
       }
     }
   }
@@ -54,6 +69,9 @@
   }
   .ql-video.ql-align-right {
     @extend .clst-flx-txt-video-align-right;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @extend .clst-h-adjust;
   }
 }
 .clst-lt-sm-res ::ng-deep iframe {
