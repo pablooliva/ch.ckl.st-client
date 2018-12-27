@@ -6,7 +6,7 @@
   <ng-container *ngIf="!inFocus; else displayEditor">
     <ng-container *ngIf="control.value; else noValue">
       <div class="as-label">{{label}}</div>
-      <span class="as-value" [innerHTML]="displayHtml"></span>
+      <span class="as-value" ngClass.lt-sm="clst-lt-sm-res" [innerHTML]="displayHtml"></span>
     </ng-container>
     <ng-template #noValue>{{label}}</ng-template>
   </ng-container>
@@ -14,6 +14,7 @@
     <div class="as-label" [class.is-valid]="!hasError">{{label}}</div>
     <quill-editor
       class="as-value"
+      ngClass.lt-sm="clst-lt-sm-res"
       [formControl]="control"
       [options]="editorOptions"
       (ready)="onReady($event)"

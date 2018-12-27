@@ -12,7 +12,7 @@
     <input id="{{'cbox-' + sectionIndex + '-' + itemIndex}}" type="checkbox" [formControlName]="'checked'" [attr.disabled]="isPreview">
     <div class="label">
       <label (click)="onLabelClick()" for="{{'cbox-' + sectionIndex + '-'  + itemIndex}}">{{itemData.label}}</label>
-      <div class="secondary" [innerHTML]="displayHtml" clstResizeElement></div>
+      <div class="secondary" ngClass.lt-sm="clst-lt-sm-res" [innerHTML]="displayHtml" clstResizeElement></div>
     </div>
   </div>
 </div>

@@ -90,9 +90,13 @@ mat-checkbox {
 /* Design */
 .clst-h-accented {
   color: mat-color($clst-app-secondary);
-  border-left: 3px solid mat-color($clst-app-secondary);
-  padding-left: 0.8rem;
+  border-left: 15px solid mat-color($clst-app-secondary);
+  padding-left: 1.2rem;
   margin-bottom: 1.5rem;
+  margin-left: -2rem;
+}
+h1.clst-h-accented {
+  font-size: 1.6rem;
 }
 .clst-h-faint {
   color: mat-color($clst-app-tertiary);

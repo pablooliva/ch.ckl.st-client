@@ -8,7 +8,7 @@
   overflow: auto;
   color: #ccc;
   font-size: 0.7rem;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.6rem;
 
   .dt-label {
     float: left;
@@ -55,4 +55,8 @@
   .ql-video.ql-align-right {
     @extend .clst-flx-txt-video-align-right;
   }
+}
+.clst-lt-sm-res ::ng-deep iframe {
+  width: 100%;
+  max-width: 100%;
 }

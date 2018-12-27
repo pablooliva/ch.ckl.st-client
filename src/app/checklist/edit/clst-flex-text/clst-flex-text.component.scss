@@ -65,4 +65,8 @@ $is-valid-color: #38761d;
       color: $is-valid-color;
     }
   }
+  .clst-lt-sm-res ::ng-deep iframe {
+    width: 100%;
+    max-width: 100%;
+  }
 }
