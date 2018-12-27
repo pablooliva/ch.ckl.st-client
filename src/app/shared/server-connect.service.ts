@@ -13,6 +13,10 @@ import { AuthService } from "./auth.service";
 export class ServerConnectService {
   private readonly _serverBaseLoc: string;
 
+  public get serverLoc(): string {
+    return this._serverBaseLoc;
+  }
+
   constructor(
     private _http: HttpClient,
     private _dataPersistence: DataPersistenceService,
@@ -162,6 +166,11 @@ export class ServerConnectService {
   public postDocTag(path: string, body: string, httpOptions: any): Promise<any> {
     const fullUrlPath = new URL(path, this._serverBaseLoc);
     return this._http.post<any>(fullUrlPath.toString(), body, httpOptions).toPromise();
+  }
+
+  public postImage(path: string, body: FormData): Promise<any> {
+    const fullUrlPath = new URL(path, this._serverBaseLoc);
+    return this._http.post<any>(fullUrlPath.toString(), body).toPromise();
   }
 
   public getRedirection(path: string): Promise<Object> {

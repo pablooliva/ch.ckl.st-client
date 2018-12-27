@@ -24,7 +24,10 @@ export class ClstUseSectionComponent implements OnInit {
   constructor(private _sanitizer: DomSanitizer) {}
 
   public ngOnInit(): void {
-    this.displayHtml = this._sanitizer.bypassSecurityTrustHtml(this.sectionData.flexibleText);
+    const regex = new RegExp(/<p><br><\/p>+$/);
+    this.displayHtml = this._sanitizer.bypassSecurityTrustHtml(
+      this.sectionData.flexibleText.replace(regex, "")
+    );
   }
 
   public getItem(idx: number): FormGroup {

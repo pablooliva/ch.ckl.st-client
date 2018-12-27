@@ -84,7 +84,10 @@ export class ClstUseRootComponent implements OnInit, OnDestroy {
           });
 
           this.clstData = data;
-          this.displayHtml = this._sanitizer.bypassSecurityTrustHtml(this.clstData.flexibleText);
+          const regex = new RegExp(/<p><br><\/p>+$/);
+          this.displayHtml = this._sanitizer.bypassSecurityTrustHtml(
+            this.clstData.flexibleText.replace(regex, "")
+          );
           this.hasItemTags =
             !!(this.clstData as IClstDataModel).checklistTags.length && this._areItemTagsEnabled();
 

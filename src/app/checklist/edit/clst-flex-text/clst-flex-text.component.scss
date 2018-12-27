@@ -1,3 +1,5 @@
+@import "../../../styles/shared";
+
 $default-color: #0000008a;
 $value-color: #000000de;
 $has-error-color: #f44336;
@@ -29,8 +31,31 @@ $is-valid-color: #38761d;
   }
   .as-value {
     color: $value-color;
-    ::ng-deep *:last-child {
-      margin-bottom: 0;
+    ::ng-deep {
+      *:last-child {
+        margin-bottom: 0;
+      }
+      img {
+        @extend .clst-flx-txt-img;
+      }
+      iframe {
+        @extend .clst-flx-txt-iframe;
+      }
+      .ql-align-center {
+        @extend .clst-flx-txt-align-center;
+      }
+      .ql-align-justify {
+        @extend .clst-flx-txt-align-justify;
+      }
+      .ql-align-right {
+        @extend .clst-flx-txt-align-right;
+      }
+      .ql-video.ql-align-center {
+        @extend .clst-flx-txt-video-align-center;
+      }
+      .ql-video.ql-align-right {
+        @extend .clst-flx-txt-video-align-right;
+      }
     }
   }
   .as-label {

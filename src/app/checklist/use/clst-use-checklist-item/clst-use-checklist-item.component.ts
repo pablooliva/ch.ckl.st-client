@@ -32,7 +32,10 @@ export class ClstUseChecklistItemComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.displayHtml = this._sanitizer.bypassSecurityTrustHtml(this.itemData.flexibleText);
+    const regex = new RegExp(/<p><br><\/p>+$/);
+    this.displayHtml = this._sanitizer.bypassSecurityTrustHtml(
+      this.itemData.flexibleText.replace(regex, "")
+    );
     this.checklistTags = this._dataPersistence.getChecklistTags();
     this.isPreview = this._route.snapshot.url[0].path === "share" || null;
   }

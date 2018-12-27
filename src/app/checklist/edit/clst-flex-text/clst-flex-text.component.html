@@ -16,6 +16,7 @@
       class="as-value"
       [formControl]="control"
       [options]="editorOptions"
+      (ready)="onReady($event)"
       (change)="onChange($event)"
       (blur)="onBlur()">
     </quill-editor>

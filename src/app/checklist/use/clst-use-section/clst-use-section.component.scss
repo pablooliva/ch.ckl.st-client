@@ -4,3 +4,29 @@ clst-use-checklist-item {
   display: block;
   border-top: 1px dotted #e6e6e6;
 }
+.as-value {
+  margin-bottom: 1.2rem;
+  ::ng-deep {
+    img {
+      @extend .clst-flx-txt-img;
+    }
+    iframe {
+      @extend .clst-flx-txt-iframe;
+    }
+    .ql-align-center {
+      @extend .clst-flx-txt-align-center;
+    }
+    .ql-align-justify {
+      @extend .clst-flx-txt-align-justify;
+    }
+    .ql-align-right {
+      @extend .clst-flx-txt-align-right;
+    }
+    .ql-video.ql-align-center {
+      @extend .clst-flx-txt-video-align-center;
+    }
+    .ql-video.ql-align-right {
+      @extend .clst-flx-txt-video-align-right;
+    }
+  }
+}

@@ -229,3 +229,29 @@ button.mat-flat-button {
       transform: scale(1.0);
     }
 }
+
+/* Quill Editor & FlexText */
+.clst-flx-txt-img {
+  width: 25%;
+  max-width: 25%;
+}
+.clst-flx-txt-iframe {
+  width: 75%;
+  max-width: 75%;
+  display: block;
+}
+.clst-flx-txt-align-center {
+  text-align: center;
+}
+.clst-flx-txt-align-justify {
+  text-align: justify;
+}
+.clst-flx-txt-align-right {
+  text-align: right;
+}
+.clst-flx-txt-video-align-center {
+  margin: 0 auto;
+}
+.clst-flx-txt-video-align-right {
+  margin: 0 0 0 auto;
+}

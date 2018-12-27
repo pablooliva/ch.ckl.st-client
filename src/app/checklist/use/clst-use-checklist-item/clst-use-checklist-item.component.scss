@@ -1,3 +1,5 @@
+@import "../../../styles/shared";
+
 .citem-container {
   display: flex;
   flex-direction: row;
@@ -35,12 +37,36 @@
       }
     }
     .label {
+      width: 100%;
       label {
         font-size: 1.1rem;
       }
-      .secondary ::ng-deep {
-        ol, ul {
-          padding: 0 0 0 1.5rem;
+      .secondary {
+        ::ng-deep {
+          ol, ul {
+            padding: 0 0 0 1.5rem;
+          }
+          img {
+            @extend .clst-flx-txt-img;
+          }
+          iframe {
+            @extend .clst-flx-txt-iframe;
+          }
+          .ql-align-center {
+            @extend .clst-flx-txt-align-center;
+          }
+          .ql-align-justify {
+            @extend .clst-flx-txt-align-justify;
+          }
+          .ql-align-right {
+            @extend .clst-flx-txt-align-right;
+          }
+          .ql-video.ql-align-center {
+            @extend .clst-flx-txt-video-align-center;
+          }
+          .ql-video.ql-align-right {
+            @extend .clst-flx-txt-video-align-right;
+          }
         }
       }
     }

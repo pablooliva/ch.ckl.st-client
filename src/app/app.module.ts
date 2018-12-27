@@ -37,6 +37,7 @@ import { ClstRedirectionComponent } from "./redirection/redirection.component";
 import { SubmitButtonDirective } from "./shared/submit-button.directive";
 import { SubmitIfValidDirective } from "./shared/submit-if-valid.directive";
 import { AuthenticationInterceptor } from "./shared/authentication.inteceptor";
+import { ResizeElementDirective } from "./shared/resize-element.directive";
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { AuthenticationInterceptor } from "./shared/authentication.inteceptor";
     ClstCloneComponent,
     ClstDialogComponent,
     ClstFlexTextComponent,
-    ClstRedirectionComponent
+    ClstRedirectionComponent,
+    ResizeElementDirective
   ],
   imports: [
     BrowserModule,

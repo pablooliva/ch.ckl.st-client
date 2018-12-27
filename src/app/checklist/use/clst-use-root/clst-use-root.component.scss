@@ -33,3 +33,26 @@
     }
   }
 }
+.as-value ::ng-deep {
+  img {
+    @extend .clst-flx-txt-img;
+  }
+  iframe {
+    @extend .clst-flx-txt-iframe;
+  }
+  .ql-align-center {
+    @extend .clst-flx-txt-align-center;
+  }
+  .ql-align-justify {
+    @extend .clst-flx-txt-align-justify;
+  }
+  .ql-align-right {
+    @extend .clst-flx-txt-align-right;
+  }
+  .ql-video.ql-align-center {
+    @extend .clst-flx-txt-video-align-center;
+  }
+  .ql-video.ql-align-right {
+    @extend .clst-flx-txt-video-align-right;
+  }
+}
