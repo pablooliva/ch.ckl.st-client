@@ -11,9 +11,7 @@
 .color-picker {
   border: 1px solid #ccc;
   width: 1.5em;
-  margin-right: 0.5em;
-  float: left;
-
+  position: absolute;
   &:hover {
     cursor: pointer;
   }
@@ -21,6 +19,8 @@
 .mat-input-element.color-picker-text {
   width: 80%;
   margin-top: 0.3em;
+  position: relative;
+  left: 1.8rem;
 }
 .important {
   font-size: 1.1em;
@@ -31,10 +31,17 @@
 }
 .clst-btn-container {
   width: 100%;
+  .clst-form-submit {
+    margin-right: 0.5rem;
+  }
 }
 .clst-cancel {
   @extend .clst-secondary;
   float: right;
+}
+.clst-lt-sm-res .clst-cancel {
+  float: none;
+  margin-top: 0.5rem;
 }
 .mat-option .material-icons {
   vertical-align: text-bottom;

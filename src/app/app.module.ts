@@ -8,11 +8,11 @@ import { NgMaterialModule } from "./material.module";
 import { TagInputModule } from "ngx-chips";
 import { ToastrModule } from "ngx-toastr";
 import { AutosizeModule } from "ngx-autosize";
-import { ColorPickerModule } from "./color-picker-module/color-picker.module";
 import { ClipboardModule } from "ngx-clipboard";
 import { QuillEditorModule } from "ngx-quill-editor";
 
 import { AppRoutingModule } from "./app-routing.module";
+import { ColorPickerModule } from "ngx-color-picker";
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./core/home/home.component";
 import { LoginComponent } from "./user/login/login.component";
@@ -68,7 +68,6 @@ import { ResizeElementDirective } from "./shared/resize-element.directive";
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    ColorPickerModule,
     ToastrModule.forRoot({
       timeOut: 5000,
       positionClass: "toast-top-full-width"
@@ -84,7 +83,8 @@ import { ResizeElementDirective } from "./shared/resize-element.directive";
     TagInputModule,
     AutosizeModule,
     ClipboardModule,
-    QuillEditorModule
+    QuillEditorModule,
+    ColorPickerModule
   ],
   entryComponents: [ClstDialogComponent],
   providers: [

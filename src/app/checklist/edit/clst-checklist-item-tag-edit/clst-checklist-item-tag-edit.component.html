@@ -33,8 +33,7 @@
         </mat-autocomplete>
       </mat-form-field>
     </ng-template>
-    <div class="clst-btn-container">
-      <button class="clst-cancel" mat-flat-button type="button" (click)="cancel()">Cancel <i class="material-icons">cancel</i></button>
+    <div class="clst-btn-container" ngClass.lt-sm="clst-lt-sm-res">
       <div [clstSubmitIfValid]="tagForm" [reset]="reset()" (valid)="onSubmit()" class="clst-form-submit">
         <button class="pre-submit clst-item-primary" [class.warning]="tagProps && tagProps.delete" mat-flat-button type="button">
           <ng-container *ngIf="tagProps; else addBtn">
@@ -54,6 +53,7 @@
           Success <i class="material-icons">check_circle</i>
         </button>
       </div>
+      <button class="clst-cancel" mat-flat-button type="button" (click)="cancel()">Cancel <i class="material-icons">cancel</i></button>
     </div>
   </div>
 </form>
