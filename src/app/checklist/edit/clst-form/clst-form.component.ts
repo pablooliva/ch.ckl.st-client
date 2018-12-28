@@ -106,6 +106,10 @@ export class ClstFormComponent extends ClstBaseComponent
         this.clForm.valueChanges
           .pipe(takeUntil(this._destroy))
           .subscribe(() => (this._pendingChanges = true));
+
+        this._dataPersistence.checklistItemTagsModified
+          .pipe(takeUntil(this._destroy))
+          .subscribe(() => (this._pendingChanges = true));
       } else {
         this.showNotFound = true;
       }

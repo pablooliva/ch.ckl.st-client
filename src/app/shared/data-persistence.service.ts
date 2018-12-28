@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Subject } from "rxjs";
 
 import { ServerConnectService } from "./server-connect.service";
 
@@ -67,6 +67,7 @@ export class DataPersistenceService {
   private _checklistId: string;
 
   public belongsToOwner: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public checklistItemTagsModified: Subject<boolean> = new Subject<boolean>();
 
   public set user(uId: string) {
     this._user = uId;
@@ -214,6 +215,7 @@ export class DataPersistenceService {
   }
 
   public updateChecklistTag(tag: IChecklistItemTag, index: number): IChecklistItemTag[] {
+    this.checklistItemTagsModified.next(true);
     this._clDataModel.checklistTags[index] = tag;
     return this._clDataModel.checklistTags;
   }

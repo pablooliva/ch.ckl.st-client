@@ -19,7 +19,7 @@
       </mat-form-field>
       <mat-form-field class="control-group">
         <label for="color">Color</label>
-        <input tabindex="-1" class="color-picker" [(colorPicker)]="colorPicked" (colorPickerChange)="onColorChange(colorPicked)" [style.background]="colorPicked" [cpPosition]="'bottom'" [cpFallbackColor]="defaultColor">
+        <input tabindex="-1" class="color-picker" [(colorPicker)]="colorPicked" (colorPickerChange)="onColorChange(colorPicked)" [style.background]="colorPicked" [cpPosition]="'bottom'" [cpFallbackColor]="defaultColor" [cpOutputFormat]="'hex'">
         <input class="color-picker-text" matInput formControlName="color" placeholder="Color" type="text" id="color" (blur)="onBlur()">
       </mat-form-field>
       <mat-form-field class="control-group">
