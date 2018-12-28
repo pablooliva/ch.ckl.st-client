@@ -3,6 +3,11 @@ WORKDIR /app
 COPY . /app
 RUN npm install
 RUN npm link @angular/cli
+# temporary fixes for failing builds
+# ERROR in node_modules/@types/quill/node_modules/quill-delta/dist/Delta.d.ts(1,8): error TS1192:
+# Module '"/app/node_modules/@types/quill/node_modules/fast-diff/diff"' has no default export.
+COPY ./patches/diff.d.ts "/app/node_modules/@types/quill/node_modules/fast-diff/diff.d.ts"
+COPY ./patches/Delta.d.ts "/app/node_modules/@types/quill/node_modules/quill-delta/dist/Delta.d.ts"
 RUN npm run build
 
 FROM nginx:1.15
