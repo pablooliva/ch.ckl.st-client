@@ -69,8 +69,8 @@ import { ResizeElementDirective } from "./shared/resize-element.directive";
     BrowserModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
-      timeOut: 5000,
-      positionClass: "toast-top-full-width"
+      timeOut: 3000,
+      positionClass: "toast-top-center"
     }),
     HttpClientModule,
     HttpClientXsrfModule.withOptions({

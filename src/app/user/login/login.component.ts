@@ -18,8 +18,7 @@ import { ClstBaseComponent } from "../../shared/clst-base.component";
   templateUrl: "./login.component.html",
   styleUrls: ["./login.component.scss"]
 })
-export class LoginComponent extends ClstBaseComponent
-  implements OnInit, OnDestroy {
+export class LoginComponent extends ClstBaseComponent implements OnInit, OnDestroy {
   public loginForm: FormGroup;
   public buttonReset: Subject<boolean> = new Subject<boolean>();
 
@@ -84,13 +83,10 @@ export class LoginComponent extends ClstBaseComponent
             );
 
             const useRoute = "/use/" + val.serverResponse.newCID;
-            setTimeout(() => this._router.navigate([useRoute]), 500);
+            this._router.navigate([useRoute]);
           } else {
-            this._toastr.success(
-              val.uiMessage + " Re-directing you to your checklists.",
-              val.type
-            );
-            setTimeout(() => this._router.navigate(["/dashboard"]), 500);
+            this._toastr.success(val.uiMessage + " Re-directing you to your checklists.", val.type);
+            this._router.navigate(["/dashboard"]);
           }
 
           this.buttonReset.next(true);

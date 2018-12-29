@@ -12,3 +12,12 @@ body {
   width: 100%;
   border-radius: 0;
 }
+.toast-container.toast-top-center {
+  top: 1rem;
+  .toast {
+    width: 96%;
+    padding: 15px 15px 17px 70px;
+    background-position: 25px center;
+    box-shadow: 0 0 5px #999999;
+  }
+}
