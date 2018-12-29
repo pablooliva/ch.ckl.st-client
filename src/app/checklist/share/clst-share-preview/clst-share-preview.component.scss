@@ -38,10 +38,19 @@
 
   button {
     margin-right: 0.5rem;
+    i {
+      margin-top: -0.2rem;
+    }
   }
 
   ul {
     margin: 0.5em 0 0 0;
     padding: 0 0 0 1.8em;
+  }
+}
+
+.clst-lt-sm-res {
+  .share-action-btns button:not(:first-child) {
+    margin-top: 0.5rem;
   }
 }

@@ -1,4 +1,4 @@
-<mat-card class="sub-header" *ngIf="isCListLoaded | async">
+<mat-card class="sub-header" ngClass.lt-sm="clst-lt-sm-res" *ngIf="isCListLoaded | async">
   <div class="sub-header-container">
     <ng-container *ngIf="isLoggedIn | async; else notUser">
       <div class="flex-container share-actions">
@@ -7,7 +7,10 @@
           <p class="share-text">With this link you can share a copy your checklist.</p>
           <input [value]="link" type="text">
           <div>
-            <button type="button" mat-flat-button class="clst-item-primary" ngxClipboard [cbContent]="link" (click)="copyLabel='Copied'">{{copyLabel}}</button>
+            <button type="button" mat-flat-button class="clst-item-primary" ngxClipboard [cbContent]="link" (click)="copyLabel='Copied'">{{copyLabel}}
+              <i *ngIf="copyLabel !== 'Copied'; else notCopied" class="material-icons">add_circle</i>
+              <ng-template #notCopied><i class="material-icons">check_circle</i></ng-template>
+            </button>
           </div>
         </ng-container>
         <ng-template #notBelongs>
@@ -24,13 +27,13 @@
       <div class="flex-container share-actions">
         <h1 class="share-text">Use this Checklist</h1>
         <div class="share-action-btns">
-          <button type="button" mat-flat-button class="clst-item-primary" (click)="useAsAnonymous()">Anonymously</button>
-          <button type="button" mat-flat-button class="clst-item-primary" (click)="useAsToBeRegistered()">As Registered User</button>
+          <button type="button" mat-flat-button class="clst-item-primary" (click)="useAsAnonymous()"><i class="material-icons">blur_on</i> Anonymously</button>
+          <button type="button" mat-flat-button class="clst-item-primary" (click)="useAsToBeRegistered()"><i class="material-icons">how_to_reg</i> As Registered User</button>
         </div>
-        <p class="share-text">Registration is not required, however as an Anonymous User:</p>
+        <p class="share-text">Registration is not required, however Anonymous Users:</p>
         <ul class="share-text">
-          <li>Customizing the checklist is not permitted.</li>
-          <li>The only way to revisit your copy of this checklist is by saving the unique checklist URL that will be generated.</li>
+          <li>Are not permitted to customize the checklist.</li>
+          <li>Need to save their unique URL to revisit the checklist.</li>
         </ul>
       </div>
     </ng-template>
