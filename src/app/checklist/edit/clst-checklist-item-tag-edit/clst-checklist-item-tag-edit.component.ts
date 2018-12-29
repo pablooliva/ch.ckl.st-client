@@ -45,8 +45,8 @@ export class ClstChecklistItemTagEditComponent implements OnInit, OnDestroy, OnC
 
   private static _validColor(testColor: string): boolean {
     let valid = true;
-    testColor = testColor.trim();
-    if (!testColor.length || testColor.length < 4) {
+    testColor = testColor && testColor.trim();
+    if (testColor === null || !testColor.length || testColor.length < 4) {
       valid = false;
     }
     return valid;
@@ -56,10 +56,11 @@ export class ClstChecklistItemTagEditComponent implements OnInit, OnDestroy, OnC
     private _fb: FormBuilder,
     private _syncTags: ChecklistItemTagsSyncService,
     private _dataPersistence: DataPersistenceService
-  ) {}
+  ) {
+    this.defaultColor = "#f5f5f5";
+  }
 
   public ngOnInit(): void {
-    this.defaultColor = "#fff";
     this.colorPicked = this.tagProps ? this.tagProps.tag.color : this.defaultColor;
     this.labelPicked = this.tagProps ? this.tagProps.tag.label : "Preview";
     this.iconPicked = this.tagProps ? this.tagProps.tag.icon : "";
@@ -95,7 +96,7 @@ export class ClstChecklistItemTagEditComponent implements OnInit, OnDestroy, OnC
   private _initForm(): void {
     this.tagForm = this._fb.group({
       label: ["", Validators.compose([Validators.required, UniqueLabel.bind(this)])],
-      color: this.colorPicked,
+      color: this.defaultColor,
       icon: ["", ValidMatIcon.bind(this)]
     });
   }
