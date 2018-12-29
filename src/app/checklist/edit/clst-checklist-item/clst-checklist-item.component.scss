@@ -26,6 +26,9 @@
     input, clst-tag-display {
       align-self: center;
     }
+    label {
+      flex: 0 0 auto;
+    }
     :hover {
       cursor: pointer;
     }
@@ -52,4 +55,8 @@ clst-checklist-item-tag-edit {
   border: 1px dotted #ccc;
   margin-bottom: 1em;
   background-color: #fff;
+  &.clst-lt-sm-res {
+    margin-right: -2rem;
+    margin-left: -2rem;
+  }
 }

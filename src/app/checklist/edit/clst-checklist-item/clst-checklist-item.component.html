@@ -35,7 +35,7 @@
       <button class="clst-item-accent clst-sml-btn" type="button" (click)="displayTagEditComp = true">Create tag</button>
       <button class="clst-item-accent clst-sml-btn" type="button" *ngIf="checklistTagsEnabled.controls.length" (click)="editTags()">Edit tags</button>
     </div>
-    <clst-checklist-item-tag-edit *ngIf="displayTagEditComp" [checklistItem]="checklistItem" [tagProps]="pushTagInfo" (tagAdded)="clearTagEdit()">
+    <clst-checklist-item-tag-edit ngClass.lt-sm="clst-lt-sm-res" *ngIf="displayTagEditComp" [checklistItem]="checklistItem" [tagProps]="pushTagInfo" (tagAdded)="clearTagEdit()">
     </clst-checklist-item-tag-edit>
   </div>
   <div class="heading-actions">
