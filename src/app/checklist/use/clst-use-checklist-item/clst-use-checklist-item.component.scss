@@ -80,10 +80,11 @@
   }
 
   &.clst-lt-sm-res {
-    flex-flow: row-reverse wrap;
+    flex-flow: column nowrap;
     .clst-tags-display {
-      flex: 1 0 7rem;
+      flex: 1 0 auto;
       order: 1;
+      margin-top: 1rem;
       margin-bottom: 1rem;
       margin-left: 1.9rem;
     }
