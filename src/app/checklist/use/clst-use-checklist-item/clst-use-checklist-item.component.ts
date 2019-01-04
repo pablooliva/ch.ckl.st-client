@@ -39,16 +39,4 @@ export class ClstUseChecklistItemComponent implements OnInit {
     this.checklistTags = this._dataPersistence.getChecklistTags();
     this.isPreview = this._route.snapshot.url[0].path === "share" || null;
   }
-
-  public onClick(): void {
-    if (!this.isPreview) {
-      this.itemForm.patchValue({
-        checked: !this.itemForm.controls.checked.value
-      });
-    }
-  }
-
-  public onLabelClick(): void {
-    event.stopPropagation();
-  }
 }

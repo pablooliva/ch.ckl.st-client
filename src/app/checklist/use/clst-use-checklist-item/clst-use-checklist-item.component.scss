@@ -23,6 +23,7 @@
     flex: 0 0 7rem;
     display: flex;
     flex-direction: column;
+    margin-right: 0.2rem;
 
     clst-tag-display {
       margin-bottom: 0.2rem;
@@ -49,57 +50,76 @@
         cursor: pointer;
       }
     }
-    .label {
-      width: 100%;
-      label {
-        font-size: 1.1rem;
-      }
-      .secondary {
-        ::ng-deep {
-          :first-child {
-            margin-top: 1rem;
-          }
-          color: #696969;
-          a {
-            color: #225892;
-            &:visited {
-              color: #783cb1;
+    .mat-checkbox {
+      margin-bottom: 0;
+      ::ng-deep {
+        .mat-checkbox-layout {
+          white-space: normal;
+          .mat-checkbox-inner-container {
+            margin: 0 0.7rem 0 0.15rem;
+            .mat-checkbox-frame {
+              border-width: 1px;
+              border-color: #969696;
             }
           }
-          ol, ul {
-            padding: 0 0 0 1.5rem;
-          }
-          img {
-            @extend .clst-flx-txt-img;
-          }
-          iframe {
-            @extend .clst-flx-txt-iframe;
-          }
-          .ql-align-center {
-            @extend .clst-flx-txt-align-center;
-          }
-          .ql-align-justify {
-            @extend .clst-flx-txt-align-justify;
-          }
-          .ql-align-right {
-            @extend .clst-flx-txt-align-right;
-          }
-          .ql-video.ql-align-center {
-            @extend .clst-flx-txt-video-align-center;
-          }
-          .ql-video.ql-align-right {
-            @extend .clst-flx-txt-video-align-right;
-          }
-          h1, h2, h3, h4, h5, h6 {
-            @extend .clst-h-adjust;
+        }
+        .mat-checkbox-label {
+          .label {
+            width: 100%;
+            line-height: 1.5;
+            label {
+              font-size: 1.1rem;
+            }
+            .secondary {
+              ::ng-deep {
+                :first-child {
+                  margin-top: 1rem;
+                }
+                color: #696969;
+                a {
+                  color: #225892;
+                  &:visited {
+                    color: #783cb1;
+                  }
+                }
+                ol, ul {
+                  padding: 0 0 0 1.5rem;
+                }
+                img {
+                  @extend .clst-flx-txt-img;
+                }
+                iframe {
+                  @extend .clst-flx-txt-iframe;
+                }
+                .ql-align-center {
+                  @extend .clst-flx-txt-align-center;
+                }
+                .ql-align-justify {
+                  @extend .clst-flx-txt-align-justify;
+                }
+                .ql-align-right {
+                  @extend .clst-flx-txt-align-right;
+                }
+                .ql-video.ql-align-center {
+                  @extend .clst-flx-txt-video-align-center;
+                }
+                .ql-video.ql-align-right {
+                  @extend .clst-flx-txt-video-align-right;
+                }
+                h1, h2, h3, h4, h5, h6 {
+                  @extend .clst-h-adjust;
+                }
+              }
+            }
+            .clst-lt-sm-res ::ng-deep iframe {
+              width: 100%;
+              max-width: 100%;
+            }
           }
         }
       }
-      .clst-lt-sm-res ::ng-deep iframe {
-        width: 100%;
-        max-width: 100%;
-      }
     }
+
   }
 
   &.clst-lt-sm-res {
