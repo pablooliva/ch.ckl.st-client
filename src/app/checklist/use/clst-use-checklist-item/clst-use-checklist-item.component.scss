@@ -1,5 +1,18 @@
 @import "../../../styles/shared";
 
+:host {
+  background: white;
+  border-radius: 5px;
+  margin-right: -1rem;
+  margin-left: -1rem;
+  padding: 0 0.9rem;
+  border: 1px solid #dfe7fb;
+  margin-bottom: 0.5rem;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
 .citem-container {
   display: flex;
   flex-direction: row;
@@ -43,6 +56,16 @@
       }
       .secondary {
         ::ng-deep {
+          :first-child {
+            margin-top: 1rem;
+          }
+          color: #696969;
+          a {
+            color: #225892;
+            &:visited {
+              color: #783cb1;
+            }
+          }
           ol, ul {
             padding: 0 0 0 1.5rem;
           }

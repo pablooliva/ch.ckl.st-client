@@ -12,7 +12,7 @@
     </div>
   </mat-card>
   <mat-card *ngFor="let section of clstData.sections; let i = index">
-    <div class="content-container">
+    <div class="content-container clst-checklist-items">
       <clst-use-section [sectionForm]="getSection(i)"
                         [sectionData]="section"
                         [sectionIndex]="i"

@@ -30,6 +30,9 @@ mat-checkbox {
   padding: $doc-section-pad;
   background-color: #fff;
   border-radius: 0.3em;
+  &.clst-checklist-items {
+    padding: 2rem 2rem 1rem 2rem;
+  }
 }
 .sub-header-container :first-child {
   border-radius: 0.3em;
@@ -100,7 +103,7 @@ h1, h2, h3, h4, h5 {
   color: mat-color($clst-app-secondary);
   border-left: 15px solid mat-color($clst-app-secondary);
   padding-left: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
   margin-left: -2rem;
 }
 h1.clst-h-accented {
@@ -129,7 +132,9 @@ h2 {
   cursor: pointer;
 }
 .clst-actions {
+  @extend .clst-h-accented;
   color: mat-color($clst-app-primary);
+  border-left-color: mat-color($clst-app-primary);
 }
 .clst-action-msg {
   margin: 0;
