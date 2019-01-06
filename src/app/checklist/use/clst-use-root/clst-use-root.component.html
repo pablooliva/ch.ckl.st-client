@@ -1,14 +1,17 @@
 <form novalidate *ngIf="clstData; else loading" [formGroup]="clForm">
   <mat-card>
     <div class="content-container">
+      <div class="clst-doc-title-container">
+        <img src="/assets/ch.ckl.st.png" class="clst-doc-title-bg" alt="">
+        <h1 class="clst-h-accented clst-doc-title">{{clstData.documentTitle}}</h1>
+      </div>
+      <div *ngIf="clstData.flexibleText" class="as-value" ngClass.lt-sm="clst-lt-sm-res" [innerHTML]="displayHtml" clstResizeElement></div>
       <div class="doc-tags-container" *ngIf="clstData.documentTags.length">
         <div class="dt-label"><i class="material-icons">bookmark_border</i> Tags:</div>
         <ul class="doc-tags">
           <li *ngFor="let tag of clstData.documentTags">{{tag.display}}</li>
         </ul>
       </div>
-      <h1 class="clst-h-accented">{{clstData.documentTitle}}</h1>
-      <div *ngIf="clstData.flexibleText" class="as-value" ngClass.lt-sm="clst-lt-sm-res" [innerHTML]="displayHtml" clstResizeElement></div>
     </div>
   </mat-card>
   <mat-card *ngFor="let section of clstData.sections; let i = index">
