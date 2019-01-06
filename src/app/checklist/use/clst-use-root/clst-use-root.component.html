@@ -7,7 +7,7 @@
       </div>
       <div *ngIf="clstData.flexibleText" class="as-value" ngClass.lt-sm="clst-lt-sm-res" [innerHTML]="displayHtml" clstResizeElement></div>
       <div class="doc-tags-container" *ngIf="clstData.documentTags.length">
-        <div class="dt-label"><i class="material-icons">bookmark_border</i> Tags:</div>
+        <div class="dt-label"><i class="material-icons">bookmark_border</i>Tags:</div>
         <ul class="doc-tags">
           <li *ngFor="let tag of clstData.documentTags">{{tag.display}}</li>
         </ul>
