@@ -14,8 +14,19 @@
     position: absolute;
     opacity: 0.1;
     top: 1rem;
-    right: 1rem;
+    right: -2rem;
     width: 25%;
+    &.clst-lt-sm-res { // max-width: 599px
+      right: -3rem;
+      width: 40%;
+      @media screen and (max-width: 320px) {
+        top: unset;
+        bottom: -1rem;
+      }
+      @media screen and (min-width: 481px) and (max-width: 599px) {
+        width: 30%;
+      }
+    }
   }
   h1.clst-doc-title {
     font-family: Merriweather, serif;
@@ -99,7 +110,7 @@
     @extend .clst-h-adjust;
   }
 }
-.clst-lt-sm-res ::ng-deep iframe {
+.as-value.clst-lt-sm-res ::ng-deep iframe {
   width: 100%;
   max-width: 100%;
 }

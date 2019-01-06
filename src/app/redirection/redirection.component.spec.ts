@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { RedirectionComponent } from "./redirection.component";
+import { ClstRedirectionComponent } from "./redirection.component";
 
 describe("RedirectionComponent", () => {
-  let component: RedirectionComponent;
-  let fixture: ComponentFixture<RedirectionComponent>;
+  let component: ClstRedirectionComponent;
+  let fixture: ComponentFixture<ClstRedirectionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [RedirectionComponent]
+      declarations: [ClstRedirectionComponent]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RedirectionComponent);
+    fixture = TestBed.createComponent(ClstRedirectionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
