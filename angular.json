@@ -18,7 +18,9 @@
             "polyfills": "src/polyfills.ts",
             "assets": [
               "src/assets",
-              "src/favicon.ico"
+              "src/favicon.ico",
+              "src/robots.txt",
+              "src/sitemap.xml"
             ],
             "styles": [
               "src/styles.scss",
@@ -123,11 +125,11 @@
   "defaultProject": "ch.ckl.st-client",
   "schematics": {
     "@schematics/angular:component": {
-      "prefix": "app",
+      "prefix": "clst",
       "styleext": "scss"
     },
     "@schematics/angular:directive": {
-      "prefix": "app"
+      "prefix": "clst"
     }
   }
 }
