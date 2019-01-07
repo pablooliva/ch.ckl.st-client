@@ -26,6 +26,7 @@ import { ClstUseComponent } from "./checklist/use/clst-use/clst-use.component";
 import { ClstCloneComponent } from "./checklist/edit/clst-clone/clst-clone.component";
 import { ClstFormComponent } from "./checklist/edit/clst-form/clst-form.component";
 import { ClstRedirectionComponent } from "./redirection/redirection.component";
+import { ClstNotFoundComponent } from "./core/404/clst-not-found.component";
 
 const appRoutes: Routes = [
   { path: "", canActivate: [HomeGuard], component: HomeComponent },
@@ -136,6 +137,19 @@ const appRoutes: Routes = [
     path: "r/:rSource",
     component: ClstRedirectionComponent,
     data: { page: "redirect" }
+  },
+  {
+    path: "not-found",
+    component: ClstNotFoundComponent,
+    data: {
+      page: "404",
+      title: "Page not found",
+      description: "Sorry. The page that you are searching for was not found."
+    }
+  },
+  {
+    path: "**",
+    redirectTo: "not-found"
   }
 ];
 

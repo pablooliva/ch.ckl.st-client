@@ -33,6 +33,7 @@ import { ClstCloneComponent } from "./checklist/edit/clst-clone/clst-clone.compo
 import { ClstDialogComponent } from "./shared/dialog/clst-dialog/clst-dialog.component";
 import { ClstFlexTextComponent } from "./checklist/edit/clst-flex-text/clst-flex-text.component";
 import { ClstRedirectionComponent } from "./redirection/redirection.component";
+import { ClstNotFoundComponent } from "./core/404/clst-not-found.component";
 
 import { SubmitButtonDirective } from "./shared/submit-button.directive";
 import { SubmitIfValidDirective } from "./shared/submit-if-valid.directive";
@@ -63,7 +64,8 @@ import { ResizeElementDirective } from "./shared/resize-element.directive";
     ClstDialogComponent,
     ClstFlexTextComponent,
     ClstRedirectionComponent,
-    ResizeElementDirective
+    ResizeElementDirective,
+    ClstNotFoundComponent
   ],
   imports: [
     BrowserModule,
