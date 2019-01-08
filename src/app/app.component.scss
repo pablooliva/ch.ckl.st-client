@@ -105,46 +105,40 @@ mat-sidenav {
 footer {
   padding: 1.5rem 1.2rem;
   font: 400 0.9em Roboto, "Helvetica Neue", sans-serif;
+  line-height: 1.4;
   display: flex;
   flex-direction: column;
 
   a {
     color: #e1e7ec;
     text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   .ch-ckl-st {
-    position: relative;
-
-    img {
-      position: absolute;
-      bottom: 0.1rem;
-    }
-
     p {
-      margin: 0;
-      margin-left: 1.3rem;
-    }
-
-    .material-icons {
-      font-size: 0.9rem;
-      vertical-align: middle;
-      margin-right: 0.2rem;
-    }
-
-    .social-logo {
-      position: relative;
-      bottom: -0.01rem;
-      margin-right: 0.3rem;
-    }
-
-    .clst-about {
-      margin-right: 0.4rem;
-    }
-
-    .clst-footer-link {
-      display: inline-block;
-      margin: 0 0.4rem;
+      margin: 0 0 1rem 0;
+      .clst-footer-link {
+        display: inline-block;
+        margin: 0 0.4rem;
+        &:first-child {
+          margin-left: 0;
+        }
+      }
+      .material-icons {
+        font-size: 0.9rem;
+        vertical-align: middle;
+        margin-right: 0.2rem;
+      }
+      .social-logo {
+        bottom: -0.01rem;
+        margin-right: 0.3rem;
+      }
+      &.clst-copyright {
+        font-size: 0.8rem;
+      }
     }
   }
 
