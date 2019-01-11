@@ -10,8 +10,8 @@
   </div>
   <div class="cbox-form" [class.clickable]="!isPreview">
     <mat-checkbox id="{{'cbox-' + sectionIndex + '-' + itemIndex}}" [formControlName]="'checked'" [disabled]="isPreview">
-      <div class="label">
-        <label for="{{'cbox-' + sectionIndex + '-'  + itemIndex}}">{{itemData.label}}</label>
+      <div class="clst-label-container">
+        <div class="clst-label" id="{{'cbox-' + sectionIndex + '-'  + itemIndex}}">{{itemData.label}}</div>
         <div class="secondary" ngClass.lt-sm="clst-lt-sm-res" [innerHTML]="displayHtml" clstResizeElement></div>
       </div>
     </mat-checkbox>

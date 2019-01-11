@@ -41,7 +41,7 @@
       margin-right: 0.8rem;
     }
     &.clickable {
-      .label label {
+      .clst-label-container .clst-label {
         &:hover {
           cursor: pointer;
         }
@@ -51,10 +51,12 @@
       }
     }
     .mat-checkbox {
+      width: 100%;
       margin-bottom: 0;
       ::ng-deep {
         .mat-checkbox-layout {
           white-space: normal;
+          width: 100%;
           .mat-checkbox-inner-container {
             margin: 0 0.7rem 0 0.15rem;
             .mat-checkbox-frame {
@@ -64,10 +66,11 @@
           }
         }
         .mat-checkbox-label {
-          .label {
+          width: 100%;
+          .clst-label-container {
             width: 100%;
             line-height: 1.5;
-            label {
+            .clst-label {
               font-size: 1.1rem;
             }
             .secondary {
