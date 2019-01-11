@@ -24,13 +24,13 @@
     </div>
   </mat-card>
   <mat-card *ngIf="!sharePreview">
-    <div class="content-container">
+    <div class="content-container clst-actions-container">
       <ng-container *ngIf="!isAnon">
         <h2 class="clst-actions">Checklist Actions</h2>
         <div class="clst-btn-grp">
-          <button mat-flat-button type="button" class="clst-secondary" (click)="editChecklist()">Edit <i class="material-icons">swap_vertical_circle</i></button>
-          <button mat-flat-button type="button" class="clst-secondary" (click)="shareChecklist()">Share <i class="material-icons">share</i></button>
-          <button mat-flat-button type="button" class="clst-secondary" (click)="cloneChecklist()">Copy <i class="material-icons">add_circle</i></button>
+          <button mat-flat-button type="button" class="clst-item-primary" (click)="editChecklist()">Edit <i class="material-icons">swap_vertical_circle</i></button>
+          <button mat-flat-button type="button" class="clst-item-primary" (click)="shareChecklist()">Share <i class="material-icons">share</i></button>
+          <button mat-flat-button type="button" class="clst-item-primary" (click)="cloneChecklist()">Copy <i class="material-icons">add_circle</i></button>
         </div>
       </ng-container>
       <p class="clst-action-msg"><i class="material-icons">autorenew</i> Your use of this checklist is saved automatically.</p>

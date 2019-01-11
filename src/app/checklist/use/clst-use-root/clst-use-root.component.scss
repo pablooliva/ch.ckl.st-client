@@ -84,6 +84,20 @@
     }
   }
 }
+
+.clst-actions-container {
+  padding-bottom: 1.5rem;
+  .clst-actions {
+    margin-bottom: 0;
+    margin-top: -1rem;
+    border-left: none;
+    padding-left: 2rem;
+  }
+  .clst-action-msg {
+    margin-top: 1rem;
+  }
+}
+
 .as-value ::ng-deep {
   img {
     @extend .clst-flx-txt-img;
