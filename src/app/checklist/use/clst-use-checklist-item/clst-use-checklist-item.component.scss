@@ -15,18 +15,24 @@
 
 .citem-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   margin: 0.5rem 0;
   padding: 0.5rem 0.5rem 0.5rem 0;
 
   .clst-tags-display {
-    flex: 0 0 7rem;
     display: flex;
-    flex-direction: column;
-    margin-right: 0.2rem;
+    flex-flow: row wrap;
+    flex: 1 0 auto;
+    order: 1;
+    margin: 0.5rem 0.2rem 0.5rem 1.9rem;
 
     clst-tag-display {
       margin-bottom: 0.2rem;
+      margin-right: 0.2rem;
+      flex-shrink: 0;
+      &:last-child {
+        margin-right: 0;
+      }
     }
 
     &.clst-no-tags {
@@ -123,16 +129,5 @@
       }
     }
 
-  }
-
-  &.clst-lt-sm-res {
-    flex-flow: column nowrap;
-    .clst-tags-display {
-      flex: 1 0 auto;
-      order: 1;
-      margin-top: 1rem;
-      margin-bottom: 1rem;
-      margin-left: 1.9rem;
-    }
   }
 }
