@@ -1,5 +1,5 @@
 # ch.ckl.st client
-[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fpablooliva%2Fch.ckl.st-client.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fpablooliva%2Fch.ckl.st-client?ref=badge_shield)
+[![Known Vulnerabilities](https://snyk.io/test/github/pablooliva/ch.ckl.st-client/badge.svg?targetFile=package.json)](https://snyk.io/test/github/pablooliva/ch.ckl.st-client?targetFile=package.json) [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fpablooliva%2Fch.ckl.st-client.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fpablooliva%2Fch.ckl.st-client?ref=badge_shield)
 
 ## About
 

@@ -1,5 +1,5 @@
 import { OnInit, Component, ViewChild, OnDestroy } from "@angular/core";
-import { ObservableMedia } from "@angular/flex-layout";
+import { MediaObserver } from "@angular/flex-layout";
 import { MatSidenav } from "@angular/material";
 import { Data } from "@angular/router";
 import {
@@ -43,10 +43,7 @@ import { RootListenerService } from "./shared/root-listener.service";
           query(
             ":leave",
             [
-              animate(
-                "0.35s",
-                style({ opacity: 0, transform: "translateY(50vh)" })
-              ),
+              animate("0.35s", style({ opacity: 0, transform: "translateY(50vh)" })),
               animateChild()
             ],
             { optional: true }
@@ -66,16 +63,13 @@ export class AppComponent implements OnInit, OnDestroy {
   private _lastHeight: number;
 
   constructor(
-    public media: ObservableMedia,
+    public media: MediaObserver,
     private _authService: AuthService,
     private _rootListener: RootListenerService
   ) {}
 
   public ngOnInit(): void {
-    this.media
-      .asObservable()
-      .pipe(takeUntil(this._destroy))
-      .subscribe(() => this._handleSideNav());
+    this.media.media$.pipe(takeUntil(this._destroy)).subscribe(() => this._handleSideNav());
 
     this.isLoggedIn = this._authService.isLoggedIn;
     this._lastHeight = 0;
