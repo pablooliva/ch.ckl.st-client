@@ -72,7 +72,7 @@
           }
         }
         .mat-checkbox-label {
-          width: 100%;
+          width: 90%;
           .clst-label-container {
             width: 100%;
             line-height: 1.5;
@@ -87,6 +87,9 @@
                 color: #696969;
                 a {
                   color: #225892;
+                  word-wrap: break-word;
+                  margin: 0;
+                  max-width: 90%;
                   &:visited {
                     color: #783cb1;
                   }
