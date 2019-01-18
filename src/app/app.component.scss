@@ -102,6 +102,11 @@ mat-sidenav {
     }
   }
 }
+::ng-deep {
+  .mat-form-field-infix {
+    width: 100% !important;
+  }
+}
 footer {
   padding: 1.5rem 1.2rem;
   font: 400 0.9em Roboto, "Helvetica Neue", sans-serif;

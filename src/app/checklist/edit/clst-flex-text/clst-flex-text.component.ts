@@ -1,4 +1,12 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit } from "@angular/core";
+import {
+  AfterViewChecked,
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  Renderer2
+} from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { Subject } from "rxjs";
@@ -20,7 +28,7 @@ export interface IQuillEditorEvent {
   templateUrl: "./clst-flex-text.component.html",
   styleUrls: ["./clst-flex-text.component.scss"]
 })
-export class ClstFlexTextComponent implements OnInit, OnDestroy {
+export class ClstFlexTextComponent implements OnInit, AfterViewChecked, OnDestroy {
   @Input()
   control: FormControl;
   @Input()
@@ -37,12 +45,14 @@ export class ClstFlexTextComponent implements OnInit, OnDestroy {
   private _destroy: Subject<boolean> = new Subject<boolean>();
   private _quill: Quill;
   private _imageUploading: boolean;
+  private _elemWidth: string;
 
   constructor(
     private _sanitizer: DomSanitizer,
     private _toastr: ToastrService,
     private _serverConnectService: ServerConnectService,
-    private _elementRef: ElementRef
+    private _elementRef: ElementRef,
+    private _renderer: Renderer2
   ) {}
 
   public ngOnInit(): void {
@@ -77,6 +87,27 @@ export class ClstFlexTextComponent implements OnInit, OnDestroy {
     this.control.valueChanges
       .pipe(takeUntil(this._destroy))
       .subscribe(val => (this.displayHtml = this._sanitizer.bypassSecurityTrustHtml(val)));
+
+    this._getElemWidth();
+  }
+
+  public ngAfterViewChecked(): void {
+    this._setAnchorWidth();
+  }
+
+  private _getElemWidth(): void {
+    this._elemWidth = window.getComputedStyle(this._elementRef.nativeElement).width;
+  }
+
+  private _setAnchorWidth(): void {
+    const anchors = this._elementRef.nativeElement.getElementsByTagName("a");
+    const adjustedElemWidth = parseInt(this._elemWidth.split("px")[0], 10) - 20 + "px";
+    for (let i = 0; i < anchors.length; i++) {
+      if (anchors[i].text.toLowerCase().indexOf("http") === 0) {
+        this._renderer.setStyle(anchors[i], "max-width", adjustedElemWidth);
+        this._renderer.addClass(anchors[i], "adjust-for-url");
+      }
+    }
   }
 
   public ngOnDestroy(): void {

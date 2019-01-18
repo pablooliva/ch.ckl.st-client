@@ -32,8 +32,16 @@ $is-valid-color: #38761d;
   .as-value {
     color: $value-color;
     ::ng-deep {
-      *:last-child {
+      > *:last-child {
         margin-bottom: 0;
+      }
+      a.adjust-for-url {
+        margin-top: 0.1rem;
+        margin-bottom: -0.149rem;
+        display: inline-block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
       img {
         @extend .clst-flx-txt-img;
