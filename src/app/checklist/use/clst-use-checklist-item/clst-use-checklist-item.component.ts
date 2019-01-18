@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { AfterViewChecked, Component, ElementRef, Input, OnInit, Renderer2 } from "@angular/core";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { FormGroup } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
@@ -14,7 +14,7 @@ import {
   templateUrl: "./clst-use-checklist-item.component.html",
   styleUrls: ["./clst-use-checklist-item.component.scss"]
 })
-export class ClstUseChecklistItemComponent implements OnInit {
+export class ClstUseChecklistItemComponent implements OnInit, AfterViewChecked {
   @Input() itemForm: FormGroup;
   @Input() itemData: IChecklistItem;
   @Input() itemIndex: number;
@@ -25,10 +25,14 @@ export class ClstUseChecklistItemComponent implements OnInit {
   public isPreview: boolean;
   public displayHtml: SafeHtml;
 
+  private _elemWidth: string;
+
   constructor(
     private _dataPersistence: DataPersistenceService,
     private _route: ActivatedRoute,
-    private _sanitizer: DomSanitizer
+    private _sanitizer: DomSanitizer,
+    private _elementRef: ElementRef,
+    private _renderer: Renderer2
   ) {}
 
   public ngOnInit(): void {
@@ -38,5 +42,26 @@ export class ClstUseChecklistItemComponent implements OnInit {
     );
     this.checklistTags = this._dataPersistence.getChecklistTags();
     this.isPreview = this._route.snapshot.url[0].path === "share" || null;
+
+    this._getElemWidth();
+  }
+
+  public ngAfterViewChecked(): void {
+    this._setAnchorWidth();
+  }
+
+  private _getElemWidth(): void {
+    this._elemWidth = window.getComputedStyle(this._elementRef.nativeElement).width;
+  }
+
+  private _setAnchorWidth(): void {
+    const anchors = this._elementRef.nativeElement.getElementsByTagName("a");
+    const adjustedElemWidth = parseInt(this._elemWidth.split("px")[0], 10) - 70 + "px";
+    for (let i = 0; i < anchors.length; i++) {
+      if (anchors[i].text.toLowerCase().indexOf("http") === 0) {
+        this._renderer.setStyle(anchors[i], "max-width", adjustedElemWidth);
+        this._renderer.addClass(anchors[i], "adjust-for-url");
+      }
+    }
   }
 }

@@ -87,12 +87,14 @@
                 color: #696969;
                 a {
                   color: #225892;
-                  margin-bottom: -0.375rem;
-                  display: inline-block;
-                  max-width: 100%;
-                  overflow: hidden;
-                  white-space: nowrap;
-                  text-overflow: ellipsis;
+                  &.adjust-for-url {
+                    margin-bottom: -0.375rem;
+                    display: inline-block;
+                    max-width: 100%;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                  }
                   &:visited {
                     color: #783cb1;
                   }

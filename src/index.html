@@ -22,8 +22,10 @@
   </clst-root>
 </body>
 <script>
-  var clicky_site_ids = clicky_site_ids || [];
-  clicky_site_ids.push(101161094);
+  if (window.location.hostname !== "localhost") {
+    var clicky_site_ids = clicky_site_ids || [];
+    clicky_site_ids.push(101161094);
+  }
 </script>
 <script async src="//static.getclicky.com/js"></script>
 </html>
