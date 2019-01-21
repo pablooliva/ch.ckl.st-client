@@ -1,5 +1,4 @@
 import {
-  AfterViewChecked,
   AfterViewInit,
   Component,
   ElementRef,
@@ -24,8 +23,7 @@ import {
   templateUrl: "./clst-use-checklist-item.component.html",
   styleUrls: ["./clst-use-checklist-item.component.scss"]
 })
-export class ClstUseChecklistItemComponent
-  implements OnChanges, OnInit, AfterViewInit, AfterViewChecked {
+export class ClstUseChecklistItemComponent implements OnChanges, OnInit, AfterViewInit {
   @Input() itemForm: FormGroup;
   @Input() itemData: IChecklistItem;
   @Input() itemIndex: number;
@@ -69,13 +67,12 @@ export class ClstUseChecklistItemComponent
     this._getElemWidth();
   }
 
-  public ngAfterViewChecked(): void {
-    this._setAnchorWidth();
-  }
-
   public ngAfterViewInit(): void {
-    this.clistItemHeight = window.getComputedStyle(this._elementRef.nativeElement).height;
-    this._renderer.setStyle(this._elementRef.nativeElement, "height", this.clistItemHeight);
+    setTimeout(() => {
+      this._setAnchorWidth();
+      this.clistItemHeight = window.getComputedStyle(this._elementRef.nativeElement).height;
+      this._renderer.setStyle(this._elementRef.nativeElement, "height", this.clistItemHeight);
+    }, 0);
   }
 
   private _getElemWidth(): void {
