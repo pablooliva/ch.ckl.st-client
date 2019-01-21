@@ -1,38 +1,168 @@
 @import "../../../styles/shared";
 
-clst-use-checklist-item {
-  display: block;
+/* Animations */
+.clst-apply-ver-collapse {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .15s ease-in, height .3s ease-in-out;
 }
-.as-value {
-  margin-bottom: 1.2rem;
-  ::ng-deep {
-    img {
-      @extend .clst-flx-txt-img;
+.clst-apply-ver-expand {
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity .15s ease-in .15s, height .25s ease-in-out;
+}
+
+.clst-expand-icon {
+  display: none;
+}
+
+:host {
+  &.clst-section-collapse {
+    .clst-collapseable {
+      @extend .clst-apply-ver-collapse;
     }
-    iframe {
-      @extend .clst-flx-txt-iframe;
+    .clst-section-container .as-value {
+      margin-bottom: 0;
     }
-    .ql-align-center {
-      @extend .clst-flx-txt-align-center;
+    .clst-section-grp-items-actions {
+      @extend .clst-apply-ver-collapse;
+      display: none;
     }
-    .ql-align-justify {
-      @extend .clst-flx-txt-align-justify;
+    .clst-collapse-icon {
+      display: none;
     }
-    .ql-align-right {
-      @extend .clst-flx-txt-align-right;
+    .clst-expand-icon {
+      display: block;
     }
-    .ql-video.ql-align-center {
-      @extend .clst-flx-txt-video-align-center;
+  }
+  &.clst-section-expand {
+    .clst-collapseable {
+      @extend .clst-apply-ver-expand;
     }
-    .ql-video.ql-align-right {
-      @extend .clst-flx-txt-video-align-right;
+    .clst-section-grp-items-actions {
+      @extend .clst-apply-ver-expand;
+      display: block;
     }
-    h1, h2, h3, h4, h5, h6 {
-      @extend .clst-h-adjust;
+    .clst-collapse-icon {
+      display: block;
+    }
+    .clst-expand-icon {
+      display: none;
     }
   }
 }
-.clst-lt-sm-res ::ng-deep iframe {
-  width: 100%;
-  max-width: 100%;
+
+.clst-section-container {
+  display: flex;
+  flex-direction: column;
+
+  .as-value {
+    margin-bottom: 1.2rem;
+    ::ng-deep {
+      img {
+        @extend .clst-flx-txt-img;
+      }
+      iframe {
+        @extend .clst-flx-txt-iframe;
+      }
+      .ql-align-center {
+        @extend .clst-flx-txt-align-center;
+      }
+      .ql-align-justify {
+        @extend .clst-flx-txt-align-justify;
+      }
+      .ql-align-right {
+        @extend .clst-flx-txt-align-right;
+      }
+      .ql-video.ql-align-center {
+        @extend .clst-flx-txt-video-align-center;
+      }
+      .ql-video.ql-align-right {
+        @extend .clst-flx-txt-video-align-right;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        @extend .clst-h-adjust;
+      }
+    }
+  }
+  .clst-lt-sm-res ::ng-deep iframe {
+    width: 100%;
+    max-width: 100%;
+  }
+  .clst-section-grp-actions-container {
+    border-width: 1px;
+    border-style: solid;
+    align-self: flex-end;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 5px;
+    margin-right: -1rem;
+    margin-left: -1rem;
+    font-size: 0.8rem;
+
+    i.material-icons {
+      vertical-align: bottom;
+      margin-bottom: 0.15rem;
+      font-size: 1rem;
+      padding: 0.2rem 0.25rem;
+    }
+
+    .clst-clr-bg {
+      background: $default-section-background;
+    }
+
+    .clst-section-prct-done {
+      padding: 0 0.5rem;
+      width: 4.3rem;
+      text-align: right;
+      font-size: 0.75rem;
+    }
+
+    .clst-section-grp-items-actions {
+      i {
+        &:hover {
+          cursor: pointer;
+        }
+        &:first-child {
+          padding-left: 0.5rem;
+        }
+        &:last-child {
+          padding-right: 0.5rem;
+        }
+      }
+    }
+
+    .clst-section-collapse {
+      margin-left: 0.05rem;
+      border-radius: 0 5px 5px 0;
+      i:hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  &.clst-item-theme-default {
+    .clst-section-grp-actions-container {
+      transition: all 0.5s ease;
+      border-color: $default-section-emphasis;
+      background: $default-section-emphasis;
+    }
+  }
+
+  &.clst-item-theme-started {
+    .clst-section-grp-actions-container {
+      transition: all 0.5s ease;
+      border-color: $theme-started;
+      background: $theme-started;
+    }
+  }
+
+  &.clst-item-theme-completed {
+    .clst-section-grp-actions-container {
+      transition: all 0.5s ease;
+      border-color: $theme-completed;
+      background: $theme-completed;
+    }
+  }
 }

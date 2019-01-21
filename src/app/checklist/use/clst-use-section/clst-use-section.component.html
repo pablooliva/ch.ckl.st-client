@@ -1,11 +1,25 @@
-<div [formGroup]="sectionForm">
+<div [formGroup]="sectionForm" class="clst-section-container"
+     [class.clst-item-theme-default]="itemsNotStarted()"
+     [class.clst-item-theme-started]="!itemsNotStarted() && !itemsCompleted()"
+     [class.clst-item-theme-completed]="itemsCompleted()">
   <h2 class="clst-h-accented" *ngIf="sectionData.title">{{sectionData.title}}</h2>
-  <div *ngIf="sectionData.flexibleText" class="as-value" ngClass.lt-sm="clst-lt-sm-res" [innerHTML]="displayHtml" clstResizeElement></div>
-  <clst-use-checklist-item *ngFor="let item of sectionData.checklistItems; let i = index"
-                           [itemData]="item"
-                           [itemForm]="getItem(i)"
-                           [itemIndex]="i"
-                           [sectionIndex]="sectionIndex"
-                           [hasItemTags]="hasItemTags">
+  <div *ngIf="sectionData.flexibleText" #sectionDesc class="as-value clst-collapseable" ngClass.lt-sm="clst-lt-sm-res" [innerHTML]="displayHtml" clstResizeElement></div>
+  <div class="clst-section-grp-actions-container">
+    <div class="clst-section-prct-done">{{ percentDone() }}% DONE</div>
+    <div class="clst-section-grp-items-actions clst-clr-bg"><i class="material-icons" title="Check all" (click)="checkAll()">check_box</i> <i class="material-icons" title="Uncheck all" (click)="uncheckAll()">check_box_outline_blank</i></div>
+    <div class="clst-section-collapse clst-clr-bg">
+      <i class="material-icons clst-collapse-icon" title="Collapse section" (click)="collapseSection()">expand_less</i>
+      <i class="material-icons clst-expand-icon" title="Expand section" (click)="expandSection()">expand_more</i>
+    </div>
+  </div>
+  <clst-use-checklist-item
+    *ngFor="let item of sectionData.checklistItems; let i = index"
+    class="clst-use-checklist-item"
+    [itemData]="item"
+    [itemForm]="getItem(i)"
+    [itemIndex]="i"
+    [sectionIndex]="sectionIndex"
+    [hasItemTags]="hasItemTags"
+    [isCollapsed]="setItemsCollapsed">
   </clst-use-checklist-item>
 </div>

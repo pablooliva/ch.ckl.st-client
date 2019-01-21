@@ -7,7 +7,7 @@
 .clst-doc-title-container {
   background: #073763;
   border-radius: 3px 3px 0 0;
-  border-bottom: 0.5rem solid #f3f7fb;
+  border-bottom: 0.5rem solid $default-section-background;
   margin: -2rem -2rem 2rem -2rem;
   position: relative;
   .clst-doc-title-bg {
@@ -39,11 +39,11 @@
 }
 
 .clst-checklist-items {
-  background: #f3f7fb;
+  background: $default-section-background;
 }
 
 .doc-tags-container {
-  background: #f3f7fb;
+  background: $default-section-background;
   color: #696969;
   margin: 2rem -2rem -2rem -2rem;
   padding: 1rem 2rem;

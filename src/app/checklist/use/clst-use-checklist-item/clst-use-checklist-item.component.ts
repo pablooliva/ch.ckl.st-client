@@ -1,4 +1,14 @@
-import { AfterViewChecked, Component, ElementRef, Input, OnInit, Renderer2 } from "@angular/core";
+import {
+  AfterViewChecked,
+  AfterViewInit,
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  OnInit,
+  Renderer2,
+  SimpleChanges
+} from "@angular/core";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { FormGroup } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
@@ -14,16 +24,19 @@ import {
   templateUrl: "./clst-use-checklist-item.component.html",
   styleUrls: ["./clst-use-checklist-item.component.scss"]
 })
-export class ClstUseChecklistItemComponent implements OnInit, AfterViewChecked {
+export class ClstUseChecklistItemComponent
+  implements OnChanges, OnInit, AfterViewInit, AfterViewChecked {
   @Input() itemForm: FormGroup;
   @Input() itemData: IChecklistItem;
   @Input() itemIndex: number;
   @Input() sectionIndex: number;
   @Input() hasItemTags: boolean;
+  @Input() isCollapsed: boolean;
 
   public checklistTags: IChecklistItemTag[];
   public isPreview: boolean;
   public displayHtml: SafeHtml;
+  public clistItemHeight: string;
 
   private _elemWidth: string;
 
@@ -34,6 +47,16 @@ export class ClstUseChecklistItemComponent implements OnInit, AfterViewChecked {
     private _elementRef: ElementRef,
     private _renderer: Renderer2
   ) {}
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (!changes["isCollapsed"].firstChange) {
+      if (changes["isCollapsed"].currentValue) {
+        this._renderer.setStyle(this._elementRef.nativeElement, "height", "0");
+      } else {
+        this._renderer.setStyle(this._elementRef.nativeElement, "height", this.clistItemHeight);
+      }
+    }
+  }
 
   public ngOnInit(): void {
     const regex = new RegExp(/<p><br><\/p>+$/);
@@ -48,6 +71,11 @@ export class ClstUseChecklistItemComponent implements OnInit, AfterViewChecked {
 
   public ngAfterViewChecked(): void {
     this._setAnchorWidth();
+  }
+
+  public ngAfterViewInit(): void {
+    this.clistItemHeight = window.getComputedStyle(this._elementRef.nativeElement).height;
+    this._renderer.setStyle(this._elementRef.nativeElement, "height", this.clistItemHeight);
   }
 
   private _getElemWidth(): void {

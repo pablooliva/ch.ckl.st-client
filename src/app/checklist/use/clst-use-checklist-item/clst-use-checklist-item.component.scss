@@ -1,13 +1,61 @@
 @import "../../../styles/shared";
 
+/* Animations */
+.clst-item-ver-collapse {
+  opacity: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition: opacity .15s ease-in, height .25s ease-in-out .1s;
+}
+.clst-item-ver-expand {
+  opacity: 1;
+  pointer-events: auto;
+  transition: opacity .15s ease-in .15s, height .25s ease-in-out;
+}
+
+.clst-item-theme-default {
+  :host {
+    transition: border-color 0.5s ease;
+    border-color: $default-section-emphasis;
+  }
+}
+
+.clst-item-theme-started {
+  :host {
+    transition: border-color 0.5s ease;
+    border-color: $theme-started;
+  }
+}
+
+.clst-item-theme-completed {
+  :host {
+    transition: border-color 0.5s ease;
+    border-color: $theme-completed;
+  }
+}
+
+.clst-section-collapse :host.clst-use-checklist-item {
+  margin: 0;
+  border: none;
+  @extend .clst-item-ver-collapse;
+}
+
+.clst-section-expand :host.clst-use-checklist-item {
+  @extend .clst-item-ver-expand;
+}
+
 :host {
   background: white;
   border-radius: 5px;
   margin-right: -1rem;
   margin-left: -1rem;
   padding: 0 0.9rem;
-  border: 1px solid #dfe7fb;
+  border-width: 1px;
+  border-style: solid;
   margin-bottom: 0.5rem;
+  &:first-of-type {
+    margin-top: 0.5rem;
+  }
   &:last-child {
     margin-bottom: 0;
   }
