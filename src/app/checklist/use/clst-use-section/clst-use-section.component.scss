@@ -92,6 +92,8 @@
   .clst-section-grp-actions-container {
     border-width: 1px;
     border-style: solid;
+    border-color: $default-section-emphasis;
+    background: $default-section-emphasis;
     align-self: flex-end;
     display: flex;
     flex-direction: row;
