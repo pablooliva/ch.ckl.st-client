@@ -11,7 +11,8 @@ import { ServerConnectService } from "../../../shared/server-connect.service";
 import {
   DataPersistenceService,
   IClstDataModel,
-  IClstFormDataModel
+  IClstFormDataModel,
+  ISection
 } from "../../../shared/data-persistence.service";
 import { convertToAnchorFriendly } from "../../../shared/clst-utils";
 
@@ -168,6 +169,34 @@ export class ClstUseRootComponent implements OnInit, OnDestroy {
 
   public getIdAsAnchor(candidate: string): string {
     return convertToAnchorFriendly(candidate);
+  }
+
+  public getClass(section: ISection): string {
+    const percentDone = this._percentDone(section);
+    let classVal = "";
+    switch (percentDone) {
+      case 0:
+        classVal = "clst-item-theme-default";
+        break;
+      case 100:
+        classVal = "clst-item-theme-completed";
+        break;
+      default:
+        classVal = "clst-item-theme-started";
+    }
+    return classVal;
+  }
+
+  public getTitle(section: ISection): string {
+    return this._percentDone(section) + "% done";
+  }
+
+  private _percentDone(section: ISection): number {
+    const numItems = section.checklistItems.length;
+    const numChecked = section.checklistItems.reduce((sum, item) => {
+      return sum + Number(item.checked);
+    }, 0);
+    return Math.floor((numChecked / numItems) * 100);
   }
 
   private _areItemTagsEnabled(): boolean {

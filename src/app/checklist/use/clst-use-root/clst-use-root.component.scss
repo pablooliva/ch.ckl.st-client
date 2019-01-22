@@ -69,14 +69,31 @@
 
     li {
       display: inline;
-      padding-right: 0.4rem;
+      margin: 0 0.2rem 0.2rem 0;
       float: left;
-      &::after {
-        content: ","
+      padding: 0 0.3rem;
+      border-width: 0;
+      border-bottom-width: 1px;
+      border-style: dotted;
+      border-radius: 3px;
+      &.clst-item-theme-default {
+        background: $default-section-emphasis;
+        border-bottom-color: darken($default-section-emphasis, 20%);
+        &:hover {
+          border-bottom-color: $default-section-emphasis;
+        }
       }
-      &:last-child::after {
-        content: ""
+      &.clst-item-theme-started {
+        background: lighten($theme-started, 7%);
+        border-color: darken($theme-started, 10%);
+        &:hover {
+          border-bottom-color: lighten($theme-started, 7%);
+        }
       }
+      &.clst-item-theme-completed {
+        border: none;
+      }
+
     }
   }
 }

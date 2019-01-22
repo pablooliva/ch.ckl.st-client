@@ -9,8 +9,10 @@
       <div class="skip-to-container" *ngIf="clstData.sections.length > 1">
         <div class="st-label">Skip to:</div>
         <ul class="skip-to-section">
-          <li *ngFor="let section of clstData.sections">
-            <a (click)="handleAnchorClick($event, section.title)" [href]="getAnchor(section.title)">{{section.title}}</a>
+          <li *ngFor="let section of clstData.sections" [class]="getClass(section)">
+            <a (click)="handleAnchorClick($event, section.title)"
+               [href]="getAnchor(section.title)"
+               [title]="getTitle(section)">{{section.title}}</a>
           </li>
         </ul>
       </div>
