@@ -41,3 +41,7 @@ export function resizeElement(elemRef: ElementRef, elemTagName: string): any {
     iframes[0].style.height = iWidth * resizeFactor + "px";
   }
 }
+
+export function convertToAnchorFriendly(candidate: string): string {
+  return candidate.toLowerCase().replace(/ /g, "_");
+}

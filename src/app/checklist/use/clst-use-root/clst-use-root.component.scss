@@ -42,28 +42,24 @@
   background: $default-section-background;
 }
 
-.doc-tags-container {
+.skip-to-container {
   background: $default-section-background;
   color: #696969;
   margin: 2rem -2rem -2rem -2rem;
   padding: 1rem 2rem;
   overflow: auto;
-  font-size: 0.75rem;
   border-radius: 0 0 3px 3px;
   display: flex;
 
-  .dt-label {
+  .st-label {
+    font-size: 0.75rem;
     flex-basis: auto;
     flex-grow: 0;
     flex-shrink: 0;
     padding-right: 0.5rem;
-    i {
-      font-size: 1rem;
-      vertical-align: text-bottom;
-      margin-bottom: -1px;
-    }
   }
-  .doc-tags {
+  .skip-to-section {
+    font-size: 0.8rem;
     margin: 0.04rem 0 0 0;
     padding: 0;
     flex-basis: auto;

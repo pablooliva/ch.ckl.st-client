@@ -13,6 +13,7 @@ import {
   IClstDataModel,
   IClstFormDataModel
 } from "../../../shared/data-persistence.service";
+import { convertToAnchorFriendly } from "../../../shared/clst-utils";
 
 @Component({
   selector: "clst-use-root",
@@ -114,6 +115,15 @@ export class ClstUseRootComponent implements OnInit, OnDestroy {
     return <FormGroup>this.sections.get([idx]);
   }
 
+  public handleAnchorClick(ev: MouseEvent, candidate: string): void {
+    ev.preventDefault();
+    const id = convertToAnchorFriendly(candidate);
+    document.getElementById(id).scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  }
+
   private _postFormData(): void {
     const checklistPath = this.isAnon ? "anonchecklists" : "use";
     const httpOptions = {
@@ -150,6 +160,14 @@ export class ClstUseRootComponent implements OnInit, OnDestroy {
 
   public shareChecklist(): void {
     this._router.navigate(["/share", this.cId]);
+  }
+
+  public getAnchor(candidate: string): string {
+    return window.location.pathname + "/#" + convertToAnchorFriendly(candidate);
+  }
+
+  public getIdAsAnchor(candidate: string): string {
+    return convertToAnchorFriendly(candidate);
   }
 
   private _areItemTagsEnabled(): boolean {

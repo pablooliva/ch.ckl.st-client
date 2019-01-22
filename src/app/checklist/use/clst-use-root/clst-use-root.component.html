@@ -6,15 +6,18 @@
         <h1 class="clst-h-accented clst-doc-title">{{clstData.documentTitle}}</h1>
       </div>
       <div *ngIf="clstData.flexibleText" class="as-value" ngClass.lt-sm="clst-lt-sm-res" [innerHTML]="displayHtml" clstResizeElement></div>
-      <div class="doc-tags-container" *ngIf="clstData.documentTags.length">
-        <div class="dt-label"><i class="material-icons">bookmark_border</i>Tags:</div>
-        <ul class="doc-tags">
-          <li *ngFor="let tag of clstData.documentTags">{{tag.display}}</li>
+      <div class="skip-to-container" *ngIf="clstData.sections.length > 1">
+        <div class="st-label">Skip to:</div>
+        <ul class="skip-to-section">
+          <li *ngFor="let section of clstData.sections">
+            <a (click)="handleAnchorClick($event, section.title)" [href]="getAnchor(section.title)">{{section.title}}</a>
+          </li>
         </ul>
       </div>
     </div>
   </mat-card>
-  <mat-card *ngFor="let section of clstData.sections; let i = index">
+  <mat-card *ngFor="let section of clstData.sections; let i = index"
+    [id]="getIdAsAnchor(section.title)">
     <div class="content-container clst-checklist-items">
       <clst-use-section [sectionForm]="getSection(i)"
                         [sectionData]="section"
