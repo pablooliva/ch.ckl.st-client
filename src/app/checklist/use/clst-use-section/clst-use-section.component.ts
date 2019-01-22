@@ -3,6 +3,7 @@ import {
   Component,
   ElementRef,
   Input,
+  OnDestroy,
   OnInit,
   Renderer2,
   ViewChild
@@ -17,7 +18,7 @@ import { ISection } from "../../../shared/data-persistence.service";
   templateUrl: "./clst-use-section.component.html",
   styleUrls: ["./clst-use-section.component.scss"]
 })
-export class ClstUseSectionComponent implements OnInit, AfterViewInit {
+export class ClstUseSectionComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() sectionForm: FormGroup;
   @Input() sectionData: ISection;
   @Input() sectionIndex: number;
@@ -54,6 +55,15 @@ export class ClstUseSectionComponent implements OnInit, AfterViewInit {
     if (this.sectionDesc) {
       this._renderer.setStyle(this.sectionDesc.nativeElement, "height", this.sectionDescHeight);
     }
+
+    this._elemRef.nativeElement.addEventListener(
+      "transitionend",
+      this._handleTransitionEnd.bind(this)
+    );
+  }
+
+  public ngOnDestroy(): void {
+    this._elemRef.nativeElement.removeEventListener("transitionend", this._handleTransitionEnd);
   }
 
   public getItem(idx: number): FormGroup {
@@ -109,5 +119,14 @@ export class ClstUseSectionComponent implements OnInit, AfterViewInit {
       const checkCtrl = control.controls[ctrl].get("checked");
       checkCtrl.patchValue(val);
     }
+  }
+
+  private _handleTransitionEnd(): void {
+    // this will trigger the mutationObserver at end of transition, thus calculating the correct "app" height
+    this._renderer.setAttribute(
+      this._elemRef.nativeElement,
+      "data-track-mutations",
+      "transition-emit"
+    );
   }
 }

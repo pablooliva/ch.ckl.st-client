@@ -14,21 +14,19 @@ export class ClstBaseComponent implements AfterViewChecked, OnInit, OnDestroy {
   ) {}
 
   public ngOnInit(): void {
-    this._routerBase.events
-      .pipe(filter(e => e instanceof NavigationEnd))
-      .subscribe(() => {
-        window.scrollTo(0, 0);
-      });
+    this._routerBase.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe(() => {
+      window.scrollTo(0, 0);
+    });
 
     this._observer = new MutationObserver(mutationsList => {
       for (const mutation of mutationsList) {
-        if (mutation.type === "childList") {
+        if (mutation.type === "childList" || mutation.type === "attributes") {
           this._announceHeight();
         }
       }
     });
     this._observer.observe(this._elBase.nativeElement, {
-      attributes: false,
+      attributes: true,
       childList: true,
       subtree: true
     });
@@ -43,8 +41,6 @@ export class ClstBaseComponent implements AfterViewChecked, OnInit, OnDestroy {
   }
 
   private _announceHeight(): void {
-    this._rootListenerBase.updateHeight(
-      this._elBase.nativeElement.scrollHeight
-    );
+    this._rootListenerBase.updateHeight(this._elBase.nativeElement.scrollHeight);
   }
 }
