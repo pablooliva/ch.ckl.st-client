@@ -105,10 +105,11 @@ h1, h2, h3, h4, h5 {
 }
 .clst-h-accented {
   color: mat-color($clst-app-secondary);
-  border-left: 15px solid mat-color($clst-app-secondary);
-  padding-left: 1rem;
-  margin-bottom: 1.2rem;
+  border-left: 10px solid mat-color($clst-app-secondary);
+  padding-left: 1.25rem;
+  margin-bottom: 0.75rem;
   margin-left: -2rem;
+  margin-top: -1rem;
 }
 h1.clst-h-accented {
   font-size: 1.6rem;
@@ -216,6 +217,9 @@ button.mat-flat-button {
     margin-top: 0.5rem;
     .material-icons {
       margin-top: -0.2rem;
+      &.mat-no-ver-adjust {
+        margin-top: 0;
+      }
     }
   }
 }

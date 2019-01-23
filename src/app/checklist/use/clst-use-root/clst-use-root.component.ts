@@ -187,8 +187,8 @@ export class ClstUseRootComponent implements OnInit, OnDestroy {
     return classVal;
   }
 
-  public getTitle(section: ISection): string {
-    return this._percentDone(section) + "% done";
+  public getPercentDone(section: ISection): string {
+    return this._percentDone(section).toString();
   }
 
   private _percentDone(section: ISection): number {

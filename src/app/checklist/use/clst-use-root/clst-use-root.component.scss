@@ -43,7 +43,7 @@
 }
 
 .skip-to-container {
-  background: $default-section-background;
+  border-top: 1px solid $default-section-background;
   color: #696969;
   margin: 2rem -2rem -2rem -2rem;
   padding: 1rem 2rem;
@@ -76,24 +76,48 @@
       border-bottom-width: 1px;
       border-style: dotted;
       border-radius: 3px;
+      .percent-done {
+        margin-left: 0.2rem;
+        font-size: 0.65rem;
+        i {
+          font-size: 0.75rem;
+          vertical-align: bottom;
+          padding-bottom: 0.25rem;
+        }
+      }
+      a:visited {
+        color: inherit;
+      }
       &.clst-item-theme-default {
-        background: $default-section-emphasis;
+        background: lighten($default-section-emphasis, 4%);
         border-bottom-color: darken($default-section-emphasis, 20%);
         &:hover {
-          border-bottom-color: $default-section-emphasis;
+          border-bottom-color: lighten($default-section-emphasis, 2%);
+        }
+        .percent-done {
+          color: darken($default-section-emphasis, 30%);
         }
       }
       &.clst-item-theme-started {
-        background: lighten($theme-started, 7%);
+        background: lighten($theme-started, 8%);
         border-color: darken($theme-started, 10%);
         &:hover {
-          border-bottom-color: lighten($theme-started, 7%);
+          border-bottom-color: lighten($theme-started, 10%);
+        }
+        .percent-done {
+          color: darken($theme-started, 15%);
         }
       }
       &.clst-item-theme-completed {
-        border: none;
+        background: lighten($theme-completed, 63%);
+        border-color: $theme-completed;
+        &:hover {
+          border-bottom-color: lighten($theme-completed, 63%);
+        }
+        .percent-done {
+          color: $theme-completed;
+        }
       }
-
     }
   }
 }

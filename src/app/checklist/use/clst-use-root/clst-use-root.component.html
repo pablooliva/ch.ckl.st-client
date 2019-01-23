@@ -9,10 +9,11 @@
       <div class="skip-to-container" *ngIf="clstData.sections.length > 1">
         <div class="st-label">Skip to:</div>
         <ul class="skip-to-section">
-          <li *ngFor="let section of clstData.sections" [class]="getClass(section)">
+          <li *ngFor="let section of clstData.sections"
+              [class]="getClass(section)"
+              [title]="getPercentDone(section) + '% done'">
             <a (click)="handleAnchorClick($event, section.title)"
-               [href]="getAnchor(section.title)"
-               [title]="getTitle(section)">{{section.title}}</a>
+               [href]="getAnchor(section.title)">{{section.title}}</a> <span class="percent-done" *ngIf="getPercentDone(section) !== '100'">{{getPercentDone(section)}}%</span><span class="percent-done" *ngIf="getPercentDone(section) === '100'"><i class="material-icons">check_circle</i></span>
           </li>
         </ul>
       </div>
@@ -32,7 +33,7 @@
   <mat-card *ngIf="!sharePreview">
     <div class="content-container clst-actions-container">
       <ng-container *ngIf="!isAnon">
-        <h2 class="clst-actions">Checklist Actions</h2>
+        <h2 class="clst-actions">Manage Checklist</h2>
         <div class="clst-btn-grp">
           <button mat-flat-button type="button" class="clst-item-primary" (click)="editChecklist()">Edit <i class="material-icons">format_list_bulleted</i></button>
           <button mat-flat-button type="button" class="clst-item-primary" (click)="shareChecklist()">Share <i class="material-icons">share</i></button>
