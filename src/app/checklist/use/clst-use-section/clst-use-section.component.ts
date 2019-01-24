@@ -10,6 +10,7 @@ import {
 } from "@angular/core";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 import { FormArray, FormGroup } from "@angular/forms";
+import { ActivatedRoute } from "@angular/router";
 
 import { ISection } from "../../../shared/data-persistence.service";
 
@@ -30,6 +31,8 @@ export class ClstUseSectionComponent implements OnInit, AfterViewInit, OnDestroy
   public sectionDescHeight: string;
   public setItemsCollapsed: boolean;
 
+  private _isPreview: boolean;
+
   public get items(): FormArray {
     return this.sectionForm.get("checklistItems") as FormArray;
   }
@@ -37,7 +40,8 @@ export class ClstUseSectionComponent implements OnInit, AfterViewInit, OnDestroy
   constructor(
     private _sanitizer: DomSanitizer,
     private _elemRef: ElementRef,
-    private _renderer: Renderer2
+    private _renderer: Renderer2,
+    private _route: ActivatedRoute
   ) {}
 
   public ngOnInit(): void {
@@ -46,6 +50,7 @@ export class ClstUseSectionComponent implements OnInit, AfterViewInit, OnDestroy
       this.sectionData.flexibleText.replace(regex, "")
     );
     this.setItemsCollapsed = false;
+    this._isPreview = this._route.snapshot.url[0].path === "share" || null;
   }
 
   public ngAfterViewInit(): void {
@@ -87,11 +92,15 @@ export class ClstUseSectionComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   public checkAll(): void {
-    this.setValues(true);
+    if (!this._isPreview) {
+      this.setValues(true);
+    }
   }
 
   public uncheckAll(): void {
-    this.setValues(false);
+    if (!this._isPreview) {
+      this.setValues(false);
+    }
   }
 
   public collapseSection(): void {
