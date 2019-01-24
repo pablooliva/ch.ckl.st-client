@@ -31,7 +31,7 @@
     </div>
   </mat-card>
   <mat-card *ngIf="!sharePreview">
-    <div class="content-container clst-actions-container">
+    <div class="content-container clst-actions-container" [class.no-actions]="isAnon">
       <ng-container *ngIf="!isAnon">
         <h2 class="clst-actions">Manage Checklist</h2>
         <div class="clst-btn-grp">

@@ -20,6 +20,11 @@
 
   .share-text {
     color: white;
+    i {
+      color: orange;
+      padding-bottom: 0.35rem;
+      vertical-align: bottom;
+    }
   }
 
   .share-action-btns {
@@ -34,6 +39,7 @@
     border: none;
     padding: 0.4rem;
     margin-bottom: 1rem;
+    border-radius: 3px;
   }
 
   button {
