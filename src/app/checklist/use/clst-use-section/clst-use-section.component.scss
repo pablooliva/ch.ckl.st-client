@@ -1,15 +1,18 @@
 @import "../../../styles/shared";
 
-/* Animations */
 .clst-apply-ver-collapse {
   opacity: 0;
   pointer-events: none;
-  transition: opacity .15s ease-in, height .3s ease-in-out;
+  transition: opacity .15s linear, height .3s ease-in-out;
+  -moz-transition: opacity .15s linear, height .3s ease-in-out;
+  -webkit-transition: opacity .15s linear, height .3s ease-in-out;
 }
 .clst-apply-ver-expand {
   opacity: 1;
   pointer-events: auto;
-  transition: opacity .15s ease-in .15s, height .25s ease-in-out;
+  transition: opacity .15s linear .15s, height .25s ease-in-out;
+  -moz-transition: opacity .15s linear .15s, height .25s ease-in-out;
+  -webkit-transition: opacity .15s linear .15s, height .25s ease-in-out;
 }
 
 .clst-expand-icon {
@@ -105,66 +108,66 @@
 
     i.material-icons {
       vertical-align: bottom;
-      margin-bottom: 0.15rem;
       font-size: 1rem;
-      padding: 0.2rem 0.25rem;
-    }
-
-    .clst-clr-bg {
-      background: $default-section-background;
+      padding: 0.2rem 0 0.2rem 0.6rem;
+      &:hover {
+        cursor: pointer;
+      }
     }
 
     .clst-section-prct-done {
-      padding: 0 0.5rem;
-      width: 4.3rem;
+      padding: 0 0 0 0.5rem;
+      width: 4rem;
       text-align: right;
       font-size: 0.75rem;
     }
 
-    .clst-section-grp-items-actions {
-      i {
-        &:hover {
-          cursor: pointer;
-        }
-        &:first-child {
-          padding-left: 0.5rem;
-        }
-        &:last-child {
-          padding-right: 0.5rem;
-        }
-      }
-    }
-
     .clst-section-collapse {
-      margin-left: 0.05rem;
-      border-radius: 0 5px 5px 0;
-      i:hover {
-        cursor: pointer;
+      i {
+        padding-right: 0.5rem;
+        padding-left: 0.5rem;
       }
     }
   }
 
+  .clst-section-grp-actions-container {
+    background: #fff;
+    color: $muted-gray;
+  }
+
   &.clst-item-theme-default {
     .clst-section-grp-actions-container {
-      transition: all 0.5s ease;
+      transition: all 0.4s linear;
+      -moz-transition: all 0.4s linear;
+      -webkit-transition: all 0.4s linear;
       border-color: $default-section-emphasis;
-      background: $default-section-emphasis;
+      .clst-section-prct-done {
+        color: darken($default-section-emphasis, 25%);
+      }
     }
   }
 
   &.clst-item-theme-started {
     .clst-section-grp-actions-container {
-      transition: all 0.5s ease;
+      transition: all 0.4s linear;
+      -moz-transition: all 0.4s linear;
+      -webkit-transition: all 0.4s linear;
       border-color: $theme-started;
-      background: $theme-started;
+      .clst-section-prct-done {
+        color: darken($theme-started, 15%);
+      }
     }
   }
 
   &.clst-item-theme-completed {
     .clst-section-grp-actions-container {
-      transition: all 0.5s ease;
-      border-color: $theme-completed;
-      background: $theme-completed;
+      transition: all 0.4s linear;
+      -moz-transition: all 0.4s linear;
+      -webkit-transition: all 0.4s linear;
+      border-color: rgba($theme-completed, .4);
+      .clst-section-prct-done {
+        color: darken($theme-completed, 10%);
+      }
     }
   }
 }

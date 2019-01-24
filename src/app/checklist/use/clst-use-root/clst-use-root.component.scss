@@ -44,7 +44,7 @@
 
 .skip-to-container {
   border-top: 1px solid $default-section-background;
-  color: #696969;
+  color: $muted-gray;
   margin: 2rem -2rem -2rem -2rem;
   padding: 1rem 2rem;
   overflow: auto;
@@ -79,17 +79,20 @@
       .percent-done {
         margin-left: 0.2rem;
         font-size: 0.65rem;
+        display: inline-block;
+        width: 1.2rem;
+        text-align: center;
         i {
           font-size: 0.75rem;
           vertical-align: bottom;
-          padding-bottom: 0.25rem;
+          padding-bottom: 0.2rem;
         }
       }
       a:visited {
         color: inherit;
       }
       &.clst-item-theme-default {
-        background: lighten($default-section-emphasis, 4%);
+        background: $default-section-emphasis;
         border-bottom-color: darken($default-section-emphasis, 20%);
         &:hover {
           border-bottom-color: lighten($default-section-emphasis, 2%);

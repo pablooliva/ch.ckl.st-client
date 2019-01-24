@@ -5,32 +5,42 @@
   opacity: 0;
   overflow: hidden;
   pointer-events: none;
-  transition: opacity .15s ease-in, height .25s ease-in-out .1s;
+  transition: opacity .15s linear, height .25s ease-out .15s;
+  -moz-transition: opacity .15s linear, height .25s ease-out .15s;
+  -webkit-transition: opacity .15s linear, height .25s ease-out .15s;
 }
 .clst-item-ver-expand {
   opacity: 1;
   pointer-events: auto;
-  transition: opacity .15s ease-in .15s, height .25s ease-in-out;
+  transition: opacity .15s linear .15s, height .25s ease-out;
+  -moz-transition: opacity .15s linear .15s, height .25s ease-out;
+  -webkit-transition: opacity .15s linear .15s, height .25s ease-out;
 }
 
 .clst-item-theme-default {
   :host {
-    transition: border-color 0.5s ease;
+    transition: border-color 0.4s linear;
+    -moz-transition: border-color 0.4s linear;
+    -webkit-transition: border-color 0.4s linear;
     border-color: $default-section-emphasis;
   }
 }
 
 .clst-item-theme-started {
   :host {
-    transition: border-color 0.5s ease;
+    transition: border-color 0.4s linear;
+    -moz-transition: border-color 0.4s linear;
+    -webkit-transition: border-color 0.4s linear;
     border-color: $theme-started;
   }
 }
 
 .clst-item-theme-completed {
   :host {
-    transition: border-color 0.5s ease;
-    border-color: $theme-completed;
+    transition: border-color 0.4s linear;
+    -moz-transition: border-color 0.4s linear;
+    -webkit-transition: border-color 0.4s linear;
+    border-color: rgba($theme-completed, .4);
   }
 }
 
@@ -133,7 +143,7 @@
                 > *:first-child {
                   margin-top: 1rem;
                 }
-                color: #696969;
+                color: $muted-gray;
                 a {
                   color: #225892;
                   &.adjust-for-url {
