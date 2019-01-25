@@ -8,6 +8,8 @@
   min-height: 0;
   .mat-toolbar-row {
     height: inherit;
+    max-width: 800px;
+    margin: 0 auto;
     i {
       padding-bottom: 0.1rem;
     }
@@ -120,8 +122,13 @@ mat-sidenav {
   .mat-form-field-infix {
     width: 100% !important;
   }
+  .mat-card {
+    max-width: 800px;
+  }
 }
 footer {
+  max-width: 800px;
+  margin: 0 auto;
   padding: 1.5rem 1.2rem;
   font: 400 0.9em Roboto, "Helvetica Neue", sans-serif;
   line-height: 1.4;
