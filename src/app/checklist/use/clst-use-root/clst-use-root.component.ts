@@ -192,6 +192,9 @@ export class ClstUseRootComponent implements OnInit, OnDestroy {
   }
 
   private _percentDone(section: ISection): number {
+    if (this.sharePreview) {
+      return 0;
+    }
     const numItems = section.checklistItems.length;
     const numChecked = section.checklistItems.reduce((sum, item) => {
       return sum + Number(item.checked);
