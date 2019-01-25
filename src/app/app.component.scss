@@ -127,9 +127,8 @@ mat-sidenav {
   }
 }
 footer {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 1.5rem 1.2rem;
+  align-self: center;
+  width: 100%;
   font: 400 0.9em Roboto, "Helvetica Neue", sans-serif;
   line-height: 1.4;
   display: flex;
@@ -144,8 +143,13 @@ footer {
   }
 
   .ch-ckl-st {
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 1.5rem 0;
+
     p {
-      margin: 0 0 1rem 0;
+      margin: 0 2.2rem 1rem 2.2rem;
       .clst-footer-link {
         display: inline-block;
         margin: 0 0.4rem 0 0;
@@ -162,14 +166,9 @@ footer {
       &.clst-copyright {
         font-size: 0.8rem;
       }
-    }
-  }
-
-  div {
-    margin-bottom: 1rem;
-
-    &:last-child {
-      margin-bottom: 0;
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
 }
