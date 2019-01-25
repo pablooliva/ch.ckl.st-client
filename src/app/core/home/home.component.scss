@@ -5,17 +5,17 @@
 }
 .media-container  {
   position: relative;
-  max-width: 468px;
-  height: 300px;
-  max-height: 300px;
+  max-width: 368px;
+  height: 200px;
+  max-height: 200px;
   iframe {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    max-width: 468px;
+    max-width: 368px;
     height: 100%;
-    max-height: 300px;
+    max-height: 200px;
   }
 }
 h1, h2, h3, h4, h5, h6 {
@@ -27,8 +27,12 @@ h1 {
   padding-left: 0;
   margin-left: 0;
   &.clst-heading {
-    font-size: 2rem;
-    line-height: 2.4rem;
+    font-size: 2.3rem;
+    font-weight: 300;
+    line-height: 2.8rem;
+    letter-spacing: -0.07rem;
+    margin-bottom: 1.7rem;
+    margin-top: 0;
   }
   &.closing-action {
     color: mat-color($clst-app-secondary);
@@ -37,6 +41,9 @@ h1 {
 }
 h2 {
   line-height: 1.6rem;
+  &.clst-sub-heading {
+    margin-bottom: 0.4rem;
+  }
 }
 .clst-home-action {
   a {
@@ -47,17 +54,15 @@ h2 {
     &:hover {
       text-decoration: none;
     }
-    &:last-child {
-      margin-bottom: 1rem;
+    i {
+      vertical-align: bottom;
+      padding-bottom: 0.43rem;
     }
   }
   margin-bottom: 0.5rem;
 }
-.clst-home-checklist {
-  margin-left: 1rem;
-  mat-checkbox:last-child {
-    margin-bottom: 1.1rem;
-  }
+.clst-benefits {
+  padding-left: 2rem;
 }
 .shareable-checklists {
   position: relative;
@@ -69,9 +74,9 @@ h2 {
     top: 0;
     left: 0;
     background-image: url("../../../assets/shareable-checklists.svg");
-    background-position: 35% 60%;
+    background-position: 50% 70%;
     background-repeat: no-repeat;
-    background-size: 250px;
+    background-size: 200px;
     width: 100%;
     height: 100%;
     z-index: -1;
@@ -86,4 +91,61 @@ h2 {
 }
 .clst-secondary {
   color: mat-color($clst-app-secondary);
+}
+.clst-sup {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: -0.15rem;
+}
+.clst-sml-print {
+  font-style: italic;
+  color: $muted-gray;
+  border-top: 1px dotted #ccc;
+  padding-top: 1rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+  font-size: 0.8rem;
+  &::before {
+    content: "* ";
+    margin-left: -0.5rem;
+    position: absolute;
+  }
+}
+.clst-samples-container {
+  border-top: 1px dotted #ccc;
+  margin-top: 2rem;
+  padding-top: 0.5rem;
+}
+.clst-samples {
+  color: mat-color($clst-app-secondary);
+  max-width: 470px;
+  display: flex;
+  flex-wrap: wrap;
+  .clst-sample {
+    padding-top: 1rem;
+    display: flex;
+    flex: 1 1 50%;
+    font-size: 1.1rem;
+    .clst-sample-item {
+      align-self: center;
+    }
+    .clst-sample-sml {
+      font-size: 0.9rem;
+    }
+    .clst-sample-img {
+      margin-right: 0.5rem;
+    }
+    .clst-sample-light-img {
+      background: mat-color($clst-app-secondary);
+      border-radius: 3px;
+      display: inline-block;
+      padding: 0.2rem 0.2rem 0 0.2rem;
+      img {
+        width: 2.6rem;
+      }
+    }
+    img {
+      width: 3rem;
+    }
+  }
 }
