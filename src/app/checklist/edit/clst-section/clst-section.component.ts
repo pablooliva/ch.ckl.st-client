@@ -1,4 +1,13 @@
-import { Component, Input, OnInit } from "@angular/core";
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  Renderer2,
+  ViewChild
+} from "@angular/core";
 import { FormArray, FormControl, FormGroup, FormGroupDirective, NgForm } from "@angular/forms";
 import { ErrorStateMatcher, MatDialog } from "@angular/material";
 import { Subject } from "rxjs";
@@ -21,21 +30,60 @@ export class ClstSectionComponent implements OnInit {
   public sectionIndex: number;
   @Input()
   public form: FormGroup;
+  @Input()
+  public newSection: number;
+
+  @Output() sectionAdded: EventEmitter<number> = new EventEmitter<number>();
+
+  @ViewChild("calloutAbove") public calloutAbove: ElementRef;
+  @ViewChild("calloutBelow") public calloutBelow: ElementRef;
 
   public matcher = new CustomErrorStateMatcher();
   public inFocusObs = new Subject<boolean>();
 
-  constructor(private _fEPusherService: FormElementPusherService, public dialog: MatDialog) {}
+  constructor(
+    private _fEPusherService: FormElementPusherService,
+    public dialog: MatDialog,
+    private _renderer: Renderer2
+  ) {}
 
-  public ngOnInit(): void {}
+  public ngOnInit(): void {
+    if (this.sectionIndex === this.newSection) {
+      setTimeout(() => this.animateAddNotice(this.calloutAbove), 100);
+    }
+  }
 
   // index tracks current or next index to add/push to
   public addSection(index: number): void {
+    if (index === this.sectionIndex) {
+      this.sectionAdded.emit(index);
+    } else {
+      this.animateAddNotice(this.calloutBelow);
+    }
+
     this._fEPusherService.pushFormElement({
       type: "section",
       group: this.section,
       index: index,
       validator: oneOfRequiredValidator
+    });
+  }
+
+  public animateAddNotice(elem: ElementRef): void {
+    const timer = elem === this.calloutAbove ? 1500 : 2500;
+    this._renderer.addClass(elem.nativeElement, "clst-callout-slide-in");
+    this._renderer.removeClass(elem.nativeElement, "clst-callout-slide-out");
+    setTimeout(() => {
+      this._renderer.addClass(elem.nativeElement, "clst-callout-slide-out");
+      this._renderer.removeClass(elem.nativeElement, "clst-callout-slide-in");
+    }, timer);
+  }
+
+  public scrollToNewSection(index: number): void {
+    const elemId = "section-" + index;
+    document.getElementById(elemId).scrollIntoView({
+      behavior: "smooth",
+      block: "start"
     });
   }
 

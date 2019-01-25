@@ -47,8 +47,9 @@ export class ClstFormComponent extends ClstBaseComponent
   public buttonReset: Subject<boolean> = new Subject<boolean>();
   public validators = [this._notDuplicate.bind(this)];
   public cId: string;
-  public inFocusObs = new Subject<boolean>();
+  public inFocusObs: Subject<boolean> = new Subject<boolean>();
   public showNotFound: boolean;
+  public newSectionIndex: number;
 
   public get sections(): FormArray {
     return this.clForm.get("sections") as FormArray;
@@ -120,6 +121,10 @@ export class ClstFormComponent extends ClstBaseComponent
     super.ngOnDestroy();
     this._destroy.next(true);
     this._destroy.complete();
+  }
+
+  public handleSectionAdded(index: number): void {
+    this.newSectionIndex = index;
   }
 
   public onBlur(): void {

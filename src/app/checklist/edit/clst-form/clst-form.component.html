@@ -50,7 +50,9 @@
                     [formGroupName]="i"
                     [section]="section"
                     [sectionIndex]="i"
-                    [form]="clForm">
+                    [form]="clForm"
+                    [newSection]="newSectionIndex"
+                    (sectionAdded)="handleSectionAdded($event)">
       </clst-section>
     </div>
     <mat-card>

@@ -1,5 +1,15 @@
-<mat-card class="section-highlight">
-    <div class="content-container elem-highlight">
+<mat-card class="section-highlight" [id]="'section-' + sectionIndex">
+    <div class="content-container elem-highlight section-actions-container">
+        <div class="clst-callout-add-above" #calloutAbove>
+            <div class="clst-callout-content"><i class="material-icons">arrow_left</i> Section added</div>
+        </div>
+        <div class="clst-callout-add-below" #calloutBelow
+            (click)="scrollToNewSection(sectionIndex + 1)">
+            <div class="clst-callout-content">
+                Section added below <i class="material-icons">arrow_drop_down</i>
+                <div class="clst-callout-clickable">( Click to scroll to it )</div>
+            </div>
+        </div>
         <h2 class="clst-h-faint">Section</h2>
         <div [formGroup]="section" class="rep-level">
             <mat-form-field class="control-group">

@@ -12,3 +12,49 @@ clst-checklist-item:not(:last-child) {
   display: block;
   margin-bottom: 0.1rem;
 }
+
+.section-actions-container {
+  position: relative;
+  overflow: hidden;
+}
+.clst-callout {
+  background: mat-color($clst-app-primary);
+  border-left: 10px solid #6ba253;
+  border-radius: 3px 0 0 3px;
+  color: #fff;
+  position: absolute;
+  z-index: 10;
+  right: -15rem;
+  line-height: 1.5rem;
+  padding: 0.3rem 1rem 0.3rem 0.4rem;
+  i {
+    vertical-align: bottom;
+  }
+}
+.clst-callout-add-above {
+  @extend .clst-callout;
+  top: 3.4rem;
+}
+.clst-callout-add-below {
+  @extend .clst-callout;
+  top: 8.85rem;
+  padding-right: 0.3rem;
+  padding-left: 1rem;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+.clst-callout-slide-in {
+  right: 0.1rem;
+  transition: right 0.3s ease-out;
+}
+.clst-callout-slide-out {
+  right: -15rem;
+  transition: right 0.4s ease-out;
+}
+.clst-callout-clickable {
+  font-size: 0.8rem;
+  text-align: right;
+  padding-right: 1.8rem;
+}
