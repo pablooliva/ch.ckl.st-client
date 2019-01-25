@@ -3,3 +3,7 @@
 :host {
   @extend .clst-host-animate;
 }
+
+.clst-form-submit + p {
+  margin-top: 1.5rem;
+}

@@ -17,6 +17,7 @@ import { EnterCloneGuard } from "./checklist/enter-clone.guard";
 import { PendingChangesGuard } from "./shared/pending-changes.guard";
 import { LeaveChecklistGuard } from "./checklist/leave-checklist.guard";
 import { HomeComponent } from "./core/home/home.component";
+import { AboutComponent } from "./core/about/about.component";
 import { RegisterComponent } from "./user/register/register.component";
 import { LoginComponent } from "./user/login/login.component";
 import { DashboardComponent } from "./user/dashboard/dashboard.component";
@@ -38,6 +39,15 @@ const appRoutes: Routes = [
       page: "home",
       title: "Professional, shareable checklists",
       description: "Create, share and re-use popular professional checklists."
+    }
+  },
+  {
+    path: "about",
+    component: AboutComponent,
+    data: {
+      page: "about",
+      title: "About ch.ckl.st, the professional, shareable checklists app",
+      description: "ch.ckl.st: the app for creating and sharing professional checklists."
     }
   },
   {

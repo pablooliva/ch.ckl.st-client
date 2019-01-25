@@ -39,6 +39,7 @@ import { SubmitButtonDirective } from "./shared/submit-button.directive";
 import { SubmitIfValidDirective } from "./shared/submit-if-valid.directive";
 import { AuthenticationInterceptor } from "./shared/authentication.inteceptor";
 import { ResizeElementDirective } from "./shared/resize-element.directive";
+import { AboutComponent } from "./core/about/about.component";
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { ResizeElementDirective } from "./shared/resize-element.directive";
     ClstFlexTextComponent,
     ClstRedirectionComponent,
     ResizeElementDirective,
-    ClstNotFoundComponent
+    ClstNotFoundComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,

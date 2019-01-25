@@ -1,0 +1,11 @@
+@import "../../styles/shared";
+
+:host {
+  @extend .clst-host-animate;
+}
+
+i {
+  display: inline-block;
+  padding: 0 0.2rem 0 0.05rem;
+  text-decoration: underline;
+}
