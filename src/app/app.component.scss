@@ -15,8 +15,9 @@
     }
     .logo {
       display: block;
+      min-height: 1.6rem;
       margin-top: 0;
-      padding: 0.6rem 0;
+      padding: 0.7rem 0;
       color: #fff;
       font-size: 0.9rem;
       line-height: 0.9rem;
@@ -41,7 +42,7 @@
       }
       img {
         width: 1.1rem;
-        margin-bottom: -0.3em;
+        margin-bottom: -0.2em;
         margin-left: 0.7rem;
         margin-right: 0.05rem;
       }
@@ -162,9 +163,6 @@ footer {
       .social-logo {
         bottom: -0.01rem;
         margin-right: 0.3rem;
-      }
-      &.clst-copyright {
-        font-size: 0.8rem;
       }
       &:last-child {
         margin-bottom: 0;
