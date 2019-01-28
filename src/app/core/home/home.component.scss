@@ -3,6 +3,9 @@
 :host {
   @extend .clst-host-animate;
 }
+.content-container {
+  box-shadow: none;
+}
 .media-container  {
   position: relative;
   max-width: 368px;
