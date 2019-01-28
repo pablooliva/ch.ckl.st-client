@@ -1,5 +1,5 @@
 import {
-  AfterViewChecked,
+  AfterViewInit,
   Component,
   ElementRef,
   Input,
@@ -28,7 +28,7 @@ export interface IQuillEditorEvent {
   templateUrl: "./clst-flex-text.component.html",
   styleUrls: ["./clst-flex-text.component.scss"]
 })
-export class ClstFlexTextComponent implements OnInit, AfterViewChecked, OnDestroy {
+export class ClstFlexTextComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input()
   control: FormControl;
   @Input()
@@ -91,7 +91,7 @@ export class ClstFlexTextComponent implements OnInit, AfterViewChecked, OnDestro
     this._getElemWidth();
   }
 
-  public ngAfterViewChecked(): void {
+  public ngAfterViewInit(): void {
     this._setAnchorWidth();
   }
 
