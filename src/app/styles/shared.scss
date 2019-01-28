@@ -36,6 +36,7 @@ mat-checkbox {
   padding: $doc-section-pad;
   background-color: #fff;
   border-radius: 0.3em;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12), 0 1px 1px 0 rgba(0, 0, 0, 0.12), 0 1px 1px 0 rgba(0, 0, 0, 0.12);
   &.clst-checklist-items {
     padding: 2rem 2rem 1rem 2rem;
   }
@@ -73,7 +74,6 @@ mat-checkbox {
     clear: right;
     display: block;
     color: #fff;
-    opacity: 0.4;
     &:last-child {
       margin-bottom: 0;
     }
@@ -87,7 +87,9 @@ mat-checkbox {
     }
     &:hover {
       cursor: pointer;
-      opacity: 1;
+      i {
+        opacity: .8;
+      }
     }
   }
 }
@@ -186,7 +188,7 @@ button.mat-flat-button {
     background-color: mat-color($clst-app-accent);
   }
   &.clst-secondary {
-    background-color: mat-color($clst-app-tertiary)
+    background-color: mat-color($clst-app-tertiary);
   }
 }
 .clst-form-submit {
@@ -199,7 +201,6 @@ button.mat-flat-button {
 
     .material-icons {
       line-height: inherit;
-      vertical-align: top;
     }
 
     &.post-submit {

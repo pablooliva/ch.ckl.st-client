@@ -1,5 +1,7 @@
 @import "./styles/shared";
 
+$footer-text: #73a8da;
+
 :host {
   display: block;
   min-height: 100vh;
@@ -131,12 +133,13 @@ footer {
   align-self: center;
   width: 100%;
   font: 400 0.9em Roboto, "Helvetica Neue", sans-serif;
+  color: $footer-text;
   line-height: 1.4;
   display: flex;
   flex-direction: column;
 
   a {
-    color: #e1e7ec;
+    color: $footer-text;
     text-decoration: none;
     &:hover {
       text-decoration: underline;
@@ -150,19 +153,27 @@ footer {
     padding: 1.5rem 0;
 
     p {
-      margin: 0 2.2rem 1rem 2.2rem;
+      margin: 0 2.2rem 0.2rem 2.2rem;
       .clst-footer-link {
         display: inline-block;
-        margin: 0 0.4rem 0 0;
+        margin: 0 1rem 0 0;
+        img {
+          opacity: .3;
+        }
       }
       .material-icons {
         font-size: 0.9rem;
-        vertical-align: middle;
+        vertical-align: bottom;
+        padding-bottom: .05rem;
         margin-right: 0.2rem;
+        color: #fff;
       }
       .social-logo {
         bottom: -0.01rem;
-        margin-right: 0.3rem;
+        margin-right: 0.2rem;
+      }
+      &:first-child {
+        margin-bottom: 1rem;
       }
       &:last-child {
         margin-bottom: 0;
