@@ -23,7 +23,7 @@ export class ClstUseAnonComponent extends ClstBaseComponent implements OnInit {
 
   public ngOnInit(): void {
     super.ngOnInit();
-    this.copyLabel = "Copy";
+    this.copyLabel = "Copy link";
     this.link = window.location.href;
   }
 }

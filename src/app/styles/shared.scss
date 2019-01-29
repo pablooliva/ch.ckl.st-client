@@ -8,6 +8,8 @@ $theme-started: #d5c4fd;
 $theme-completed: #07ad00;
 $muted-gray: #696969;
 
+$box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12), 0 1px 1px 0 rgba(0, 0, 0, 0.12), 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+
 /* NgMat Overrides */
 mat-checkbox {
   margin-bottom: 0.5rem;
@@ -36,13 +38,17 @@ mat-checkbox {
   padding: $doc-section-pad;
   background-color: #fff;
   border-radius: 0.3em;
-  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12), 0 1px 1px 0 rgba(0, 0, 0, 0.12), 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: $box-shadow;
   &.clst-checklist-items {
     padding: 2rem 2rem 1rem 2rem;
   }
 }
-.sub-header-container :first-child {
+.sub-header-container {
   border-radius: 0.3em;
+  box-shadow: $box-shadow;
+  :first-child {
+    border-radius: 0.3em;
+  }
 }
 .flex-repeated {
   display: flex;

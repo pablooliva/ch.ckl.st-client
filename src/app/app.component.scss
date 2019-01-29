@@ -153,12 +153,18 @@ footer {
     padding: 1.5rem 0;
 
     p {
-      margin: 0 2.2rem 0.2rem 2.2rem;
+      margin: 0 2.2rem 0 2.2rem;
       .clst-footer-link {
         display: inline-block;
         margin: 0 1rem 0 0;
-        img {
-          opacity: .3;
+        .icon-container {
+          display: inline-block;
+          min-width: 1rem;
+          max-width: 1rem;
+          text-align: center;
+          img {
+            opacity: .3;
+          }
         }
       }
       .material-icons {
