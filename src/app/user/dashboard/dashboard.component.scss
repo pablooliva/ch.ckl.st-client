@@ -10,13 +10,15 @@ ol {
 }
 
 li {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid $light-gray;
   padding-bottom: 1rem;
   margin-bottom: 1rem;
 
   &:first-child {
-    border-top: 1px solid #ccc;
     padding-top: 1rem;
+  }
+  &:last-child {
+    border-bottom: none;
   }
 }
 
@@ -24,8 +26,8 @@ li {
   margin-top: 0.2rem;
   .clst-secondary-btn {
     background-color: #fff;
-    border: 1px solid lighten(mat-color($clst-app-tertiary), 10%);
-    color: darken(mat-color($clst-app-tertiary), 20%);
+    border: 1px solid lighten(mat-color($clst-app-tertiary), 20%);
+    color: mat-color($clst-app-tertiary); // darken(mat-color($clst-app-tertiary), 20%);
   }
 }
 
@@ -41,14 +43,10 @@ button {
   cursor: pointer;
   line-height: 0.9rem;
 
-  i {
-    margin-top: -3px;
-  }
-
   &.clst-delete {
     background-color: #fff;
     color: mat-color($clst-app-warn);
-    border: 1px dotted lighten(mat-color($clst-app-warn), 30%);
+    border: 1px solid lighten(mat-color($clst-app-warn), 35%);
   }
 }
 

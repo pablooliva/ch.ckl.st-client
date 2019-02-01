@@ -7,6 +7,7 @@ $default-section-background: #f3f7fb;
 $theme-started: #d5c4fd;
 $theme-completed: #07ad00;
 $muted-gray: #696969;
+$light-gray: #efefef;
 
 $box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12), 0 1px 1px 0 rgba(0, 0, 0, 0.12), 0 1px 1px 0 rgba(0, 0, 0, 0.12);
 
@@ -207,6 +208,7 @@ button.mat-flat-button {
 
     .material-icons {
       line-height: inherit;
+      margin-bottom: 0.1rem;
     }
 
     &.post-submit {

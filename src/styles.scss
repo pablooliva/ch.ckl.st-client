@@ -8,17 +8,19 @@ body {
   min-height: 100vh;
   width: 100%;
 }
-.toast-container.toast-top-full-width .toast {
-  width: 100%;
-  border-radius: 0;
-}
 .toast-container.toast-top-center {
-  top: 1rem;
+  top: 0.5rem;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
   .toast {
     width: 96%;
+    max-width: 810px;
     padding: 15px 15px 17px 70px;
     background-position: 25px center;
-    box-shadow: 0 0 5px #999999;
+    box-shadow: 0 1px 1px #000000;
+    .toast-title {
+      font-weight: 500;
+      font-size: 1.2rem;
+    }
   }
 }
 i {
