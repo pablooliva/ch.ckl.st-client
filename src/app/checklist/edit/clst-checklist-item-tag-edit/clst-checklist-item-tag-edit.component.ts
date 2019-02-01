@@ -57,7 +57,7 @@ export class ClstChecklistItemTagEditComponent implements OnInit, OnDestroy, OnC
     private _syncTags: ChecklistItemTagsSyncService,
     private _dataPersistence: DataPersistenceService
   ) {
-    this.defaultColor = "#f5f5f5";
+    this.defaultColor = "#000";
   }
 
   public ngOnInit(): void {
