@@ -74,7 +74,7 @@ $footer-text: #73a8da;
   flex: 1 1 auto;
 }
 .mat-drawer-container {
-  background: #e8e8e8;
+  background: #f1f1f1;
 }
 mat-sidenav-container {
   .mat-drawer-content {
@@ -95,7 +95,7 @@ mat-sidenav-container {
 }
 mat-sidenav {
   &.mat-drawer {
-    background-color: #f1f1f1;
+    background-color: #fafafa;
   }
   ::ng-deep .mat-drawer-inner-container {
     display: flex;
