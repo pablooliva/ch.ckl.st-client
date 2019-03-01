@@ -1,4 +1,12 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
 version: v1.13.3
-ignore: {}
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  'npm:extend:20180424':
+    - ngx-quill-editor > quill > extend:
+        reason: Low severity
+        expires: '2019-03-31T12:00:37.751Z'
+    - quill > extend:
+        reason: Low severity
+        expires: '2019-03-31T12:00:37.751Z'
 patch: {}
