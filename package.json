@@ -7,10 +7,13 @@
     "ng": "ng",
     "prettier": "prettier --parser typescript --write '**/*.ts'",
     "start": "ng serve --host 0.0.0.0",
-    "build": "ng build --prod",
+    "build": "ng build --prod && workbox generateSW workbox-config.js",
     "test": "snyk test && ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "gen-sw": "workbox wizard",
+    "update-sw": "workbox generateSW workbox-config.js",
+    "start-sw": "npm run build && cd dist && http-server -c-1 -cors"
   },
   "repository": {
     "type": "git",
@@ -58,6 +61,7 @@
     "@types/node": "11.10.4",
     "@types/quill": "2.0.2",
     "codelyzer": "4.5.0",
+    "http-server": "^0.11.1",
     "husky": "1.3.1",
     "jasmine-core": "3.3.0",
     "jasmine-spec-reporter": "4.2.1",
@@ -70,10 +74,11 @@
     "node-sass": "4.11.0",
     "prettier": "1.16.4",
     "protractor": "5.4.2",
+    "snyk": "1.135.1",
     "ts-node": "8.0.2",
     "tslint": "5.13.1",
     "typescript": "3.2.4",
-    "snyk": "1.135.1"
+    "workbox-cli": "^4.0.0"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

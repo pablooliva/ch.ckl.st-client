@@ -12,4 +12,18 @@ if (environment.production) {
 
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
+  .then(() => registerServiceWorker())
   .catch(err => console.log(err));
+
+function registerServiceWorker() {
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker
+      .register("/sw.js")
+      .then(reg => {
+        console.log("[ch.ckl.st] Successful service worker registration", reg);
+      })
+      .catch(err => console.error("[ch.ckl.st] Service worker registration failed", err));
+  } else {
+    console.error("[ch.ckl.st] Service Worker API is not supported in current browser");
+  }
+}
