@@ -16,7 +16,7 @@ services:
       - "443:443"
     volumes:
       - /home/dhparam.pem:/etc/ssl/certs/dhparam.pem
-      - /etc/letsencrypt/live/ch.ckl.st/fullchain.pem:/etc/letsencrypt/live/ch.ckl.st/fullchain.pem
-      - /etc/letsencrypt/live/ch.ckl.st/privkey.pem:/etc/letsencrypt/live/ch.ckl.st/privkey.pem
+      - /etc/letsencrypt/live/ch.ckl.st-0001/fullchain.pem:/etc/letsencrypt/live/ch.ckl.st/fullchain.pem
+      - /etc/letsencrypt/live/ch.ckl.st-0001/privkey.pem:/etc/letsencrypt/live/ch.ckl.st/privkey.pem
       - /home/nginx-logs:/etc/nginx/logs
       - /data/letsencrypt:/data/letsencrypt
