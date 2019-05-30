@@ -40,12 +40,13 @@
     transition: border-color 0.4s linear;
     -moz-transition: border-color 0.4s linear;
     -webkit-transition: border-color 0.4s linear;
-    border-color: rgba($theme-completed, .4);
+    border-color: $theme-completed;
   }
 }
 
 .clst-section-collapse :host.clst-use-checklist-item {
   margin: 0;
+  padding: 0;
   border: none;
   @extend .clst-item-ver-collapse;
 }
@@ -56,19 +57,19 @@
 
 :host {
   background: white;
-  border-radius: 5px;
-  margin-right: -1rem;
-  margin-left: -1rem;
-  padding: 0 0.9rem;
-  border-width: 1px;
-  border-style: solid;
-  border-color: $default-section-emphasis;
-  margin-bottom: 0.5rem;
+  border-top: 1px solid $default-section-emphasis;
+  border-radius: 0;
+  margin-left: -2rem;
+  margin-right: -2rem;
+  padding: 0.3rem 2rem 0 2rem;
+
   &:first-of-type {
     margin-top: 0.5rem;
   }
   &:last-child {
     margin-bottom: 0;
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
   }
 }
 

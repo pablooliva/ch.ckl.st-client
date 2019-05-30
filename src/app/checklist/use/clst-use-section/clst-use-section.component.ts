@@ -25,7 +25,9 @@ export class ClstUseSectionComponent implements OnInit, AfterViewInit, OnDestroy
   @Input() sectionIndex: number;
   @Input() hasItemTags: boolean;
 
+  @ViewChild("sectionTitle") public sectionTitle: ElementRef;
   @ViewChild("sectionDesc") public sectionDesc: ElementRef;
+  @ViewChild("sectionGrpActions") public sectionGrpActions: ElementRef;
 
   public displayHtml: SafeHtml;
   public sectionDescHeight: string;
@@ -104,20 +106,28 @@ export class ClstUseSectionComponent implements OnInit, AfterViewInit, OnDestroy
   }
 
   public collapseSection(): void {
+    this._renderer.removeClass(this.sectionTitle.nativeElement, "clst-ver-expand");
+    this._renderer.removeClass(this.sectionGrpActions.nativeElement, "clst-ver-expand");
     this._renderer.removeClass(this._elemRef.nativeElement, "clst-section-expand");
     if (this.sectionDesc) {
       this._renderer.setStyle(this.sectionDesc.nativeElement, "height", "0");
     }
     this._renderer.addClass(this._elemRef.nativeElement, "clst-section-collapse");
+    this._renderer.addClass(this.sectionTitle.nativeElement, "clst-ver-collapse-h");
+    this._renderer.addClass(this.sectionGrpActions.nativeElement, "clst-ver-collapse");
     this.setItemsCollapsed = true;
   }
 
   public expandSection(): void {
+    this._renderer.removeClass(this.sectionTitle.nativeElement, "clst-ver-collapse-h");
+    this._renderer.removeClass(this.sectionGrpActions.nativeElement, "clst-ver-collapse");
     this._renderer.removeClass(this._elemRef.nativeElement, "clst-section-collapse");
     if (this.sectionDesc) {
       this._renderer.setStyle(this.sectionDesc.nativeElement, "height", this.sectionDescHeight);
     }
     this._renderer.addClass(this._elemRef.nativeElement, "clst-section-expand");
+    this._renderer.addClass(this.sectionTitle.nativeElement, "clst-ver-expand");
+    this._renderer.addClass(this.sectionGrpActions.nativeElement, "clst-ver-expand");
     this.setItemsCollapsed = false;
   }
 

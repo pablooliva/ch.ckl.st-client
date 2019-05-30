@@ -6,6 +6,23 @@ $border-color: #949494;
   @extend .clst-host-animate;
 }
 
+.clst-doc-title {
+  padding-top: 0;
+}
+
+.control-group .mat-form-field-label.clst-mat-label-imit {
+  display: block;
+  visibility: visible;
+  font-size: 0.64rem;
+  position: relative;
+  top: 0.2rem;
+}
+
+.control-group .mat-form-field-label.clst-mat-label-hidden {
+  display: block;
+  visibility: hidden;
+}
+
 tag-input {
   padding-bottom: 2em;
 }

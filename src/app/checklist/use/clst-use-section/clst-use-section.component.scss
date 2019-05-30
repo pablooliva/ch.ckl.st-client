@@ -15,6 +15,12 @@
   -webkit-transition: opacity .15s linear .15s, height .25s ease-in-out;
 }
 
+.clst-color-transition {
+  transition: all 0.4s linear;
+  -moz-transition: all 0.4s linear;
+  -webkit-transition: all 0.4s linear;
+}
+
 .clst-expand-icon {
   display: none;
 }
@@ -97,13 +103,12 @@
     border-style: solid;
     border-color: $default-section-emphasis;
     background: $default-section-emphasis;
-    align-self: flex-end;
+    align-self: flex-start;
     display: flex;
     flex-direction: row;
     align-items: center;
     border-radius: 5px;
-    margin-right: -1rem;
-    margin-left: -1rem;
+    margin-bottom: 1rem;
     font-size: 0.8rem;
 
     i.material-icons {
@@ -138,11 +143,10 @@
 
   &.clst-item-theme-default {
     .clst-section-grp-actions-container {
-      transition: all 0.4s linear;
-      -moz-transition: all 0.4s linear;
-      -webkit-transition: all 0.4s linear;
+      @extend .clst-color-transition;
       border-color: $default-section-emphasis;
       .clst-section-prct-done {
+        @extend .clst-color-transition;
         color: darken($default-section-emphasis, 25%);
       }
     }
@@ -150,25 +154,40 @@
 
   &.clst-item-theme-started {
     .clst-section-grp-actions-container {
-      transition: all 0.4s linear;
-      -moz-transition: all 0.4s linear;
-      -webkit-transition: all 0.4s linear;
+      @extend .clst-color-transition;
       border-color: $theme-started;
       .clst-section-prct-done {
-        color: darken($theme-started, 15%);
+        @extend .clst-color-transition;
+        color: darken($theme-started, 20%);
       }
     }
   }
 
   &.clst-item-theme-completed {
     .clst-section-grp-actions-container {
-      transition: all 0.4s linear;
-      -moz-transition: all 0.4s linear;
-      -webkit-transition: all 0.4s linear;
-      border-color: rgba($theme-completed, .4);
+      @extend .clst-color-transition;
+      border-color: $theme-completed;
       .clst-section-prct-done {
-        color: darken($theme-completed, 10%);
+        @extend .clst-color-transition;
+        color: darken($theme-completed, 25%);
       }
     }
+  }
+
+  .clst-ver-collapse {
+    margin-top: -0.5rem;
+    transition: margin-top .15s linear, height .25s ease-out .15s;
+    -moz-transition: margin-top .15s linear, height .25s ease-out .15s;
+    -webkit-transition: margin-top .15s linear, height .25s ease-out .15s;
+  }
+  .clst-ver-collapse-h {
+    @extend .clst-ver-collapse;
+    margin-top: -1rem;
+  }
+  .clst-ver-expand {
+    margin-top: 0;
+    transition: margin-top .15s linear .15s, height .25s ease-out;
+    -moz-transition: margin-top .15s linear .15s, height .25s ease-out;
+    -webkit-transition: margin-top .15s linear .15s, height .25s ease-out;
   }
 }

@@ -3,9 +3,14 @@
     <div class="flex-container share-actions">
       <h1 class="share-text"><i class="material-icons">warning</i> Save this URL</h1>
       <p class="share-text">You are using this checklist anonymously. If you fail to save this link, you will lose access to this checklist.</p>
-      <input [value]="link" type="text">
-      <div>
-        <button type="button" mat-flat-button class="clst-item-primary" ngxClipboard [cbContent]="link" (click)="copyLabel='Copied'">{{copyLabel}}</button>
+      <div class="clst-link-sharing">
+        <div>
+          <button type="button" mat-flat-button class="clst-item-primary" ngxClipboard [cbContent]="link" (click)="copyLabel='Copied'">{{copyLabel}}
+            <i *ngIf="copyLabel !== 'Copied'; else notCopied" class="material-icons">add_circle</i>
+            <ng-template #notCopied><i class="material-icons">check_circle</i></ng-template>
+          </button>
+        </div>
+        <input [value]="link" type="text">
       </div>
     </div>
   </div>

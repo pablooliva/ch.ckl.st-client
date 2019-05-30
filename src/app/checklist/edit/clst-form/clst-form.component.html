@@ -2,19 +2,18 @@
   <form *ngIf="clForm; else loading" novalidate [formGroup]="clForm">
     <mat-card>
       <div class="content-container">
-        <h1>
+        <h1 class="clst-doc-title">
           <ng-container *ngIf="cId; else noCId">Edit </ng-container>
           <ng-template #noCId>Create </ng-template>
           Checklist
         </h1>
-        <h3 class="clst-h-faint">Document Settings</h3>
         <mat-form-field class="control-group">
           <label for="title">Document title</label>
           <input matInput placeholder="Document title" type="text" id="title" formControlName="documentTitle">
           <mat-error *ngIf="testReq('documentTitle')">* This field is required.</mat-error>
         </mat-form-field>
         <div class="control-group">
-          <label for="tags">Document tags</label>
+          <label [class.clst-mat-label-hidden]="clForm.controls['documentTags'].value.length == 0" class="mat-form-field-label clst-mat-label-imit" for="tags" aria-owns="tags">Document tags</label>
           <tag-input
             placeholder="Add another tag..."
             secondaryPlaceholder="Document tags"
