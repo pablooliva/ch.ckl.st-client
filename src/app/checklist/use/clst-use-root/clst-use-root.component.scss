@@ -4,10 +4,20 @@
   margin: 2em 0;
 }
 
+:host {
+  &.clst-preview {
+    ::ng-deep {
+      form {
+        opacity: 0.7;
+        pointer-events: none;
+      }
+    }
+  }
+}
+
 .clst-doc-title-container {
-  background: #073763;
+  background: $dark-blue;
   border-radius: 3px 3px 0 0;
-  border-bottom: 0.5rem solid $default-section-background;
   margin: -2rem -2rem 2rem -2rem;
   position: relative;
   .clst-doc-title-bg {
@@ -30,11 +40,26 @@
   }
   h1.clst-doc-title {
     font-family: Merriweather, serif;
-    font-size: 2rem;
+    font-size: 2.2rem;
     color: #fff;
-    padding: 2rem 2rem 2rem 2.1rem;
-    margin: 0;
+    padding: 2rem 2rem 3rem 2.1rem;
     border-left: none;
+  }
+}
+
+.clst-doc-flexible-text {
+  background: $default-section-background;
+  padding: 2rem;
+  margin: -2rem;
+  border-top-left-radius: $border-radius;
+  border-top-right-radius: $border-radius;
+  ::ng-deep {
+    img {
+      mix-blend-mode: multiply;
+    }
+    & > *:last-child {
+      margin-bottom: 0;
+    }
   }
 }
 
@@ -43,12 +68,12 @@
 }
 
 .skip-to-container {
-  border-top: 2px solid $default-section-background;
+  background: #fff;
+  border-top: 1px solid $default-section-emphasis;
   color: $muted-gray;
   margin: 2rem -2rem -2rem -2rem;
-  padding: 1rem 2rem;
+  padding: 0.7rem 2rem 0.5rem 2rem;
   overflow: auto;
-  border-radius: 0 0 3px 3px;
   display: flex;
 
   .st-label {
@@ -92,33 +117,33 @@
         color: inherit;
       }
       &.clst-item-theme-default {
-        background: $default-section-emphasis;
-        border-bottom-color: darken($default-section-emphasis, 20%);
+        background: lighten($default-section-emphasis, 15%);
+        border-bottom-color: darken($default-section-emphasis, 10%);
         &:hover {
-          border-bottom-color: lighten($default-section-emphasis, 2%);
+          border-bottom-color: transparent;
         }
         .percent-done {
           color: darken($default-section-emphasis, 30%);
         }
       }
       &.clst-item-theme-started {
-        background: lighten($theme-started, 8%);
+        background: lighten($theme-started, 12%);
         border-color: darken($theme-started, 10%);
         &:hover {
-          border-bottom-color: lighten($theme-started, 10%);
+          border-bottom-color: transparent;
         }
         .percent-done {
-          color: darken($theme-started, 15%);
+          color: darken($theme-started, 30%);
         }
       }
       &.clst-item-theme-completed {
-        background: lighten($theme-completed, 63%);
-        border-color: $theme-completed;
+        background: saturate(lighten($theme-completed, 20%), 5%);
+        border-color: darken($theme-completed, 20%);
         &:hover {
-          border-bottom-color: lighten($theme-completed, 63%);
+          border-bottom-color: transparent;
         }
         .percent-done {
-          color: $theme-completed;
+          color: darken(saturate($theme-completed, 80%), 42%);
         }
       }
     }
@@ -132,9 +157,6 @@
   }
   .clst-actions {
     margin-bottom: 0;
-    margin-top: -1rem;
-    border-left: none;
-    padding-left: 2rem;
   }
   .clst-btn-grp + .clst-action-msg {
     margin-top: 1rem;

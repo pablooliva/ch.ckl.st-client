@@ -2,9 +2,9 @@
      [class.clst-item-theme-default]="itemsNotStarted()"
      [class.clst-item-theme-started]="!itemsNotStarted() && !itemsCompleted()"
      [class.clst-item-theme-completed]="itemsCompleted()">
-  <h2 class="clst-h-accented" *ngIf="sectionData.title">{{sectionData.title}}</h2>
+  <h2 class="clst-h-accented" *ngIf="sectionData.title" #sectionTitle>{{sectionData.title}}</h2>
   <div *ngIf="sectionData.flexibleText" #sectionDesc class="as-value clst-collapseable" ngClass.lt-sm="clst-lt-sm-res" [innerHTML]="displayHtml" clstResizeElement></div>
-  <div class="clst-section-grp-actions-container">
+  <div class="clst-section-grp-actions-container" #sectionGrpActions>
     <div class="clst-section-prct-done">{{ percentDone() }}% DONE</div>
     <div class="clst-section-grp-items-actions"><i class="material-icons" title="Check all" (click)="checkAll()">check_box</i> <i class="material-icons" title="Uncheck all" (click)="uncheckAll()">check_box_outline_blank</i></div>
     <div class="clst-section-collapse">

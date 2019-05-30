@@ -3,14 +3,15 @@
     <ng-container *ngIf="isLoggedIn | async; else notUser">
       <div class="flex-container share-actions">
         <ng-container *ngIf="belongsToUser | async; else notBelongs">
-          <h1 class="share-text">Share</h1>
-          <p class="share-text">Use this link to share your checklist.</p>
-          <input [value]="link" type="text">
-          <div>
-            <button type="button" mat-flat-button class="clst-item-primary" ngxClipboard [cbContent]="link" (click)="copyLabel='Copied'">{{copyLabel}}
-              <i *ngIf="copyLabel !== 'Copied'; else notCopied" class="material-icons">add_circle</i>
-              <ng-template #notCopied><i class="material-icons">check_circle</i></ng-template>
-            </button>
+          <h1 class="share-text">Share your Checklist</h1>
+          <div class="clst-link-sharing">
+            <div>
+              <button type="button" mat-flat-button class="clst-item-primary" ngxClipboard [cbContent]="link" (click)="copyLabel='Copied'">{{copyLabel}}
+                <i *ngIf="copyLabel !== 'Copied'; else notCopied" class="material-icons">add_circle</i>
+                <ng-template #notCopied><i class="material-icons">check_circle</i></ng-template>
+              </button>
+            </div>
+            <input [value]="link" type="text">
           </div>
         </ng-container>
         <ng-template #notBelongs>
@@ -39,4 +40,4 @@
     </ng-template>
   </div>
 </mat-card>
-<clst-use-root (cListLoaded)="handleCListLoaded($event)" [sharePreview]="true"></clst-use-root>
+<clst-use-root (cListLoaded)="handleCListLoaded($event)" [sharePreview]="true" class="clst-preview"></clst-use-root>

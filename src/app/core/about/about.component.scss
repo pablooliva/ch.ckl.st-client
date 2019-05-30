@@ -6,6 +6,11 @@
 
 i {
   display: inline-block;
-  padding: 0 0.2rem 0 0.05rem;
+  padding: 0 0.1rem 0 0.05rem;
   text-decoration: underline;
+  opacity: 0.6;
+}
+
+.clst-pg-title {
+  padding-top: 0;
 }

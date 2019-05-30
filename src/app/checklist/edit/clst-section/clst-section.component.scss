@@ -33,11 +33,11 @@ clst-checklist-item:not(:last-child) {
 }
 .clst-callout-add-above {
   @extend .clst-callout;
-  top: 3.4rem;
+  top: 1.5rem;
 }
 .clst-callout-add-below {
   @extend .clst-callout;
-  top: 8.85rem;
+  top: 6.9rem;
   padding-right: 0.3rem;
   padding-left: 1rem;
   cursor: pointer;
@@ -57,4 +57,7 @@ clst-checklist-item:not(:last-child) {
   font-size: 0.8rem;
   text-align: right;
   padding-right: 1.8rem;
+}
+.clst-section-title {
+  padding-top: 0;
 }

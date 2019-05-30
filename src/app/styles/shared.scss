@@ -2,12 +2,16 @@
 @import 'clst-theme.scss';
 
 $doc-section-pad: 2rem;
-$default-section-emphasis: #dfe7fb;
+$default-section-emphasis: #b2c0e2;
 $default-section-background: #f4f9ff;
-$theme-started: #d5c4fd;
-$theme-completed: #07ad00;
+$theme-started: #cfb2e2; // #d5a2fd;
+$theme-completed: #99ca93; // #07ad00;
 $muted-gray: #696969;
 $light-gray: #efefef;
+$dark-blue: #073763;
+$sub-header-card-background: #0000002e;
+
+$border-radius: 0.3rem;
 
 $box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12), 0 1px 1px 0 rgba(0, 0, 0, 0.12), 0 1px 1px 0 rgba(0, 0, 0, 0.12);
 
@@ -41,7 +45,14 @@ mat-checkbox {
   border-radius: 0.3em;
   box-shadow: $box-shadow;
   &.clst-checklist-items {
-    padding: 2rem 2rem 1rem 2rem;
+    padding: 2rem 2rem 0 2rem;
+  }
+  &.clst-doc-title-outer-container {
+    background: transparent;
+    > *:last-child {
+      border-bottom-left-radius: 0.3rem;
+      border-bottom-right-radius: 0.3rem;
+    }
   }
 }
 .sub-header-container {
@@ -70,7 +81,7 @@ mat-checkbox {
   padding: 0;
 }
 .heading-actions {
-  margin: 2rem 0 0 0;
+  margin: 0;
   padding: 1rem 0;
   background: mat-color($clst-app-accent);
   border-bottom-right-radius: 0.3rem;
@@ -116,14 +127,14 @@ h1, h2, h3, h4, h5 {
 }
 .clst-h-accented {
   color: mat-color($clst-app-secondary);
-  border-left: 10px solid mat-color($clst-app-secondary);
-  padding-left: 1.25rem;
-  margin-bottom: 0.75rem;
-  margin-left: -2rem;
-  margin-top: -1rem;
 }
 h1.clst-h-accented {
   font-size: 1.6rem;
+}
+h2.clst-h-accented {
+  font-size: 1.3rem;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 .clst-h-faint {
   color: mat-color($clst-app-tertiary);
@@ -151,6 +162,7 @@ h2 {
   @extend .clst-h-accented;
   color: mat-color($clst-app-primary);
   border-left-color: mat-color($clst-app-primary);
+  margin-bottom: 0;
 }
 .clst-action-msg {
   margin: 0;

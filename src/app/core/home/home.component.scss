@@ -3,6 +3,13 @@
 :host {
   @extend .clst-host-animate;
 }
+.clst-home-header {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.clst-home-sub-header {
+  padding-bottom: 0;
+}
 .content-container {
   box-shadow: none;
 }
@@ -30,23 +37,38 @@ h1 {
   padding-left: 0;
   margin-left: 0;
   &.clst-heading {
-    font-size: 2.3rem;
+    font-size: 2.5rem;
     font-weight: 300;
     line-height: 2.8rem;
     letter-spacing: -0.07rem;
-    margin-bottom: 1.7rem;
-    margin-top: 0;
-  }
-  &.closing-action {
-    color: mat-color($clst-app-secondary);
-    padding-top: 1rem;
+    margin: 0;
+    padding: 6rem 0;
+    background: none;
+    color: #fff;
+    position: relative;
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-image: url("../../../assets/shareable-checklists.svg");
+      background-position: 70% 50%;
+      background-repeat: no-repeat;
+      background-size: 180px;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      opacity: 0.05;
+    }
   }
 }
 h2 {
   line-height: 1.6rem;
-  &.clst-sub-heading {
-    margin-bottom: 0.4rem;
-  }
+}
+.clst-sub-heading {
+  color: #fff;
+  margin-bottom: 0.3rem;
 }
 .clst-home-action {
   a {
@@ -66,39 +88,55 @@ h2 {
 }
 .clst-benefits {
   padding-left: 2rem;
+  margin-top: 0.5rem;
 }
-.shareable-checklists {
+.shareable-checklists-header {
   position: relative;
+  padding: 0 101.8rem;
   background: none;
-  &:after{
-    content : "";
-    display: block;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-image: url("../../../assets/shareable-checklists.svg");
-    background-position: 50% 70%;
-    background-repeat: no-repeat;
-    background-size: 200px;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-  }
+  margin: 0 -100rem;
+}
+.dark-band {
+  background: #002240;
+  padding: 2.5rem 102rem 3rem 102rem;
+  margin: 0 -100rem;
+  color: #fff;
 }
 .diffused {
   background: none;
   padding-top: 1.5rem;
+  color: #fff;
 }
 .clst-emphasis {
   font-size: 1rem;
 }
 .clst-secondary {
-  color: mat-color($clst-app-secondary);
-}
-.clst-sup {
-  display: inline-block;
-  vertical-align: top;
-  margin-top: -0.15rem;
+  display: flex;
+  flex-wrap: wrap;
+  place-content: space-between;
+  background: none;
+  color: #78afe0;
+  margin: 0 -100rem;
+  padding: 3rem 102rem 2rem 102rem;
+  a {
+    color: #78afe0;
+    border-bottom: 1px dotted #2c557a;
+    &:hover {
+      border: none;
+    }
+  }
+  div {
+    margin-right: 0.5rem;
+    flex: 1 1 46%;
+    &.first-column {
+      margin-bottom: 2rem;
+      margin-right: 2rem;
+      flex: 1 1 46%;
+      h3 {
+        margin-bottom: 0;
+      }
+    }
+  }
 }
 .clst-sml-print {
   font-style: italic;
@@ -114,35 +152,39 @@ h2 {
     position: absolute;
   }
 }
-.clst-samples-container {
-  border-top: 1px dotted #ccc;
-  margin-top: 2rem;
-  padding-top: 0.5rem;
-}
+.clst-samples-container {}
 .clst-samples {
   color: mat-color($clst-app-secondary);
-  max-width: 470px;
   display: flex;
   flex-wrap: wrap;
   .clst-sample {
+    &:first-child {
+      padding-top: 0;
+    }
     padding-top: 1rem;
     display: flex;
     flex: 1 1 50%;
     font-size: 1.1rem;
     .clst-sample-item {
       align-self: center;
+      img {
+        align-self: center;
+      }
     }
     .clst-sample-sml {
       font-size: 0.9rem;
     }
     .clst-sample-img {
       margin-right: 0.5rem;
+      justify-content: center;
+      display: flex;
     }
     .clst-sample-light-img {
-      background: mat-color($clst-app-secondary);
+      background: #062f52;
       border-radius: 3px;
-      display: inline-block;
-      padding: 0.2rem 0.2rem 0 0.2rem;
+      padding: 0.2rem;
+      min-height: 80px;
+      max-width: 60px;
       img {
         width: 2.6rem;
       }
@@ -151,4 +193,14 @@ h2 {
       width: 3rem;
     }
   }
+}
+.clst-white-link {
+  color: #fff;
+  border-bottom: 1px dotted #fff;
+  &:hover {
+    border: none;
+  }
+}
+mat-card .content-container.last-card {
+  margin-bottom: 0.5rem;
 }

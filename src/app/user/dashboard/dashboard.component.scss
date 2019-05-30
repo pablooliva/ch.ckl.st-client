@@ -10,16 +10,17 @@ ol {
 }
 
 li {
-  border-bottom: 1px solid $light-gray;
-  padding-bottom: 1rem;
-  margin-bottom: 1rem;
+  border-bottom: 1px solid #efefef;
+  padding-bottom: 0.5rem;
+  margin-top: 1rem;
+ }
 
-  &:first-child {
-    padding-top: 1rem;
-  }
-  &:last-child {
-    border-bottom: none;
-  }
+.clst-pg-title, h1 + h2 {
+  padding-top: 0;
+}
+
+h1 + h2 {
+  margin-bottom: 0;
 }
 
 .clst-inline-actions {
@@ -47,6 +48,15 @@ button {
     background-color: #fff;
     color: mat-color($clst-app-warn);
     border: 1px solid lighten(mat-color($clst-app-warn), 35%);
+  }
+
+  &.clst-item-primary {
+    min-height: unset;
+    min-width: unset;
+    padding: 0.5rem 0.8rem 0.4rem 0.8rem;
+    i {
+      margin-top: -0.16rem;
+    }
   }
 }
 

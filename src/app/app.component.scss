@@ -74,7 +74,7 @@ $footer-text: #73a8da;
   flex: 1 1 auto;
 }
 .mat-drawer-container {
-  background: #f1f1f1;
+  background: $dark-blue;
 }
 mat-sidenav-container {
   .mat-drawer-content {
@@ -150,7 +150,7 @@ footer {
     max-width: 800px;
     margin: 0 auto;
     width: 100%;
-    padding: 1.5rem 0;
+    padding: 0.5rem 0 2rem 0;
 
     p {
       margin: 0 2.2rem 0 2.2rem;
