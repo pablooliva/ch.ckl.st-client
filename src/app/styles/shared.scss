@@ -49,6 +49,7 @@ mat-checkbox {
   }
   &.clst-doc-title-outer-container {
     background: transparent;
+    box-shadow: none;
     > *:last-child {
       border-bottom-left-radius: 0.3rem;
       border-bottom-right-radius: 0.3rem;
