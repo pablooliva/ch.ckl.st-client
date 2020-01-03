@@ -35,8 +35,8 @@ export class ClstSectionComponent implements OnInit {
 
   @Output() sectionAdded: EventEmitter<number> = new EventEmitter<number>();
 
-  @ViewChild("calloutAbove") public calloutAbove: ElementRef;
-  @ViewChild("calloutBelow") public calloutBelow: ElementRef;
+  @ViewChild("calloutAbove", { static: false }) public calloutAbove: ElementRef;
+  @ViewChild("calloutBelow", { static: false }) public calloutBelow: ElementRef;
 
   public matcher = new CustomErrorStateMatcher();
   public inFocusObs = new Subject<boolean>();
@@ -156,7 +156,7 @@ class CustomErrorStateMatcher implements ErrorStateMatcher {
       control.parent &&
       control.parent.invalid &&
       (control.parent.dirty || control.parent.touched) &&
-      (control.parent.value["title"] === "" && control.parent.value["flexibleText"] === "")
+      control.parent.value["title"] === "" && control.parent.value["flexibleText"] === ""
     );
 
     return controlTouched && (controlInvalid || parentInvalid);

@@ -25,9 +25,9 @@ export class ClstUseSectionComponent implements OnInit, AfterViewInit, OnDestroy
   @Input() sectionIndex: number;
   @Input() hasItemTags: boolean;
 
-  @ViewChild("sectionTitle") public sectionTitle: ElementRef;
-  @ViewChild("sectionDesc") public sectionDesc: ElementRef;
-  @ViewChild("sectionGrpActions") public sectionGrpActions: ElementRef;
+  @ViewChild("sectionTitle", { static: false }) public sectionTitle: ElementRef;
+  @ViewChild("sectionDesc", { static: false }) public sectionDesc: ElementRef;
+  @ViewChild("sectionGrpActions", { static: false }) public sectionGrpActions: ElementRef;
 
   public displayHtml: SafeHtml;
   public sectionDescHeight: string;

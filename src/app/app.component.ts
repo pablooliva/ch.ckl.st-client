@@ -54,7 +54,7 @@ import { RootListenerService } from "./shared/root-listener.service";
   ]
 })
 export class AppComponent implements OnInit, OnDestroy {
-  @ViewChild("sidenav") sidenav: MatSidenav;
+  @ViewChild("sidenav", { static: false }) sidenav: MatSidenav;
 
   public isLoggedIn: Observable<boolean>;
   public height: Observable<string>;
