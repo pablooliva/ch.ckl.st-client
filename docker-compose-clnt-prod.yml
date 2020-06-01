@@ -2,6 +2,7 @@ version: '3'
 services:
   clnt-prod:
     image: pablooliva/ch.ckl.st-client:latest
+    container_name: chcklst-client
     deploy:
       replicas: 1
       resources:
@@ -11,12 +12,15 @@ services:
       restart_policy:
         condition: on-failure
     command: nginx -g 'daemon off;'
-    ports:
-      - "80:80"
-      - "443:443"
     volumes:
-      - /home/dhparam.pem:/etc/ssl/certs/dhparam.pem
-      - /etc/letsencrypt/live/ch.ckl.st-0001/fullchain.pem:/etc/letsencrypt/live/ch.ckl.st/fullchain.pem
-      - /etc/letsencrypt/live/ch.ckl.st-0001/privkey.pem:/etc/letsencrypt/live/ch.ckl.st/privkey.pem
       - /home/nginx-logs:/etc/nginx/logs
-      - /data/letsencrypt:/data/letsencrypt
+    expose:
+      - 80
+    environment:
+      VIRTUAL_HOST: ch.ckl.st
+      LETSENCRYPT_HOST: ch.ckl.st
+      LETSENCRYPT_EMAIL: pablo@qecept.com
+networks:
+  default:
+    external:
+      name: nginx-proxy
