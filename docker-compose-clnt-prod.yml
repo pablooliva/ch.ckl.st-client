@@ -3,14 +3,7 @@ services:
   clnt-prod:
     image: pablooliva/ch.ckl.st-client:latest
     container_name: chcklst-client
-    deploy:
-      replicas: 1
-      resources:
-        limits:
-          cpus: "1"
-          memory: 1000M
-      restart_policy:
-        condition: on-failure
+    restart: always
     command: nginx -g 'daemon off;'
     volumes:
       - /home/chcklst/client/nginx-logs:/etc/nginx/logs
