@@ -13,7 +13,7 @@ services:
         condition: on-failure
     command: nginx -g 'daemon off;'
     volumes:
-      - /home/nginx-logs:/etc/nginx/logs
+      - /home/chcklst/client/nginx-logs:/etc/nginx/logs
     expose:
       - 80
     environment:
