@@ -58,7 +58,7 @@
     "@angular/language-service": "8.2.14",
     "@types/jasmine": "3.5.0",
     "@types/jasminewd2": "2.0.8",
-    "@types/node": "13.1.2",
+    "@types/node": "13.13.52",
     "@types/quill": "2.0.3",
     "codelyzer": "5.2.1",
     "http-server": "0.12.0",
